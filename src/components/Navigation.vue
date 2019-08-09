@@ -17,6 +17,10 @@
         <a-icon type="line-chart" />
         Business Intel
       </a-menu-item>
+      <a-menu-item key="WalletMetrics">
+        <a-icon type="line-chart" />
+        Wallet Metrics
+      </a-menu-item>
     </a-menu>
   </div>
 </template>
@@ -29,15 +33,15 @@ import Ant from 'ant-design-vue';
   components: {
     AMenu: Ant.Menu,
     AMenuItem: Ant.Menu.Item,
-    AIcon: Ant.Icon
+    AIcon: Ant.Icon,
   },
 })
 export default class Navigation extends Vue {
   private menuDefault: string = 'Home';
   handleClick (e: object) {
-     this.$router.push({
-       name: (e as any).key
-     });
+    this.$router.push({
+      name: (e as any).key
+    });
   };
 }
 </script>
@@ -54,4 +58,3 @@ export default class Navigation extends Vue {
     background-color: transparent;
   }
 </style>
-
