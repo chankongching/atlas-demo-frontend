@@ -2,10 +2,10 @@
   <div class="card-container infinite-list">
     <div class="infinite-list-header">
       <a-row>
-        <a-col :span="4">SOURCE</a-col>
-        <a-col :span="14">FROM</a-col>
-        <a-col class="tc" :span="3">AMOUNT</a-col>
-        <a-col class="tc" :span="3">SCORE</a-col>
+        <a-col :span="3"></a-col>
+        <a-col :span="12">Entity</a-col>
+        <a-col class="tc" :span="7">NO. OF WALLET</a-col>
+        <a-col class="tc" :span="2">SCORE</a-col>
       </a-row>
     </div>
     <div class="infinite-list-container">
@@ -18,12 +18,14 @@
         >
           <a-list-item slot="renderItem" slot-scope="item, index" :key="index">
             <a-row>
-              <a-col class="pl25" :span="4">
+              <a-col class="pl25" :span="3">
                 <span class="tag-cricle"></span>
               </a-col>
-              <a-col :span="14">{{ item }}</a-col>
-              <a-col class="tc" :span="3">col-6</a-col>
-              <a-col class="tc" :span="3">col-6</a-col>
+              <a-col :span="12">{{ item.entity }}</a-col>
+              <a-col class="tc" :span="7">{{item.wallet}}</a-col>
+              <a-col class="tc" :span="2">
+                <a-radio :name="'selected'" :value="item.id" />
+              </a-col>
             </a-row>
           </a-list-item>
           <div v-if="loading && !busy" class="loading-container">
@@ -36,29 +38,27 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import Ant from 'ant-design-vue';
-import infiniteScroll from 'vue-infinite-scroll';
-
+import { Component, Vue } from "vue-property-decorator";
+import Ant from "ant-design-vue";
+import infiniteScroll from "vue-infinite-scroll";
+import DataUtils from "@/utils/dataUtils.ts";
+const DU = new DataUtils();
 @Component({
   components: {
     ARow: Ant.Row,
     ACol: Ant.Col,
     AList: Ant.List,
     AListItem: Ant.List.Item,
+    ARadio: Ant.Radio
   },
   directives: {
-    infiniteScroll,
-  },
+    infiniteScroll
+  }
 })
-export default class WmTable extends Vue {
-  private listData = [
-    'Racing car sprays burning fuel into crowd.',
-    'Japanese princess to wed commoner.',
-    'Australian walks 100km after outback crash.',
-    'Man charged over missing wedding girl.',
-    'Los Angeles battles huge wildfires.',
-  ];
+export default class ModalWmTable extends Vue {
+  private listData: Array<
+    SelectedTableObject
+  > = DU.randomSelectedModalTableData(10);
 
   private loading: boolean = false;
 
@@ -73,13 +73,13 @@ export default class WmTable extends Vue {
       return;
     }
     this.fetchData((res: any) => {
-      this.listData = data.concat(res);
+      this.listData = data.concat(DU.randomSelectedModalTableData(10));
       this.loading = false;
     });
   }
 
   fetchData(callback: any) {
-    callback(['add befor', 'add befor1', 'add befor2']);
+    callback(["add befor", "add befor1", "add befor2"]);
   }
 }
 </script>

@@ -117,20 +117,16 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import Ant from "ant-design-vue";
-import SelectItem from "@/components/wallet-metrics/SelectItem.vue";
-import ExposureItem from "@/components/wallet-metrics/ExposureItem.vue";
-import FdBar from "@/components/wallet-metrics/FdBar.vue";
-import UgLine from "@/components/wallet-metrics/UgLine.vue";
-import InOutPanel from "@/components/wallet-metrics/InOutPanel.vue";
-import SelectModal from "@/components/wallet-metrics/SelectModal.vue";
+import { Component, Vue } from 'vue-property-decorator';
+import Ant from 'ant-design-vue';
+import SelectItem from '@/components/wallet-metrics/SelectItem.vue';
+import ExposureItem from '@/components/wallet-metrics/ExposureItem.vue';
+import FdBar from '@/components/wallet-metrics/FdBar.vue';
+import UgLine from '@/components/wallet-metrics/UgLine.vue';
+import InOutPanel from '@/components/wallet-metrics/InOutPanel.vue';
+import SelectModal from '@/components/wallet-metrics/SelectModal.vue';
 
-interface selectClickObject {
-  data?: Object;
-  index?: Number;
-  show?: Boolean;
-}
+import '@/utils/interfaceObject';
 
 @Component({
   components: {
@@ -144,52 +140,36 @@ interface selectClickObject {
     FdBar,
     UgLine,
     InOutPanel,
-    SelectModal
-  }
+    SelectModal,
+  },
 })
 export default class WalletMetrics extends Vue {
   isShowClose: Boolean = false;
+
   intoPanel1: Boolean = false;
+
   intoPanel2: Boolean = false;
+
   modalShow: Boolean = false;
+
   arrowIndex1: Number = 0;
+
   arrowIndex2: Number = 0;
 
-  selected: Array<Object> = [
-    {
-      title: "Binance",
-      sub: "eXCHANGE",
-      desc: "User uploaded wallet",
-      value: "1,434,394",
-      tag: "1,434,394"
-    },
-    {
-      title: "Binance",
-      sub: "eXCHANGE",
-      desc: "User uploaded wallet",
-      value: "1,434,394",
-      tag: "1,434,394"
-    },
-    {
-      title: "Binance",
-      sub: "eXCHANGE",
-      desc: "User uploaded wallet",
-      value: "1,434,394",
-      tag: "1,434,394"
-    }
-  ];
+  selected: Array<selectedObject> = [];
 
   exposure1: Array<Array<String>> = [
-    ["#107F77", "#D6AAAA", "#ABD194", "#F4C355", "#75113E"],
-    ["#f28048", "#d0a0a0", "#4ab5ac", "#c83618", "#9c9b46"],
-    ["#a1cb89", "#ac2e70", "#11746c", "#6a1236", "#d0a0a1"]
+    ['#107F77', '#D6AAAA', '#ABD194', '#F4C355', '#75113E'],
+    ['#f28048', '#d0a0a0', '#4ab5ac', '#c83618', '#9c9b46'],
+    ['#a1cb89', '#ac2e70', '#11746c', '#6a1236', '#d0a0a1'],
   ];
 
   exposure2: Array<Array<String>> = [
-    ["#11746c", "#c83617", "#f2bb4a", "#f38148", "#ac2e71"],
-    ["#d1a0a1", "#6a1236", "#4ab5ad", "#9b9b46", "#f6d2b5"],
-    ["#f3bb4b", "#6a1236", "#4ab5ad", "#c83618", "#f6d2b4"]
+    ['#11746c', '#c83617', '#f2bb4a', '#f38148', '#ac2e71'],
+    ['#d1a0a1', '#6a1236', '#4ab5ad', '#9b9b46', '#f6d2b5'],
+    ['#f3bb4b', '#6a1236', '#4ab5ad', '#c83618', '#f6d2b4'],
   ];
+
   exposure1Handler(item: any) {
     if (this.intoPanel1 && this.arrowIndex1 != item.index) {
       this.arrowIndex1 = item.index;
@@ -198,6 +178,7 @@ export default class WalletMetrics extends Vue {
       this.arrowIndex1 = item.index;
     }
   }
+
   exposure2Handler(item: any) {
     if (this.intoPanel2 && this.arrowIndex2 != item.index) {
       this.arrowIndex2 = item.index;
@@ -206,8 +187,8 @@ export default class WalletMetrics extends Vue {
       this.arrowIndex2 = item.index;
     }
   }
+
   selectItemOpenModal(item: selectClickObject) {
-    console.log(item);
     if (item.show) {
       this.modalShow = true;
     }
