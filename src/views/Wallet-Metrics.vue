@@ -2,7 +2,7 @@
   <div class="card-container">
     <div class="card-header">
       <div class="card-tools">
-        <a class="tools-icon--pencil" href="javascript:;" @click="toggleCloseHandler()"></a>
+        <a class="tools-icon--pencil" href="javascript:;" @click.stop="toggleCloseHandler()"></a>
       </div>
       <h1>Metrics Comparison</h1>
     </div>
@@ -14,10 +14,30 @@
         </div>
         <div class="card-item__cont">
           <div class="selected-flex">
-            <select-item :isShowClose="isShowClose" :data="selected[0]" :index="0" />
-            <select-item :isShowClose="isShowClose" :data="selected[1]" :index="1" />
-            <select-item :isShowClose="isShowClose" :data="selected[2]" :index="2" />
-            <select-item :isShowClose="isShowClose" :data="selected[3]" :index="3" />
+            <select-item
+              :isShowClose="isShowClose"
+              :data="selected[0]"
+              :index="0"
+              @open-modal="selectItemOpenModal"
+            />
+            <select-item
+              :isShowClose="isShowClose"
+              :data="selected[1]"
+              :index="1"
+              @open-modal="selectItemOpenModal"
+            />
+            <select-item
+              :isShowClose="isShowClose"
+              :data="selected[2]"
+              :index="2"
+              @open-modal="selectItemOpenModal"
+            />
+            <select-item
+              :isShowClose="isShowClose"
+              :data="selected[3]"
+              :index="3"
+              @open-modal="selectItemOpenModal"
+            />
           </div>
         </div>
       </div>
@@ -30,19 +50,20 @@
         <div class="card-item__cont">
           <div class="e-bold">IN</div>
           <div class="selected-flex ptb20">
-            <exposure-item :data="exposure1[0]" />
-            <exposure-item :data="exposure1[1]" />
-            <exposure-item :data="exposure1[2]" />
-            <exposure-item :data="exposure1[3]" />
+            <exposure-item :data="exposure1" :index="0" @select-exposure="exposure1Handler" />
+            <exposure-item :data="exposure1" :index="1" @select-exposure="exposure1Handler" />
+            <exposure-item :data="exposure1" :index="2" @select-exposure="exposure1Handler" />
+            <exposure-item :data="exposure1" :index="3" @select-exposure="exposure1Handler" />
           </div>
-          <in-out-panel />
+          <in-out-panel :arrowIndex="arrowIndex1" :showPanel="intoPanel1" />
           <div class="e-bold">OUT</div>
           <div class="selected-flex ptb20">
-            <exposure-item :data="exposure2[0]" />
-            <exposure-item :data="exposure2[1]" />
-            <exposure-item :data="exposure2[2]" />
-            <exposure-item :data="exposure2[3]" />
+            <exposure-item :data="exposure2" :index="0" @select-exposure="exposure2Handler" />
+            <exposure-item :data="exposure2" :index="1" @select-exposure="exposure2Handler" />
+            <exposure-item :data="exposure2" :index="2" @select-exposure="exposure2Handler" />
+            <exposure-item :data="exposure2" :index="3" @select-exposure="exposure2Handler" />
           </div>
+          <in-out-panel :arrowIndex="arrowIndex2" :showPanel="intoPanel2" />
         </div>
       </div>
       <!-- Exposure end -->
@@ -61,9 +82,11 @@
       <div class="card-item-warp">
         <div class="card-item__header">
           <div class="card-tools">
-            <a-select defalutValue="Relative" class="my-select" size="small">
-              <a-select-option value="Relative">Relative</a-select-option>
-            </a-select>
+            <div class="switch-tools">
+              <span>Absolute</span>
+              <a-switch />
+              <span>Relative</span>
+            </div>
           </div>
           <h2>USER GROWTH</h2>
         </div>
@@ -77,9 +100,11 @@
       <div class="card-item-warp">
         <div class="card-item__header">
           <div class="card-tools">
-            <a-select defalutValue="Relative" class="my-select" size="small">
-              <a-select-option value="Relative">Relative</a-select-option>
-            </a-select>
+            <div class="switch-tools">
+              <span>Absolute</span>
+              <a-switch />
+              <span>Relative</span>
+            </div>
           </div>
           <h2>ACTIVE USERS OVER TIME</h2>
         </div>
@@ -90,72 +115,101 @@
       </div>
       <!-- Active Users Over time end -->
     </div>
+    <select-modal :visibleModal="modalShow" />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import Ant from 'ant-design-vue';
-import SelectItem from '@/components/wallet-metrics/SelectItem.vue';
-import ExposureItem from '@/components/wallet-metrics/ExposureItem.vue';
-import FdBar from '@/components/wallet-metrics/FdBar.vue';
-import UgLine from '@/components/wallet-metrics/UgLine.vue';
-import InOutPanel from '@/components/wallet-metrics/InOutPanel.vue';
+import { Component, Vue } from "vue-property-decorator";
+import Ant from "ant-design-vue";
+import SelectItem from "@/components/wallet-metrics/SelectItem.vue";
+import ExposureItem from "@/components/wallet-metrics/ExposureItem.vue";
+import FdBar from "@/components/wallet-metrics/FdBar.vue";
+import UgLine from "@/components/wallet-metrics/UgLine.vue";
+import InOutPanel from "@/components/wallet-metrics/InOutPanel.vue";
+import SelectModal from "@/components/wallet-metrics/SelectModal.vue";
+
+interface selectClickObject {
+  data?: Object;
+  index?: Number;
+  show?: Boolean;
+}
 
 @Component({
   components: {
     AIcon: Ant.Icon,
     ASelect: Ant.Select,
     ASelectOption: Ant.Select.Option,
+    ASwitch: Ant.Switch,
     AModal: Ant.Modal,
     SelectItem,
     ExposureItem,
     FdBar,
     UgLine,
     InOutPanel,
-  },
+    SelectModal
+  }
 })
 export default class WalletMetrics extends Vue {
   isShowClose: Boolean = false;
+  intoPanel1: Boolean = false;
+  intoPanel2: Boolean = false;
+  modalShow: Boolean = false;
+  arrowIndex1: Number = 0;
+  arrowIndex2: Number = 0;
 
   selected: Array<Object> = [
     {
-      title: 'Binance',
-      sub: 'eXCHANGE',
-      desc: 'User uploaded wallet',
-      value: '1,434,394',
-      tag: '1,434,394',
+      title: "Binance",
+      sub: "eXCHANGE",
+      desc: "User uploaded wallet",
+      value: "1,434,394",
+      tag: "1,434,394"
     },
     {
-      title: 'Binance',
-      sub: 'eXCHANGE',
-      desc: 'User uploaded wallet',
-      value: '1,434,394',
-      tag: '1,434,394',
+      title: "Binance",
+      sub: "eXCHANGE",
+      desc: "User uploaded wallet",
+      value: "1,434,394",
+      tag: "1,434,394"
     },
     {
-      title: 'Binance',
-      sub: 'eXCHANGE',
-      desc: 'User uploaded wallet',
-      value: '1,434,394',
-      tag: '1,434,394',
-    },
+      title: "Binance",
+      sub: "eXCHANGE",
+      desc: "User uploaded wallet",
+      value: "1,434,394",
+      tag: "1,434,394"
+    }
   ];
 
   exposure1: Array<Array<String>> = [
-    ['#107F77', '#D6AAAA', '#ABD194', '#F4C355', '#75113E'],
-    ['#f28048', '#d0a0a0', '#4ab5ac', '#c83618', '#9c9b46'],
-    ['#a1cb89', '#ac2e70', '#11746c', '#6a1236', '#d0a0a1'],
+    ["#107F77", "#D6AAAA", "#ABD194", "#F4C355", "#75113E"],
+    ["#f28048", "#d0a0a0", "#4ab5ac", "#c83618", "#9c9b46"],
+    ["#a1cb89", "#ac2e70", "#11746c", "#6a1236", "#d0a0a1"]
   ];
 
   exposure2: Array<Array<String>> = [
-    ['#11746c', '#c83617', '#f2bb4a', '#f38148', '#ac2e71'],
-    ['#d1a0a1', '#6a1236', '#4ab5ad', '#9b9b46', '#f6d2b5'],
-    ['#f3bb4b', '#6a1236', '#4ab5ad', '#c83618', '#f6d2b4'],
+    ["#11746c", "#c83617", "#f2bb4a", "#f38148", "#ac2e71"],
+    ["#d1a0a1", "#6a1236", "#4ab5ad", "#9b9b46", "#f6d2b5"],
+    ["#f3bb4b", "#6a1236", "#4ab5ad", "#c83618", "#f6d2b4"]
   ];
 
   toggleCloseHandler() {
     this.isShowClose = !this.isShowClose;
+  }
+  exposure1Handler(item: any) {
+    this.intoPanel1 = !this.intoPanel1;
+    this.arrowIndex1 = item.index;
+  }
+  exposure2Handler(item: any) {
+    this.intoPanel2 = !this.intoPanel2;
+    this.arrowIndex2 = item.index;
+  }
+  selectItemOpenModal(item: selectClickObject) {
+    console.log(item);
+    if (item.show) {
+      this.modalShow = true;
+    }
   }
 }
 </script>
@@ -174,7 +228,7 @@ export default class WalletMetrics extends Vue {
       padding: 0;
       font-size: 24px;
       font-weight: bold;
-      font-family: 'proxima-nova', 'sans-serif';
+      font-family: "proxima-nova", "sans-serif";
     }
   }
   .card-tools {
@@ -223,5 +277,16 @@ export default class WalletMetrics extends Vue {
 }
 .ptb20 {
   padding: 20px 0;
+}
+.switch-tools {
+  span {
+    font-size: 10px;
+    font-weight: bold;
+    color: #1f262a;
+    padding: 0 10px;
+  }
+  .ant-switch-checked{
+    background-color: #256BCE;
+  }
 }
 </style>

@@ -1,10 +1,14 @@
 <template>
-  <div class="exposure-box" :class="{'nodata': (data == undefined || data.length <= 0)}">
+  <div
+    class="exposure-box"
+    :class="{'nodata': (data == undefined || data.length <=0 || data[index] == undefined || data[index].length <=0)}"
+  >
     <div
       class="exposure-box__item"
-      v-for="(color,index) in data"
+      v-for="(color,index) in data[index]"
       :key="index.toString()"
       :style="{'backgroundColor': color}"
+      @click="SelectExposure(data[index])"
     >
       <div class="item__tip__line"></div>
       <div class="item__tip__name">ferfer</div>
@@ -13,20 +17,27 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
-import Ant from 'ant-design-vue';
+import { Component, Vue, Prop, Emit } from "vue-property-decorator";
+import Ant from "ant-design-vue";
 
 @Component({
   components: {
-    AIcon: Ant.Icon,
-  },
+    AIcon: Ant.Icon
+  }
 })
 export default class ExposureItem extends Vue {
   @Prop()
-  data!: Array<String>;
+  data!: Array<Array<String>>;
 
+  @Prop({ default: 0 })
+  index!: number;
+
+  @Emit("select-exposure")
+  SelectExposure(item: any) {
+    return { item, index: this.index };
+  }
   mounted() {
-    console.log(this.data);
+    // console.log(this.data);
   }
 }
 </script>

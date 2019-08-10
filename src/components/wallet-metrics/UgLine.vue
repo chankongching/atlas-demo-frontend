@@ -35,7 +35,7 @@ export default class FdBar extends Vue {
       width: _w,
       height: 380,
       forceFit: true,
-      padding: [30, 10, 10, 40],
+      padding: [30, 10, 'auto', 40],
     });
     this.updateChart(chart);
   }
