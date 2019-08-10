@@ -38,11 +38,12 @@ import Ant from 'ant-design-vue';
 })
 export default class Navigation extends Vue {
   private menuDefault: string = 'Home';
-  handleClick (e: object) {
+
+  handleClick(e: object) {
     this.$router.push({
-      name: (e as any).key
+      name: (e as any).key,
     });
-  };
+  }
 }
 </script>
 <style lang="scss" scoped>

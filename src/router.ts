@@ -28,7 +28,7 @@ export default new Router({
     {
       path: '/WalletMetrics',
       name: 'WalletMetrics',
-      component: WalletMetrics
+      component: WalletMetrics,
     },
     {
       path: '/Demo',

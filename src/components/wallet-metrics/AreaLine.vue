@@ -15,7 +15,7 @@ import G2 from '@antv/g2';
   },
 })
 export default class FdBar extends Vue {
-  @Prop({ default: `bar_${new Date().getTime()}` }) readonly canvasId!: String;
+  @Prop({ default: `area_${new Date().getTime()}` }) readonly canvasId!: String;
 
   chart: any = null;
 
@@ -41,7 +41,6 @@ export default class FdBar extends Vue {
   }
 
   updateChart(chart: G2.Chart): void {
-    console.log(chart);
     const data = [
       {
         name: 'London',
@@ -128,6 +127,11 @@ export default class FdBar extends Vue {
     chart.legend(false);
     chart.source(data);
     chart.axis('月份', {
+      label: {
+        formatter: function formatter(val) {
+          return `${val}k`;
+        },
+      },
       grid: {
         type: 'line',
         lineStyle: {
@@ -139,7 +143,7 @@ export default class FdBar extends Vue {
       },
     });
     chart
-      .interval()
+      .area()
       .position('月份*月均降雨量')
       .color('name')
       .adjust([

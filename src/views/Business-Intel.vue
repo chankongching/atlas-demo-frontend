@@ -73,8 +73,8 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import Ant from 'ant-design-vue';
-import ExposureChart from '@/components/ExposureChart.vue'
-import 'echarts/lib/chart/bar'
+import ExposureChart from '@/components/ExposureChart.vue';
+import 'echarts/lib/chart/bar';
 
 @Component({
   components: {
@@ -84,30 +84,31 @@ import 'echarts/lib/chart/bar'
 })
 export default class BusinessInterPage extends Vue {
   private exposureChartData = [
-    {name: 'a1', value: 20},
-    {name: 'a2', value: 14},
-    {name: 'a3', value: 50},
-    {name: 'a4', value: 30},
-    {name: 'a5', value: 5}
+    { name: 'a1', value: 20 },
+    { name: 'a2', value: 14 },
+    { name: 'a3', value: 50 },
+    { name: 'a4', value: 30 },
+    { name: 'a5', value: 5 },
   ];
+
   private fundDistrubution = {
-      tooltip: {},
-      dataset: {
-          source: [
-              ['product', '2015', '2016', '2017'],
-              ['Matcha Latte', 43.3, 85.8, 93.7],
-              ['Milk Tea', 83.1, 73.4, 55.1],
-              ['Cheese Cocoa', 86.4, 65.2, 82.5],
-              ['Walnut Brownie', 72.4, 53.9, 39.1]
-          ]
-      },
-      xAxis: {type: 'category'},
-      yAxis: {},
-      series: [
-          {type: 'bar'},
-          {type: 'bar'},
-          {type: 'bar'}
-      ]
+    tooltip: {},
+    dataset: {
+      source: [
+        ['product', '2015', '2016', '2017'],
+        ['Matcha Latte', 43.3, 85.8, 93.7],
+        ['Milk Tea', 83.1, 73.4, 55.1],
+        ['Cheese Cocoa', 86.4, 65.2, 82.5],
+        ['Walnut Brownie', 72.4, 53.9, 39.1],
+      ],
+    },
+    xAxis: { type: 'category' },
+    yAxis: {},
+    series: [
+      { type: 'bar' },
+      { type: 'bar' },
+      { type: 'bar' },
+    ],
   };
 }
 </script>
@@ -204,4 +205,3 @@ export default class BusinessInterPage extends Vue {
   }
 }
 </style>
-

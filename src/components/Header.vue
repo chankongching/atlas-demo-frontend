@@ -39,13 +39,13 @@ import Ant from 'ant-design-vue';
     ADropdown: Ant.Dropdown,
     AMenu: Ant.Menu,
     AMenuItem: Ant.Menu.Item,
-    AIcon: Ant.Icon
+    AIcon: Ant.Icon,
   },
 })
 export default class Header extends Vue {
-  onSearch (value: any) {
-    console.log(value)
-  };
+  onSearch(value: any) {
+    console.log(value);
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -69,4 +69,3 @@ export default class Header extends Vue {
     }
   }
 </style>
-
