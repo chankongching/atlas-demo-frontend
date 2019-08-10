@@ -44,7 +44,7 @@ export default class App extends Vue {}
   background-color: #F7F7F7;
 }
 .ant-layout-content {
-  padding: 0 50px 0 20px;
+  padding: 30px 50px 30px 20px;
 }
 .ant-layout-header {
   position: fixed;
