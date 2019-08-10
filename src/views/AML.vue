@@ -27,24 +27,24 @@
       <div class="currency-info">
         <a-row :gutter="50">
           <a-col :span="18">
-            <h1 class="currency-info-name">Binance</h1>
-            <h2 class="currency-info-full-name">eXCHANGE</h2>
-            <h3 class="currency-info-description">1,434,394 WALLETS</h3>
+            <h1 class="currency-info-name">{{datas.address}}</h1>
+            <h2 class="currency-info-full-name">{{datas.description}}</h2>
+            <h3 class="currency-info-description">{{datas.addresses}} WALLETS</h3>
             <a-row :gutter="20">
               <a-col :span="12">
                 <ul class="currency-info-list">
-                  <li><h5>Balance</h5><span>34</span></li>
-                  <li><h5>Sent</h5><span>4344</span></li>
-                  <li><h5>Received</h5><span>3435</span></li>
-                  <li><h5>Total Fees</h5><span>235345</span></li>
+                  <li><h5>Balance</h5><span>{{datas.balance}}</span></li>
+                  <li><h5>Sent</h5><span>{{datas.sent}}</span></li>
+                  <li><h5>Received</h5><span>{{datas.received}}</span></li>
+                  <li><h5>Total Fees</h5><span>{{datas.totalfees}}</span></li>
                 </ul>
               </a-col>
               <a-col :span="12">
                  <ul class="currency-info-list">
-                    <li><h5>Transfers</h5><span>23423</span></li>
-                    <li><h5>Withdrawals</h5><span>634623</span></li>
-                    <li><h5>Deposits</h5><span>3453</span></li>
-                    <li><h5>Addresses</h5><span>34634</span></li>
+                    <li><h5>Transfers</h5><span>{{datas.transfers}}</span></li>
+                    <li><h5>Withdrawals</h5><span>{{datas.withdraws}}</span></li>
+                    <li><h5>Deposits</h5><span>{{datas.deposits}}</span></li>
+                    <li><h5>Addresses</h5><span>{{datas.addresses}}</span></li>
                   </ul>
               </a-col>
             </a-row>
@@ -53,11 +53,11 @@
             <h3>Risk Scores</h3>
             <div class="currency-info-card flex-between">
               <span>IN</span>
-              <strong>48</strong>
+              <strong>{{datas.risk_score_in}}</strong>
             </div>
             <div class="currency-info-card flex-between">
               <span>OUT</span>
-              <strong>59</strong>
+              <strong>{{datas.risk_score_out}}</strong>
             </div>
           </a-col>
         </a-row>
@@ -85,23 +85,24 @@
               <div class="section-exposure">
                 <a-badge status="processing" style="display: flex; align-items: center;" />
                 <div>
-                  <h6>exchange</h6>
-                  <p>15.343%</p>
+                  <h6>{{selectedPieData.name}}</h6>
+                  <p>{{selectedPieData.percent}}</p>
                 </div>
               </div>
-              <strong style="display: flex; align-items: center;">$4353.445</strong>
+              <strong style="display: flex; align-items: center;">${{selectedPieData.value}}</strong>
             </div>
             <div class="exposure-pie-container">
-              <v-chart :options="exposurePieData" autoresize/>
+              <v-chart :options="exposurePieData" @pieselectchanged="pieselectchanged" autoresize @click="pieClick"/>
             </div>
           </a-col>
           <a-col :span="16">
             <div class="search-container">
               <p>Sort by</p>
               <a-select :defaultValue="exposureSort" style="width: 120px; margin-right: 20px;" v-model="exposureSort">
-                <a-select-option value="jack">Jack</a-select-option>
-                <a-select-option value="lucy">Lucy</a-select-option>
-                <a-select-option value="Yiminghe">yiminghe</a-select-option>
+                <a-select-option value="source">Source</a-select-option>
+                <a-select-option value="from">From</a-select-option>
+                <a-select-option value="amount">Amount</a-select-option>
+                <a-select-option value="score">Score</a-select-option>
               </a-select>
               <a-input-search
                 placeholder="input search text"
@@ -127,9 +128,9 @@
                     <a-list-item slot="renderItem" slot-scope="item, index">
                       <a-row style="display: flex; align-items: center;">
                         <a-col :span="4" style="display: flex; justify-content: center;"><a-badge status="processing" style="display: flex; align-items: center;" /></a-col>
-                        <a-col :span="12">{{ item }}</a-col>
-                        <a-col :span="4">col-6</a-col>
-                        <a-col :span="4">col-6</a-col>
+                        <a-col :span="12">{{ item.name }}</a-col>
+                        <a-col :span="4">{{ item.value }}</a-col>
+                        <a-col :span="4">{{ item.score }}</a-col>
                       </a-row>
                     </a-list-item>
                     <div v-if="loading && !busy" class="loading-container">
@@ -226,7 +227,7 @@
                       <a-list-item slot="renderItem" slot-scope="item, index">
                         <a-row style="display: flex; align-items: center;">
                           <a-col :span="4" style="display: flex; justify-content: center;"><a-badge status="processing" style="display: flex; align-items: center;" /></a-col>
-                          <a-col :span="12">{{ item }}</a-col>
+                          <a-col :span="12">{{ item.name }}</a-col>
                           <a-col :span="4">col-6</a-col>
                           <a-col :span="4"><a-checkbox></a-checkbox></a-col>
                         </a-row>
@@ -316,6 +317,7 @@ import Ant from 'ant-design-vue';
 import 'echarts/lib/chart/pie';
 import 'echarts/lib/chart/line';
 import infiniteScroll from 'vue-infinite-scroll';
+import Axios from 'axios';
 
 @Component({
   components: {
@@ -344,6 +346,8 @@ import infiniteScroll from 'vue-infinite-scroll';
   },
 })
 export default class AML extends Vue {
+  private datas = {};
+  private exposurePie = [];
   private exposurePieData: object = {
     tooltip: {
       trigger: 'item',
@@ -355,15 +359,16 @@ export default class AML extends Vue {
         type: 'pie',
         selectedMode: 'single',
         radius: [0, '50%'],
-        data: [
-          { value: 335, name: 'darknet', selected: true },
-          { value: 679, name: 'exchange' },
-          { value: 876, name: 'p2p' },
-          { value: 1548, name: 'sjfkd' },
-        ],
+        data: []
       },
     ],
   };
+  
+  private selectedPieData = {
+    name: 'a',
+    value: 20,
+    percent: '20%'
+  }
 
   private historyLineData ={
     title: {
@@ -488,30 +493,31 @@ export default class AML extends Vue {
     ],
   };
 
-  private listData = [
-    'Racing car sprays burning fuel into crowd.',
-    'Japanese princess to wed commoner.',
-    'Australian walks 100km after outback crash.',
-    'Man charged over missing wedding girl.',
-    'Los Angeles battles huge wildfires.',
-  ];
+  private listData = [];
 
   private loading: boolean = false;
 
   private busy: boolean = false;
 
-  private exposureSort: string = 'jack';
+  private exposureSort: string = 'source';
 
   private visible: boolean = false;
 
   private AMLTab: string = 'search';
+
+  private defaultExchangeSelected: string = 'IN';
 
   handleClick(e: object) {
     console.log((e as any).key);
   }
 
   exchangeSwitch(e: object) {
-    console.log((e as any).key);
+    this.defaultExchangeSelected = (e as any).key;
+    if (this.defaultExchangeSelected === 'IN') {
+      this.listData = (this.datas as any).pie_data.inList;
+    } else {
+      this.listData = (this.datas as any).pie_data.outList;
+    }
   }
 
   handleInfiniteOnLoad() {
@@ -572,6 +578,53 @@ export default class AML extends Vue {
       this.$message.error(`${info.file.name} file upload failed.`);
     }
   }
+
+  fetchAMLDate() {
+    return Axios.get('https://www.easy-mock.com/mock/5d4e9bc64a02dc7a7d47475f/api/aml');
+  }
+  pieClick(params: any) {
+    console.log(params);
+    this.selectedPieData = params.data;
+    this.selectedPieData.percent = params.percent;
+
+    
+    if (this.defaultExchangeSelected === 'IN') {
+      this.listData = (this.datas as any).pie_data.inCategory[params.name];
+    } else {
+      this.listData = (this.datas as any).pie_data.outCategory[params.name];
+    }
+  }
+  pieselectchanged(params: any) {
+    // console.log(params)
+    // if (params.selected[params.name]) {
+    //   console.log('选中' + params.name);
+    // } else {
+    //   this.selectedPieData = {};
+    //   console.log('未选中' + params.name);
+    // }
+  }
+  created() {
+    this.fetchAMLDate().then(res => {
+      this.datas = res.data;
+      // this.exposurePie = (this.datas as any).pie_data.in;
+      this.exposurePieData.series[0].data = (this.datas as any).pie_data.pieInData;
+      if (this.defaultExchangeSelected === 'IN') {
+        this.listData = (this.datas as any).pie_data.inList;
+      } else {
+        this.listData = (this.datas as any).pie_data.outList;
+      }
+      this.riskScoreOverTimeData.xAxis[0].data = (this.datas as any).address_score_month
+      this.riskScoreOverTimeData.series[0].data = (this.datas as any).address_score_series;
+      let historyXAxis = [];
+      let historXXAxis = [];
+      for (const iterator of this.datas.input) {
+        historyXAxis.push(iterator[1]);
+        historXXAxis.push(iterator[3] / 273);
+      }
+      console.log(historyXAxis, historXXAxis);
+      console.log(res.data);
+    });
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -608,7 +661,7 @@ export default class AML extends Vue {
     .currency-info-name {
       color: #256BCE;
       font-weight: 600;
-      font-size: 48px;
+      font-size: 24px;
       margin: 0;
       line-height: 46px;
     }
