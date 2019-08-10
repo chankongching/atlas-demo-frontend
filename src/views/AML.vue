@@ -81,7 +81,7 @@
             <!-- <div class="card-container">
               No section clicked
             </div> -->
-            <div class="card-container flex-between">
+            <div class="card-container flex-between" v-if="selectedPieData.value">
               <div class="section-exposure">
                 <a-badge status="processing" style="display: flex; align-items: center;" />
                 <div>
@@ -91,6 +91,7 @@
               </div>
               <strong style="display: flex; align-items: center;">${{selectedPieData.value}}</strong>
             </div>
+            <div v-else class="card-container">No Setion Clicked</div>
             <div class="exposure-pie-container">
               <v-chart :options="exposurePieData" @pieselectchanged="pieselectchanged" autoresize @click="pieClick"/>
             </div>
@@ -365,9 +366,9 @@ export default class AML extends Vue {
   };
   
   private selectedPieData = {
-    name: 'a',
-    value: 20,
-    percent: '20%'
+    name: '',
+    value: null,
+    percent: ''
   }
 
   private historyLineData ={
@@ -615,13 +616,17 @@ export default class AML extends Vue {
       }
       this.riskScoreOverTimeData.xAxis[0].data = (this.datas as any).address_score_month
       this.riskScoreOverTimeData.series[0].data = (this.datas as any).address_score_series;
-      let historyXAxis = [];
-      let historXXAxis = [];
-      for (const iterator of this.datas.input) {
-        historyXAxis.push(iterator[1]);
-        historXXAxis.push(iterator[3] / 273);
-      }
-      console.log(historyXAxis, historXXAxis);
+      
+      // let historyData = [];
+
+      // for (let i = 0; i < this.datas.input[0].length; i++) {
+      //   historyData.push((() => {
+      //     historyData[0].
+      //   })())
+      // }
+
+
+      console.log(historyData);
       console.log(res.data);
     });
   }
