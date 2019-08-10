@@ -1,16 +1,16 @@
 <template>
-  <div class="exposure-panel-warp">
+  <div class="exposure-panel-warp" v-if="showPanel">
     <div class="flex-row">
-      <div class="flex-item">
+      <div class="flex-item" :class="{'visible':arrowIndex === 0}">
         <div class="exposure-panel__arrow"></div>
       </div>
-      <div class="flex-item">
+      <div class="flex-item" :class="{'visible':arrowIndex === 1}">
         <div class="exposure-panel__arrow"></div>
       </div>
-      <div class="flex-item">
+      <div class="flex-item" :class="{'visible':arrowIndex === 2}">
         <div class="exposure-panel__arrow"></div>
       </div>
-      <div class="flex-item">
+      <div class="flex-item" :class="{'visible':arrowIndex === 3}">
         <div class="exposure-panel__arrow"></div>
       </div>
     </div>
@@ -52,12 +52,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import Ant from 'ant-design-vue';
-import ExPie from '@/components/wallet-metrics/ExPie.vue';
-import UgLine from '@/components/wallet-metrics/UgLine.vue';
-import AreaLine from '@/components/wallet-metrics/AreaLine.vue';
-import WmTable from '@/components/wallet-metrics/WmTable.vue';
+import { Component, Vue, Prop, Watch } from "vue-property-decorator";
+import Ant from "ant-design-vue";
+import ExPie from "@/components/wallet-metrics/ExPie.vue";
+import UgLine from "@/components/wallet-metrics/UgLine.vue";
+import AreaLine from "@/components/wallet-metrics/AreaLine.vue";
+import WmTable from "@/components/wallet-metrics/WmTable.vue";
 
 @Component({
   components: {
@@ -68,10 +68,20 @@ import WmTable from '@/components/wallet-metrics/WmTable.vue';
     ExPie,
     UgLine,
     AreaLine,
-    WmTable,
-  },
+    WmTable
+  }
 })
-export default class InOutPanel extends Vue {}
+export default class InOutPanel extends Vue {
+  @Prop({ default: 0 })
+  arrowIndex?: Number;
+
+  @Prop()
+  showPanel: Boolean = false;
+
+  mounted() {
+    console.log(this.arrowIndex);
+  }
+}
 </script>
 <style lang="scss" scoped>
 .clearfix:before,
@@ -117,6 +127,10 @@ export default class InOutPanel extends Vue {}
     width: 200px;
     background-color: #333;
     position: relative;
+    opacity: 0;
+    &.visible {
+      opacity: 1;
+    }
   }
 }
 .pie-panel {
@@ -184,7 +198,7 @@ export default class InOutPanel extends Vue {}
 .exposure-panel-row {
   .card-item__header {
     h2 {
-      font-family: 'proxima-nova', 'sans-serif';
+      font-family: "proxima-nova", "sans-serif";
       font-size: 14px;
       font-weight: 400;
       color: rgba(31, 38, 42, 1);

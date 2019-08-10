@@ -23,13 +23,13 @@ export default new Router({
     {
       path: '/BusinessIntel',
       name: 'BusinessIntel',
-      component: BusinessIntel,
-    },
-    {
-      path: '/WalletMetrics',
-      name: 'WalletMetrics',
       component: WalletMetrics,
     },
+    // {
+    //   path: '/WalletMetrics',
+    //   name: 'WalletMetrics',
+    //   component: WalletMetrics,
+    // },
     {
       path: '/Demo',
       name: 'Demo',

@@ -17,10 +17,10 @@
         <a-icon type="line-chart" />
         Business Intel
       </a-menu-item>
-      <a-menu-item key="WalletMetrics">
+      <!-- <a-menu-item key="WalletMetrics">
         <a-icon type="line-chart" />
         Wallet Metrics
-      </a-menu-item>
+      </a-menu-item> -->
     </a-menu>
   </div>
 </template>

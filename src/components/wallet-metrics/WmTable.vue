@@ -9,53 +9,55 @@
       </a-row>
     </div>
     <div class="infinite-list-container">
-      <a-list
-        :dataSource="listData"
-        v-infinite-scroll="handleInfiniteOnLoad"
-        :infinite-scroll-disabled="busy"
-        :infinite-scroll-distance="10"
-      >
-        <a-list-item slot="renderItem" slot-scope="item, index" :key="index">
-          <a-row>
-            <a-col class="pl25" :span="4">
-              <span class="tag-cricle"></span>
-            </a-col>
-            <a-col :span="14">{{ item }}</a-col>
-            <a-col class="tc" :span="3">col-6</a-col>
-            <a-col class="tc" :span="3">col-6</a-col>
-          </a-row>
-        </a-list-item>
-        <div v-if="loading && !busy" class="loading-container">
-          <a-spin />
-        </div>
-      </a-list>
+      <div class="infinite-list-container__box">
+        <a-list
+          :dataSource="listData"
+          v-infinite-scroll="handleInfiniteOnLoad"
+          :infinite-scroll-disabled="busy"
+          :infinite-scroll-distance="10"
+        >
+          <a-list-item slot="renderItem" slot-scope="item, index" :key="index">
+            <a-row>
+              <a-col class="pl25" :span="4">
+                <span class="tag-cricle"></span>
+              </a-col>
+              <a-col :span="14">{{ item }}</a-col>
+              <a-col class="tc" :span="3">col-6</a-col>
+              <a-col class="tc" :span="3">col-6</a-col>
+            </a-row>
+          </a-list-item>
+          <div v-if="loading && !busy" class="loading-container">
+            <a-spin />
+          </div>
+        </a-list>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import Ant from 'ant-design-vue';
-import infiniteScroll from 'vue-infinite-scroll';
+import { Component, Vue } from "vue-property-decorator";
+import Ant from "ant-design-vue";
+import infiniteScroll from "vue-infinite-scroll";
 
 @Component({
   components: {
     ARow: Ant.Row,
     ACol: Ant.Col,
     AList: Ant.List,
-    AListItem: Ant.List.Item,
+    AListItem: Ant.List.Item
   },
   directives: {
-    infiniteScroll,
-  },
+    infiniteScroll
+  }
 })
 export default class WmTable extends Vue {
   private listData = [
-    'Racing car sprays burning fuel into crowd.',
-    'Japanese princess to wed commoner.',
-    'Australian walks 100km after outback crash.',
-    'Man charged over missing wedding girl.',
-    'Los Angeles battles huge wildfires.',
+    "Racing car sprays burning fuel into crowd.",
+    "Japanese princess to wed commoner.",
+    "Australian walks 100km after outback crash.",
+    "Man charged over missing wedding girl.",
+    "Los Angeles battles huge wildfires."
   ];
 
   private loading: boolean = false;
@@ -78,7 +80,7 @@ export default class WmTable extends Vue {
   }
 
   fetchData(callback: any) {
-    callback(['add befor', 'add befor1', 'add befor2']);
+    callback(["add befor", "add befor1", "add befor2"]);
   }
 }
 </script>
@@ -95,10 +97,12 @@ export default class WmTable extends Vue {
     padding: 0;
   }
   .infinite-list-container {
-    height: 300px;
-    overflow: auto;
     position: relative;
     padding: 0 20px 20px;
+  }
+  .infinite-list-container__box {
+    height: 300px;
+    overflow: auto;
   }
   .infinite-list-header {
     height: 60px;

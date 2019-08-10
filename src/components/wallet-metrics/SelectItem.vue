@@ -3,6 +3,7 @@
     class="selected-box"
     :style="{'backgroundColor': data == null ? '#FFF':colors[this.index]}"
     :class="{'nodata': data == null}"
+    @click.stop="openModal(data,index)"
   >
     <a-icon type="plus" class="plus-icon" />
     <a-icon type="close-circle" class="close-icon" v-if="isShowClose == true && data != undefined" />
@@ -21,8 +22,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
-import Ant from 'ant-design-vue';
+import { Component, Vue, Prop, Emit } from "vue-property-decorator";
+import Ant from "ant-design-vue";
 
 interface selectedObject {
   title?: String;
@@ -34,8 +35,8 @@ interface selectedObject {
 
 @Component({
   components: {
-    AIcon: Ant.Icon,
-  },
+    AIcon: Ant.Icon
+  }
 })
 export default class SelectItem extends Vue {
   @Prop()
@@ -47,10 +48,27 @@ export default class SelectItem extends Vue {
   @Prop()
   index!: Number;
 
-  colors: Array<String> = ['#256BCE', '#8806CE', '#A7C4EA', '#F48C51'];
+  colors: Array<String> = ["#256BCE", "#8806CE", "#A7C4EA", "#F48C51"];
+
+  @Emit()
+  openModal(data: selectedObject, index: Number) {
+    if (data == null) {
+      return {
+        data: data,
+        index: index,
+        show: true
+      };
+    } else {
+      return {
+        data: data,
+        index: index,
+        show: false
+      };
+    }
+  }
 
   mounted() {
-    console.log(this.data);
+    // console.log(this.data);
   }
 }
 </script>
@@ -85,18 +103,18 @@ export default class SelectItem extends Vue {
     &__title {
       font-size: 18px;
       font-weight: bold;
-      font-family: 'proxima-nova', 'sans-serif';
+      font-family: "proxima-nova", "sans-serif";
     }
     &__sub {
       font-size: 14px;
       font-weight: bold;
-      font-family: 'proxima-nova', 'sans-serif';
+      font-family: "proxima-nova", "sans-serif";
       color: rgba(166, 168, 170, 1);
     }
     &__des {
       font-size: 12px;
       font-weight: 500;
-      font-family: 'proxima-nova', 'sans-serif';
+      font-family: "proxima-nova", "sans-serif";
       color: rgba(31, 38, 42, 1);
     }
     &__num {

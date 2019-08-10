@@ -39,7 +39,6 @@ export default class FdBar extends Vue {
   }
 
   updateChart(chart: G2.Chart): void {
-    console.log(chart);
     const data = [
       {
         item: '事例一',
