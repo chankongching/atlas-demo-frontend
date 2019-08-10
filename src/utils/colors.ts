@@ -1,8 +1,4 @@
-interface ColorHEX {
-    color: String;
-}
-
-class Color {
+class Colors {
     selectColor: Array<String> = [
         '#256BCE',
         '#8806CE',
@@ -24,3 +20,5 @@ class Color {
         '#ABD194'
     ]
 }
+
+export default Colors;
