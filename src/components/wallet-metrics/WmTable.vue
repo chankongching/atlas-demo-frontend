@@ -68,7 +68,6 @@ export default class WmTable extends Vue {
     const data = this.listData;
     this.loading = true;
     if (data.length > 14) {
-      // this.$message.warning('Infinite List loaded all');
       this.busy = true;
       this.loading = false;
       return;
@@ -128,5 +127,8 @@ export default class WmTable extends Vue {
   height: 9px;
   border-radius: 50%;
   background-color: #256bce;
+}
+.pl25 {
+  padding-left: 25px;
 }
 </style>

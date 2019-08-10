@@ -4,3 +4,34 @@ body {
     font-family: 'Proxima Nova', sans-serif;
     font-style: normal;
 }
+
+.my-select {
+    >div {
+        background-color: transparent;
+    }
+}
+
+.my-search {
+    input {
+        background-color: transparent;
+        border-width: 0 0 1px 0;
+        border-radius: 0;
+    }
+}
+
+.bi-submit-buttom__disable {
+    background-color: #D2D4D4 !important;
+
+    &:hover {
+        background-color: #D2D4D4 !important;
+    }
+}
+
+.bi-submit-buttom {
+    background-color: #256bce;
+    color: #fff;
+
+    &:hover {
+        background-color: #307ae2;
+    }
+}

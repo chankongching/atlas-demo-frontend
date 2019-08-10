@@ -179,6 +179,9 @@ export default class InOutPanel extends Vue {
   }
   .my-select {
     width: 100%;
+    > div {
+      background-color: transparent;
+    }
   }
   .my-search {
     width: 100%;

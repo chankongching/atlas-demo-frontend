@@ -6,7 +6,7 @@
     @click.stop="openModal(data,index)"
   >
     <a-icon type="plus" class="plus-icon" />
-    <a-icon type="close-circle" class="close-icon" v-if="isShowClose == true && data != undefined" />
+    <a-icon type="close-circle" class="close-icon" :style="{'backgroundColor':colors[this.index]}" />
     <div class="selected-item" v-if="data != null">
       <div class="selected-item__cont">
         <div class="selected-item__title" :style="{'color':colors[this.index]}">{{data.title}}</div>
@@ -24,6 +24,7 @@
 <script lang="ts">
 import { Component, Vue, Prop, Emit } from "vue-property-decorator";
 import Ant from "ant-design-vue";
+import Colors from "@/utils/colors.ts";
 
 interface selectedObject {
   title?: String;
@@ -48,7 +49,7 @@ export default class SelectItem extends Vue {
   @Prop()
   index!: Number;
 
-  colors: Array<String> = ["#256BCE", "#8806CE", "#A7C4EA", "#F48C51"];
+  colors: Array<String> = ["#256BCE", "#8806CE", "#A7C4EA", "#CF9BEB"];
 
   @Emit()
   openModal(data: selectedObject, index: Number) {
@@ -66,7 +67,6 @@ export default class SelectItem extends Vue {
       };
     }
   }
-
   mounted() {
     // console.log(this.data);
   }
@@ -80,7 +80,17 @@ export default class SelectItem extends Vue {
   position: relative;
   margin-bottom: 20px;
   cursor: pointer;
+  &:hover {
+    .close-icon {
+      display: inline-block;
+    }
+  }
   &.nodata {
+    &:hover {
+      .close-icon {
+        display: none;
+      }
+    }
     border: 1px dashed rgba(166, 168, 170, 1);
   }
   .selected-item {
@@ -148,7 +158,7 @@ export default class SelectItem extends Vue {
     color: rgba(112, 112, 112, 1);
   }
   .close-icon {
-    display: inline-block;
+    display: none;
     position: absolute;
     top: -10px;
     right: -10px;

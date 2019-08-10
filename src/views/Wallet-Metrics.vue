@@ -1,9 +1,6 @@
 <template>
   <div class="card-container">
     <div class="card-header">
-      <div class="card-tools">
-        <a class="tools-icon--pencil" href="javascript:;" @click.stop="toggleCloseHandler()"></a>
-      </div>
       <h1>Metrics Comparison</h1>
     </div>
     <div class="card-content">
@@ -193,17 +190,21 @@ export default class WalletMetrics extends Vue {
     ["#d1a0a1", "#6a1236", "#4ab5ad", "#9b9b46", "#f6d2b5"],
     ["#f3bb4b", "#6a1236", "#4ab5ad", "#c83618", "#f6d2b4"]
   ];
-
-  toggleCloseHandler() {
-    this.isShowClose = !this.isShowClose;
-  }
   exposure1Handler(item: any) {
-    this.intoPanel1 = !this.intoPanel1;
-    this.arrowIndex1 = item.index;
+    if (this.intoPanel1 && this.arrowIndex1 != item.index) {
+      this.arrowIndex1 = item.index;
+    } else {
+      this.intoPanel1 = !this.intoPanel1;
+      this.arrowIndex1 = item.index;
+    }
   }
   exposure2Handler(item: any) {
-    this.intoPanel2 = !this.intoPanel2;
-    this.arrowIndex2 = item.index;
+    if (this.intoPanel2 && this.arrowIndex2 != item.index) {
+      this.arrowIndex2 = item.index;
+    } else {
+      this.intoPanel2 = !this.intoPanel2;
+      this.arrowIndex2 = item.index;
+    }
   }
   selectItemOpenModal(item: selectClickObject) {
     console.log(item);
@@ -285,8 +286,8 @@ export default class WalletMetrics extends Vue {
     color: #1f262a;
     padding: 0 10px;
   }
-  .ant-switch-checked{
-    background-color: #256BCE;
+  .ant-switch-checked {
+    background-color: #256bce;
   }
 }
 </style>
