@@ -36,28 +36,28 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import Ant from "ant-design-vue";
-import infiniteScroll from "vue-infinite-scroll";
+import { Component, Vue } from 'vue-property-decorator';
+import Ant from 'ant-design-vue';
+import infiniteScroll from 'vue-infinite-scroll';
 
 @Component({
   components: {
     ARow: Ant.Row,
     ACol: Ant.Col,
     AList: Ant.List,
-    AListItem: Ant.List.Item
+    AListItem: Ant.List.Item,
   },
   directives: {
-    infiniteScroll
-  }
+    infiniteScroll,
+  },
 })
 export default class WmTable extends Vue {
   private listData = [
-    "Racing car sprays burning fuel into crowd.",
-    "Japanese princess to wed commoner.",
-    "Australian walks 100km after outback crash.",
-    "Man charged over missing wedding girl.",
-    "Los Angeles battles huge wildfires."
+    'Racing car sprays burning fuel into crowd.',
+    'Japanese princess to wed commoner.',
+    'Australian walks 100km after outback crash.',
+    'Man charged over missing wedding girl.',
+    'Los Angeles battles huge wildfires.',
   ];
 
   private loading: boolean = false;
@@ -79,7 +79,7 @@ export default class WmTable extends Vue {
   }
 
   fetchData(callback: any) {
-    callback(["add befor", "add befor1", "add befor2"]);
+    callback(['add befor', 'add befor1', 'add befor2']);
   }
 }
 </script>

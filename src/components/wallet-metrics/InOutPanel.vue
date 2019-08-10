@@ -52,12 +52,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch } from "vue-property-decorator";
-import Ant from "ant-design-vue";
-import ExPie from "@/components/wallet-metrics/ExPie.vue";
-import UgLine from "@/components/wallet-metrics/UgLine.vue";
-import AreaLine from "@/components/wallet-metrics/AreaLine.vue";
-import WmTable from "@/components/wallet-metrics/WmTable.vue";
+import {
+  Component, Vue, Prop, Watch,
+} from 'vue-property-decorator';
+import Ant from 'ant-design-vue';
+import ExPie from '@/components/wallet-metrics/ExPie.vue';
+import UgLine from '@/components/wallet-metrics/UgLine.vue';
+import AreaLine from '@/components/wallet-metrics/AreaLine.vue';
+import WmTable from '@/components/wallet-metrics/WmTable.vue';
 
 @Component({
   components: {
@@ -68,8 +70,8 @@ import WmTable from "@/components/wallet-metrics/WmTable.vue";
     ExPie,
     UgLine,
     AreaLine,
-    WmTable
-  }
+    WmTable,
+  },
 })
 export default class InOutPanel extends Vue {
   @Prop({ default: 0 })

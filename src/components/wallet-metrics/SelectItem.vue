@@ -22,9 +22,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Emit } from "vue-property-decorator";
-import Ant from "ant-design-vue";
-import Colors from "@/utils/colors.ts";
+import {
+  Component, Vue, Prop, Emit,
+} from 'vue-property-decorator';
+import Ant from 'ant-design-vue';
+import Colors from '@/utils/colors.ts';
 
 interface selectedObject {
   title?: String;
@@ -36,8 +38,8 @@ interface selectedObject {
 
 @Component({
   components: {
-    AIcon: Ant.Icon
-  }
+    AIcon: Ant.Icon,
+  },
 })
 export default class SelectItem extends Vue {
   @Prop()
@@ -49,24 +51,24 @@ export default class SelectItem extends Vue {
   @Prop()
   index!: Number;
 
-  colors: Array<String> = ["#256BCE", "#8806CE", "#A7C4EA", "#CF9BEB"];
+  colors: Array<String> = ['#256BCE', '#8806CE', '#A7C4EA', '#CF9BEB'];
 
   @Emit()
   openModal(data: selectedObject, index: Number) {
     if (data == null) {
       return {
-        data: data,
-        index: index,
-        show: true
-      };
-    } else {
-      return {
-        data: data,
-        index: index,
-        show: false
+        data,
+        index,
+        show: true,
       };
     }
+    return {
+      data,
+      index,
+      show: false,
+    };
   }
+
   mounted() {
     // console.log(this.data);
   }

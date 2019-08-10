@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="modal-table-panel">
-        <wm-table />
+        <modal-wm-table />
       </div>
     </div>
     <template slot="footer">
@@ -28,10 +28,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch } from "vue-property-decorator";
-import Ant from "ant-design-vue";
-import infiniteScroll from "vue-infinite-scroll";
-import WmTable from "@/components/wallet-metrics/WmTable.vue";
+import {
+  Component, Vue, Prop, Watch,
+} from 'vue-property-decorator';
+import Ant from 'ant-design-vue';
+import infiniteScroll from 'vue-infinite-scroll';
+import ModalWmTable from "@/components/wallet-metrics/ModalWmTable.vue";
+import DataUtils from '@/utils/dataUtils.ts';
+
+const DU = new DataUtils();
 
 @Component({
   components: {
@@ -46,71 +51,34 @@ import WmTable from "@/components/wallet-metrics/WmTable.vue";
     AModal: Ant.Modal,
     AIcon: Ant.Icon,
     ACheckbox: Ant.Checkbox,
-    WmTable
+    ARadio: Ant.Radio,
+    ModalWmTable
   },
   directives: {
-    infiniteScroll
-  }
+    infiniteScroll,
+  },
 })
 export default class SelectModal extends Vue {
-  // @PropSync("visibleModal", { type: Boolean, default: false })
-  // visible!: Boolean;
   @Prop({ default: true })
   visibleModal!: Boolean;
 
-  @Watch("visibleModal")
+  @Watch('visibleModal')
   onVisibleModal(val: Boolean, old: Boolean) {
     this.visible = val;
   }
 
   visible: Boolean = this.visibleModal;
 
-  private AMLTab: string = "search";
-  private loading: boolean = false;
-  private busy: boolean = false;
-  private listData = [
-    "Racing car sprays burning fuel into crowd.",
-    "Japanese princess to wed commoner.",
-    "Australian walks 100km after outback crash.",
-    "Man charged over missing wedding girl.",
-    "Los Angeles battles huge wildfires."
-  ];
-
-  handleInfiniteOnLoad() {
-    const data = this.listData;
-    this.loading = true;
-    if (data.length > 14) {
-      // this.$message.warning('Infinite List loaded all');
-      this.busy = true;
-      this.loading = false;
-      return;
-    }
-    this.fetchData((res: any) => {
-      this.listData = data.concat(res);
-      this.loading = false;
-    });
-  }
-
-  fetchData(callback: any) {
-    callback(["add befor", "add befor1", "add befor2"]);
-  }
   handleCancel() {
     this.visible = false;
     console.log(this.visible);
   }
-  modalHandleClick(e: any) {
-    this.AMLTab = e.key;
-  }
-  onSearch(value: any) {
-    // console.log(value);
-  }
-  searchSorthandleChange() {}
 }
 </script>
 <style lang="scss" scoped>
 .modal-container {
   padding-top: 40px;
-  .ant-modal-footer{
+  .ant-modal-footer {
     border-top: 0;
   }
 }
@@ -144,4 +112,3 @@ export default class SelectModal extends Vue {
   }
 }
 </style>
-

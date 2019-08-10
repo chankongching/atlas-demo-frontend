@@ -17,13 +17,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Emit } from "vue-property-decorator";
-import Ant from "ant-design-vue";
+import {
+  Component, Vue, Prop, Emit,
+} from 'vue-property-decorator';
+import Ant from 'ant-design-vue';
 
 @Component({
   components: {
-    AIcon: Ant.Icon
-  }
+    AIcon: Ant.Icon,
+  },
 })
 export default class ExposureItem extends Vue {
   @Prop()
@@ -32,10 +34,11 @@ export default class ExposureItem extends Vue {
   @Prop({ default: 0 })
   index!: number;
 
-  @Emit("select-exposure")
+  @Emit('select-exposure')
   SelectExposure(item: any) {
     return { item, index: this.index };
   }
+
   mounted() {
     // console.log(this.data);
   }
