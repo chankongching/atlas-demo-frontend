@@ -6,11 +6,25 @@ interface selectClickObject {
 }
 
 interface selectedObject {
-    title?: String;
-    sub?: String;
-    desc?: String;
-    value?: Number | String;
-    tag?: String;
+    active: String | Number;
+    amount: String | Number;
+    category: String | Number;
+    desc: String | Number;
+    entity: String | Number;
+    fund: String | Array<any>;
+    growth: String | Array<any>;
+    history: String | Array<any>;
+    id: String | Number;
+    in: String | Array<any>;
+    out: String | Array<any>;
+    percent: String | Number;
+    score: String | Number;
+    sub: String | Number;
+    tag: String | Number;
+    title: String | Number;
+    value: String | Number;
+    value_tag: String | Number;
+    wallet: String | Number;
 }
 
 interface ExposureObject {

@@ -21,9 +21,13 @@ body {
 
 .bi-submit-buttom__disable {
     background-color: #D2D4D4 !important;
+    border-color: #D2D4D4;
 
-    &:hover {
+    &:hover,
+    &:visited,
+    &:active {
         background-color: #D2D4D4 !important;
+        border-color: #D2D4D4;
     }
 }
 

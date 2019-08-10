@@ -22,6 +22,8 @@ import {
 } from 'vue-property-decorator';
 import Ant from 'ant-design-vue';
 
+import "@/utils/interfaceObject";
+
 @Component({
   components: {
     AIcon: Ant.Icon,
@@ -33,6 +35,12 @@ export default class ExposureItem extends Vue {
 
   @Prop({ default: 0 })
   index!: number;
+
+  @Prop()
+  selected!: selectedObject;
+
+  @Prop()
+  type!: String;
 
   @Emit('select-exposure')
   SelectExposure(item: any) {

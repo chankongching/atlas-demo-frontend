@@ -17,14 +17,21 @@
           :infinite-scroll-distance="10"
         >
           <a-list-item slot="renderItem" slot-scope="item, index" :key="index">
-            <a-row>
+            <a-row @click.stop="selectRadio(item)">
               <a-col class="pl25" :span="3">
-                <span class="tag-cricle"></span>
+                <span
+                  class="tag-cricle"
+                  :style="{'backgroundColor': colors[Math.floor(Math.random()*5 - 1)]}"
+                ></span>
               </a-col>
-              <a-col :span="12">{{ item.entity }}</a-col>
-              <a-col class="tc" :span="7">{{item.wallet}}</a-col>
+              <a-col :span="12">{{ item.title }}</a-col>
+              <a-col class="tc" :span="7">{{item.score}}</a-col>
               <a-col class="tc" :span="2">
-                <a-radio :name="'selected'" :value="item.id" />
+                <a-radio
+                  :checked="checked_id == item.id"
+                  :value="item.id"
+                  @click.stop="selectRadio(item)"
+                />
               </a-col>
             </a-row>
           </a-list-item>
@@ -38,11 +45,25 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Emit } from "vue-property-decorator";
 import Ant from "ant-design-vue";
 import infiniteScroll from "vue-infinite-scroll";
 import DataUtils from "@/utils/dataUtils.ts";
+import Colors from "@/utils/colors.ts";
+
+interface RespData {
+  code: Number;
+  message: String;
+  data: Array<Object>;
+}
+
+const biTableData: RespData = require("@/assets/data/bi-data.json");
+
+console.log(biTableData);
+
 const DU = new DataUtils();
+const _Colors = new Colors();
+
 @Component({
   components: {
     ARow: Ant.Row,
@@ -56,13 +77,25 @@ const DU = new DataUtils();
   }
 })
 export default class ModalWmTable extends Vue {
-  private listData: Array<
-    SelectedTableObject
-  > = DU.randomSelectedModalTableData(10);
+  private listData: Array<Object> = biTableData.data;
 
   private loading: boolean = false;
 
   private busy: boolean = false;
+
+  checked_id: string = "";
+
+  colors: any = _Colors.selectColor;
+
+  @Emit("checked-id")
+  onCheckid(item: object) {
+    return item;
+  }
+
+  selectRadio(item: any) {
+    this.checked_id = item['id'];
+    this.onCheckid(item);
+  }
 
   handleInfiniteOnLoad() {
     const data = this.listData;
@@ -73,7 +106,7 @@ export default class ModalWmTable extends Vue {
       return;
     }
     this.fetchData((res: any) => {
-      this.listData = data.concat(DU.randomSelectedModalTableData(10));
+      this.listData = data.concat(biTableData.data);
       this.loading = false;
     });
   }
@@ -123,12 +156,15 @@ export default class ModalWmTable extends Vue {
 }
 .tag-cricle {
   display: inline-block;
-  width: 9px;
-  height: 9px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   background-color: #256bce;
 }
 .pl25 {
   padding-left: 25px;
+}
+.tc {
+  text-align: center;
 }
 </style>

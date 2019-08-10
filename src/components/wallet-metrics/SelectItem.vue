@@ -1,13 +1,18 @@
 <template>
   <div
     class="selected-box"
-    :style="{'backgroundColor': data == null ? '#FFF':colors[this.index]}"
-    :class="{'nodata': data == null}"
-    @click.stop="openModal(data,index)"
+    :style="{'backgroundColor': data.id == undefined ? '#FFF':colors[this.index]}"
+    :class="{'nodata': data.id == undefined}"
+    @click.stop="openModal"
   >
     <a-icon type="plus" class="plus-icon" />
-    <a-icon type="close-circle" class="close-icon" :style="{'backgroundColor':colors[this.index]}" />
-    <div class="selected-item" v-if="data != null">
+    <a-icon
+      type="close-circle"
+      class="close-icon"
+      :style="{'backgroundColor':colors[this.index]}"
+      @click.stop="deleteHandler"
+    />
+    <div class="selected-item" v-if="data.id != undefined">
       <div class="selected-item__cont">
         <div class="selected-item__title" :style="{'color':colors[this.index]}">{{data.title}}</div>
         <div class="selected-item__sub">{{data.sub}}</div>
@@ -22,24 +27,16 @@
 </template>
 
 <script lang="ts">
-import {
-  Component, Vue, Prop, Emit,
-} from 'vue-property-decorator';
-import Ant from 'ant-design-vue';
-import Colors from '@/utils/colors.ts';
+import { Component, Vue, Prop, Emit } from "vue-property-decorator";
+import Ant from "ant-design-vue";
+import Colors from "@/utils/colors.ts";
 
-interface selectedObject {
-  title?: String;
-  sub?: String;
-  desc?: String;
-  value?: String;
-  tag?: String;
-}
+import "@/utils/interfaceObject";
 
 @Component({
   components: {
-    AIcon: Ant.Icon,
-  },
+    AIcon: Ant.Icon
+  }
 })
 export default class SelectItem extends Vue {
   @Prop()
@@ -51,22 +48,33 @@ export default class SelectItem extends Vue {
   @Prop()
   index!: Number;
 
-  colors: Array<String> = ['#256BCE', '#8806CE', '#A7C4EA', '#CF9BEB'];
+  colors: Array<String> = ["#256BCE", "#8806CE", "#A7C4EA", "#CF9BEB"];
 
   @Emit()
-  openModal(data: selectedObject, index: Number) {
-    if (data == null) {
+  openModal() {
+    if (this.data.id == undefined) {
       return {
-        data,
-        index,
-        show: true,
+        data: this.data,
+        index: this.index,
+        show: true
       };
     }
     return {
-      data,
-      index,
-      show: false,
+      data: this.data,
+      index: this.index,
+      show: false
     };
+  }
+
+  @Emit("change-data")
+  onChangeData() {
+    return {
+      item: {},
+      index: this.index
+    };
+  }
+  deleteHandler() {
+    this.onChangeData();
   }
 
   mounted() {

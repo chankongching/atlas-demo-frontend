@@ -1,5 +1,5 @@
 <template>
-  <a-modal :visible="visible" width="70%" :destroyOnClose="true" @cancel.stop="handleCancel">
+  <a-modal :visible="visible" width="60%" :destroyOnClose="true" @cancel.stop="handleCancel">
     <div class="modal-container">
       <div class="modal-search-panel flex-bt">
         <div class="table-search">
@@ -13,12 +13,18 @@
         </div>
       </div>
       <div class="modal-table-panel">
-        <modal-wm-table />
+        <modal-wm-table @checked-id="radioChange" />
       </div>
     </div>
     <template slot="footer">
       <div class="modal-select-footer">
-        <a-button key="submit" type="primary" class="bi-submit-buttom">
+        <a-button
+          key="submit"
+          type="primary"
+          class="bi-submit-buttom"
+          :class="{'bi-submit-buttom__disable':selectedItem == null}"
+          @click.stop="handleSubmit"
+        >
           Add Selected Wallets
           <a-icon type="plus" class="plus-icon" />
         </a-button>
@@ -28,13 +34,10 @@
 </template>
 
 <script lang="ts">
-import {
-  Component, Vue, Prop, Watch,
-} from 'vue-property-decorator';
-import Ant from 'ant-design-vue';
-import infiniteScroll from 'vue-infinite-scroll';
+import { Component, Vue, Prop, Watch, Emit } from "vue-property-decorator";
+import Ant from "ant-design-vue";
 import ModalWmTable from "@/components/wallet-metrics/ModalWmTable.vue";
-import DataUtils from '@/utils/dataUtils.ts';
+import DataUtils from "@/utils/dataUtils.ts";
 
 const DU = new DataUtils();
 
@@ -53,25 +56,45 @@ const DU = new DataUtils();
     ACheckbox: Ant.Checkbox,
     ARadio: Ant.Radio,
     ModalWmTable
-  },
-  directives: {
-    infiniteScroll,
-  },
+  }
 })
 export default class SelectModal extends Vue {
   @Prop({ default: true })
   visibleModal!: Boolean;
 
-  @Watch('visibleModal')
+  @Watch("visibleModal")
   onVisibleModal(val: Boolean, old: Boolean) {
     this.visible = val;
   }
+
+  @Emit("btn-submit")
+  onBtnSubmit() {
+    return {
+      item: this.selectedItem
+    };
+  }
+
+  @Emit('modal-close')
+  onModalClose(){
+    return this.visible;
+  }
+
+  selectedItem: Object | null = null;
 
   visible: Boolean = this.visibleModal;
 
   handleCancel() {
     this.visible = false;
-    console.log(this.visible);
+    this.onModalClose();
+  }
+  handleSubmit() {
+    if (this.selectedItem == null) return false;
+    this.handleCancel();
+    this.onBtnSubmit();
+  }
+
+  radioChange(item: object) {
+    this.selectedItem = item;
   }
 }
 </script>
