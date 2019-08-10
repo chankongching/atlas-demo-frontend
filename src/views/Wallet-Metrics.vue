@@ -94,13 +94,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import Ant from "ant-design-vue";
-import SelectItem from "@/components/wallet-metrics/SelectItem.vue";
-import ExposureItem from "@/components/wallet-metrics/ExposureItem.vue";
-import FdBar from "@/components/wallet-metrics/FdBar.vue";
-import UgLine from "@/components/wallet-metrics/UgLine.vue";
-import InOutPanel from "@/components/wallet-metrics/InOutPanel.vue";
+import { Component, Vue } from 'vue-property-decorator';
+import Ant from 'ant-design-vue';
+import SelectItem from '@/components/wallet-metrics/SelectItem.vue';
+import ExposureItem from '@/components/wallet-metrics/ExposureItem.vue';
+import FdBar from '@/components/wallet-metrics/FdBar.vue';
+import UgLine from '@/components/wallet-metrics/UgLine.vue';
+import InOutPanel from '@/components/wallet-metrics/InOutPanel.vue';
 
 @Component({
   components: {
@@ -112,45 +112,48 @@ import InOutPanel from "@/components/wallet-metrics/InOutPanel.vue";
     ExposureItem,
     FdBar,
     UgLine,
-    InOutPanel
-  }
+    InOutPanel,
+  },
 })
 export default class WalletMetrics extends Vue {
   isShowClose: Boolean = false;
 
   selected: Array<Object> = [
     {
-      title: "Binance",
-      sub: "eXCHANGE",
-      desc: "User uploaded wallet",
-      value: "1,434,394",
-      tag: "1,434,394"
+      title: 'Binance',
+      sub: 'eXCHANGE',
+      desc: 'User uploaded wallet',
+      value: '1,434,394',
+      tag: '1,434,394',
     },
     {
-      title: "Binance",
-      sub: "eXCHANGE",
-      desc: "User uploaded wallet",
-      value: "1,434,394",
-      tag: "1,434,394"
+      title: 'Binance',
+      sub: 'eXCHANGE',
+      desc: 'User uploaded wallet',
+      value: '1,434,394',
+      tag: '1,434,394',
     },
     {
-      title: "Binance",
-      sub: "eXCHANGE",
-      desc: "User uploaded wallet",
-      value: "1,434,394",
-      tag: "1,434,394"
-    }
+      title: 'Binance',
+      sub: 'eXCHANGE',
+      desc: 'User uploaded wallet',
+      value: '1,434,394',
+      tag: '1,434,394',
+    },
   ];
+
   exposure1: Array<Array<String>> = [
-    ["#107F77", "#D6AAAA", "#ABD194", "#F4C355", "#75113E"],
-    ["#f28048", "#d0a0a0", "#4ab5ac", "#c83618", "#9c9b46"],
-    ["#a1cb89", "#ac2e70", "#11746c", "#6a1236", "#d0a0a1"]
+    ['#107F77', '#D6AAAA', '#ABD194', '#F4C355', '#75113E'],
+    ['#f28048', '#d0a0a0', '#4ab5ac', '#c83618', '#9c9b46'],
+    ['#a1cb89', '#ac2e70', '#11746c', '#6a1236', '#d0a0a1'],
   ];
+
   exposure2: Array<Array<String>> = [
-    ["#11746c", "#c83617", "#f2bb4a", "#f38148", "#ac2e71"],
-    ["#d1a0a1", "#6a1236", "#4ab5ad", "#9b9b46", "#f6d2b5"],
-    ["#f3bb4b", "#6a1236", "#4ab5ad", "#c83618", "#f6d2b4"]
+    ['#11746c', '#c83617', '#f2bb4a', '#f38148', '#ac2e71'],
+    ['#d1a0a1', '#6a1236', '#4ab5ad', '#9b9b46', '#f6d2b5'],
+    ['#f3bb4b', '#6a1236', '#4ab5ad', '#c83618', '#f6d2b4'],
   ];
+
   toggleCloseHandler() {
     this.isShowClose = !this.isShowClose;
   }
@@ -171,7 +174,7 @@ export default class WalletMetrics extends Vue {
       padding: 0;
       font-size: 24px;
       font-weight: bold;
-      font-family: "Proxima Nova";
+      font-family: 'proxima-nova', 'sans-serif';
     }
   }
   .card-tools {
@@ -222,4 +225,3 @@ export default class WalletMetrics extends Vue {
   padding: 20px 0;
 }
 </style>
-

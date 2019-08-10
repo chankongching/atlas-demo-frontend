@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop} from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 import Ant from 'ant-design-vue';
 
 import 'echarts/lib/chart/line';
@@ -52,7 +52,7 @@ import 'echarts/lib/component/polar';
 })
 export default class HelloWorld extends Vue {
   @Prop() private msg!: string;
-  
+
   private rootSubmenuKeys: Array<string> = ['sub1', 'sub2', 'sub4'];
 
   private openKeys: Array<string> = ['sub1'];

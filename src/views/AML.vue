@@ -119,7 +119,7 @@
                 </a-row>
               </div>
               <div class="infinite-list-container">
-                <a-list 
+                <a-list
                     :dataSource="listData"
                     v-infinite-scroll="handleInfiniteOnLoad"
                     :infinite-scroll-disabled="busy"
@@ -205,7 +205,7 @@
                   <a-menu-item key="HUOBI5"> HUOBI</a-menu-item>
                 </a-menu>
               </div>
-              
+
             </a-col>
             <a-col :span="18">
               <div class="card-container infinite-list">
@@ -218,7 +218,7 @@
                   </a-row>
                 </div>
                 <div class="infinite-list-container">
-                  <a-list 
+                  <a-list
                       :dataSource="listData"
                       v-infinite-scroll="handleInfiniteOnLoad"
                       :infinite-scroll-disabled="busy"
@@ -261,7 +261,7 @@
               </a-row>
             </div>
             <div class="infinite-list-container">
-              <a-list 
+              <a-list
                   :dataSource="listData"
                   v-infinite-scroll="handleInfiniteOnLoad"
                   :infinite-scroll-disabled="busy"
@@ -313,8 +313,8 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import Ant from 'ant-design-vue';
-import 'echarts/lib/chart/pie'
-import 'echarts/lib/chart/line'
+import 'echarts/lib/chart/pie';
+import 'echarts/lib/chart/line';
 import infiniteScroll from 'vue-infinite-scroll';
 
 @Component({
@@ -337,33 +337,34 @@ import infiniteScroll from 'vue-infinite-scroll';
     ACheckbox: Ant.Checkbox,
     ATag: Ant.Tag,
     AIcon: Ant.Icon,
-    AUploadDragger: Ant.Upload.Dragger
+    AUploadDragger: Ant.Upload.Dragger,
   },
   directives: {
-    infiniteScroll
-  }
+    infiniteScroll,
+  },
 })
 export default class AML extends Vue {
   private exposurePieData: object = {
     tooltip: {
       trigger: 'item',
-      formatter: "{a} <br/>{b}: {c} ({d}%)"
+      formatter: '{a} <br/>{b}: {c} ({d}%)',
     },
     series: [
       {
-        name:'Exposure',
-        type:'pie',
+        name: 'Exposure',
+        type: 'pie',
         selectedMode: 'single',
         radius: [0, '50%'],
-        data:[
-          {value:335, name:'darknet', selected:true},
-          {value:679, name:'exchange'},
-          {value:876, name:'p2p'},
-          {value:1548, name:'sjfkd'}
-        ]
-      }, 
-    ]
+        data: [
+          { value: 335, name: 'darknet', selected: true },
+          { value: 679, name: 'exchange' },
+          { value: 876, name: 'p2p' },
+          { value: 1548, name: 'sjfkd' },
+        ],
+      },
+    ],
   };
+
   private historyLineData ={
     title: {
       // subtext: 'History of providence of funds',
@@ -371,120 +372,122 @@ export default class AML extends Vue {
       //   fontSize: 24,
       // },
     },
-    tooltip : {
-        trigger: 'axis',
-        axisPointer: {
-            type: 'cross',
-            label: {
-                backgroundColor: '#6a7985'
-            }
-        }
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'cross',
+        label: {
+          backgroundColor: '#6a7985',
+        },
+      },
     },
     grid: {
-        left: '3%',
-        right: '6%',
-        bottom: '3%',
-        containLabel: true
+      left: '3%',
+      right: '6%',
+      bottom: '3%',
+      containLabel: true,
     },
-    xAxis : [
-        {
-            type : 'category',
-            boundaryGap : false,
-            name: 'Time',
-            data : ['Jan 2014', 'Jun 2014', 'Jan 2015', 'Jun 2015', 'Jan 2016', 'Jun 2016', 'Jan 2017', 'Jun 2017']
-        }
+    xAxis: [
+      {
+        type: 'category',
+        boundaryGap: false,
+        name: 'Time',
+        data: ['Jan 2014', 'Jun 2014', 'Jan 2015', 'Jun 2015', 'Jan 2016', 'Jun 2016', 'Jan 2017', 'Jun 2017'],
+      },
     ],
-    yAxis : [
-        {
-          type : 'value',
-          name: '%',
-          boundaryGap : false,
-          data : [0, 20, 40, 60, 80, 100]
-        }
+    yAxis: [
+      {
+        type: 'value',
+        name: '%',
+        boundaryGap: false,
+        data: [0, 20, 40, 60, 80, 100],
+      },
     ],
-    series : [
-        {
-            name:'Exchange',
-            type:'line',
-            stack: 'Total',
-            areaStyle: {},
-            data:[24, 10, 15, 30, 50, 70, 40, 45]
+    series: [
+      {
+        name: 'Exchange',
+        type: 'line',
+        stack: 'Total',
+        areaStyle: {},
+        data: [24, 10, 15, 30, 50, 70, 40, 45],
+      },
+      {
+        name: 'P2P',
+        type: 'line',
+        stack: 'Total',
+        areaStyle: {},
+        data: [34, 40, 65, 30, 20, 15, 30, 25],
+      },
+      {
+        name: 'transfer',
+        type: 'line',
+        stack: 'Total',
+        areaStyle: {},
+        data: [60, 20, 30, 40, 60, 50, 40, 55],
+      },
+      {
+        name: 'Shopping',
+        type: 'line',
+        stack: 'Total',
+        areaStyle: { normal: {} },
+        data: [40, 20, 45, 50, 40, 20, 30, 55],
+      },
+      {
+        name: 'OUT',
+        type: 'line',
+        stack: 'Total',
+        label: {
+          normal: {
+            show: true,
+            position: 'top',
+          },
         },
-        {
-            name:'P2P',
-            type:'line',
-            stack: 'Total',
-            areaStyle: {},
-            data:[34, 40, 65, 30, 20, 15, 30, 25]
-        },
-        {
-            name:'transfer',
-            type:'line',
-            stack: 'Total',
-            areaStyle: {},
-            data:[60, 20, 30, 40, 60, 50, 40, 55]
-        },
-        {
-            name:'Shopping',
-            type:'line',
-            stack: 'Total',
-            areaStyle: {normal: {}},
-            data:[40, 20, 45, 50, 40, 20, 30, 55]
-        },
-        {
-            name:'OUT',
-            type:'line',
-            stack: 'Total',
-            label: {
-                normal: {
-                    show: true,
-                    position: 'top'
-                }
-            },
-            areaStyle: {normal: {}},
-            data:[14, 40, 35, 10, 80, 30, 60, 25]
-        }
-    ]
+        areaStyle: { normal: {} },
+        data: [14, 40, 35, 10, 80, 30, 60, 25],
+      },
+    ],
   };
+
   private riskScoreOverTimeData = {
-    tooltip : {
-        trigger: 'axis',
-        axisPointer: {
-            type: 'cross',
-            label: {
-                backgroundColor: '#6a7985'
-            }
-        }
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'cross',
+        label: {
+          backgroundColor: '#6a7985',
+        },
+      },
     },
     grid: {
-        left: '3%',
-        right: '6%',
-        bottom: '3%',
-        containLabel: true
+      left: '3%',
+      right: '6%',
+      bottom: '3%',
+      containLabel: true,
     },
-    xAxis : [
-        {
-            type : 'category',
-            boundaryGap : false,
-            data : ['Jan 2014', 'Jun 2014', 'Jan 2015', 'Jun 2015', 'Jan 2016', 'Jun 2016', 'Jan 2017', 'Jun 2017'],
-            name: 'Time'
-        }
+    xAxis: [
+      {
+        type: 'category',
+        boundaryGap: false,
+        data: ['Jan 2014', 'Jun 2014', 'Jan 2015', 'Jun 2015', 'Jan 2016', 'Jun 2016', 'Jan 2017', 'Jun 2017'],
+        name: 'Time',
+      },
     ],
-    yAxis : [
-        {
-            type : 'value',
-            name: 'Score'
-        }
+    yAxis: [
+      {
+        type: 'value',
+        name: 'Score',
+      },
     ],
-    series : [
-        {
-            name:'Score',
-            type:'line',
-            stack: 'Total',
-            data:[24, 10, 15, 30, 50, 70, 40, 45]
-        },
-    ]
+    series: [
+      {
+        name: 'Score',
+        type: 'line',
+        stack: 'Total',
+        data: [24, 10, 15, 30, 50, 70, 40, 45],
+      },
+    ],
   };
+
   private listData = [
     'Racing car sprays burning fuel into crowd.',
     'Japanese princess to wed commoner.',
@@ -492,18 +495,26 @@ export default class AML extends Vue {
     'Man charged over missing wedding girl.',
     'Los Angeles battles huge wildfires.',
   ];
+
   private loading: boolean = false;
+
   private busy: boolean = false;
+
   private exposureSort: string = 'jack';
+
   private visible: boolean = false;
+
   private AMLTab: string = 'search';
-  handleClick (e: object) {
+
+  handleClick(e: object) {
     console.log((e as any).key);
-  };
-  exchangeSwitch (e: object) {
+  }
+
+  exchangeSwitch(e: object) {
     console.log((e as any).key);
-  };
-  handleInfiniteOnLoad  () {
+  }
+
+  handleInfiniteOnLoad() {
     const data = this.listData;
     this.loading = true;
     if (data.length > 14) {
@@ -515,34 +526,43 @@ export default class AML extends Vue {
     this.fetchData((res: any) => {
       this.listData = data.concat(res);
       this.loading = false;
-    })
-  };
-  fetchData (callback:any) {
-    callback(['add befor','add befor1','add befor2']);
-  };
-  onSearch (value: any) {
-    console.log(value)
-  };
-  tabsCallback(key:any) {
-    console.log(key)
+    });
   }
+
+  fetchData(callback:any) {
+    callback(['add befor', 'add befor1', 'add befor2']);
+  }
+
+  onSearch(value: any) {
+    console.log(value);
+  }
+
+  tabsCallback(key:any) {
+    console.log(key);
+  }
+
   addTabButton() {
     this.visible = true;
   }
+
   handleCancel() {
     this.visible = false;
   }
+
   modalHandleClick(e: any) {
     this.AMLTab = e.key;
   }
+
   searchSorthandleChange() {
 
   }
-  log (e:any) {
-    console.log(e)
+
+  log(e:any) {
+    console.log(e);
   }
+
   uploadHandleChange(info: any) {
-    const status = info.file.status;
+    const { status } = info.file;
     if (status !== 'uploading') {
       console.log(info.file, info.fileList);
     }
@@ -652,7 +672,7 @@ export default class AML extends Vue {
       width: 100%;
       height: 300px;
     }
-    
+
     .search-container {
       padding: 20px 0;
     }
@@ -696,7 +716,6 @@ export default class AML extends Vue {
     }
   }
 .modal-container {
-  
+
 }
 </style>
-

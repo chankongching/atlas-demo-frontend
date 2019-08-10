@@ -7,31 +7,37 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
+import {
+  Component, Vue, Prop, Watch,
+} from 'vue-property-decorator';
 import Ant from 'ant-design-vue';
 
 @Component({
   components: {
-    
+
   },
 })
 export default class ExposureChart extends Vue {
   private newData: Array<object> = [];
 
-  @Prop({required: false, type: Array, default: () => [
-    
-  ]})
+  @Prop({
+    required: false,
+    type: Array,
+    default: () => [
+
+    ],
+  })
   data ?: []
-  
-  color16(){ // 十六进制颜色随机
-    var r = Math.floor(Math.random()*256);
-    var g = Math.floor(Math.random()*256);
-    var b = Math.floor(Math.random()*256);
-    var color = '#'+r.toString(16)+g.toString(16)+b.toString(16);
+
+  color16() { // 十六进制颜色随机
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
+    const color = `#${r.toString(16)}${g.toString(16)}${b.toString(16)}`;
     return color;
   }
 
-  @Watch('data', {immediate: true, deep: true})
+  @Watch('data', { immediate: true, deep: true })
   watchData(newVal: Array<object>, oldVal: Array<object>) {
     this.newData = newVal;
   }
@@ -56,4 +62,3 @@ export default class ExposureChart extends Vue {
   }
 }
 </style>
-

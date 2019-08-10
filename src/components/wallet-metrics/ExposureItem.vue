@@ -13,13 +13,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
-import Ant from "ant-design-vue";
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import Ant from 'ant-design-vue';
 
 @Component({
   components: {
-    AIcon: Ant.Icon
-  }
+    AIcon: Ant.Icon,
+  },
 })
 export default class ExposureItem extends Vue {
   @Prop()
@@ -48,7 +48,6 @@ export default class ExposureItem extends Vue {
       position: absolute;
       left: 50%;
       transform: translate(-50%, 0);
-      z-index: 1;
       color: #1f262a;
       font-size: 10px;
     }
