@@ -149,7 +149,7 @@
                   :infinite-scroll-disabled="busy"
                   :infinite-scroll-distance="10"
                 >
-                  <a-list-item slot="renderItem" slot-scope="item">
+                  <a-list-item slot="renderItem" slot-scope="item" v-if="item.value > 0">
                     <a-row style="display: flex; align-items: center;">
                       <a-col :span="4" style="display: flex; justify-content: center;">
                         <span class="dot" v-bind:style="{ backgroundColor: item.bgColor, }"></span>
@@ -230,8 +230,11 @@
                   >
                     <a-list-item slot="renderItem" slot-scope="item">
                       <a-row style="display: flex; align-items: center;">
-                        <a-col :span="4" style="display: flex; justify-content: flex-start; padding-left: 1vw;">
-                        <span class="dot" v-bind:style="{ backgroundColor: item.bgColor, }"></span>
+                        <a-col
+                          :span="4"
+                          style="display: flex; justify-content: flex-start; padding-left: 1vw;"
+                        >
+                          <span class="dot" v-bind:style="{ backgroundColor: item.bgColor, }"></span>
                         </a-col>
                         <a-col :span="12">{{ item.name }}</a-col>
                         <a-col :span="4">{{item.value}}</a-col>
@@ -278,8 +281,11 @@
               >
                 <a-list-item slot="renderItem" slot-scope="item">
                   <a-row style="display: flex; align-items: center;">
-                        <a-col :span="4" style="display: flex; justify-content: flex-start; padding-left: 1vw;">
-                        <span class="dot" v-bind:style="{ backgroundColor: item.bgColor, }"></span>
+                    <a-col
+                      :span="4"
+                      style="display: flex; justify-content: flex-start; padding-left: 1vw;"
+                    >
+                      <span class="dot" v-bind:style="{ backgroundColor: item.bgColor, }"></span>
                     </a-col>
                     <a-col :span="12">{{ item.name }}</a-col>
                     <a-col :span="4">{{ item.value }}</a-col>
@@ -316,7 +322,7 @@
         <div class="flex-between">
           <div>
             <!-- <p>selected</p>
-            <a-tag closable @close="log">Tag 2</a-tag> -->
+            <a-tag closable @close="log">Tag 2</a-tag>-->
           </div>
           <a-button key="submit" type="primary">Submit</a-button>
         </div>
@@ -596,11 +602,23 @@ export default class AML extends Vue {
             });
           });
         }
+        this.listData.sort(function(x, y) {
+          return y.value - x.value;
+        });
         this.riskScoreOverTimeData.xAxis[0].data = (this
           .datas as any).address_score_month;
         this.riskScoreOverTimeData.series[0].data = (this
           .datas as any).address_score_series;
         this.historyLineData.series = (this.datas as any).historyData;
+      let timeList = [];
+      this.datas.xAxisData.forEach(element => {
+        let date = new Date(element * 1000);
+        var month = date.getUTCMonth() + 1;
+        var year = date.getUTCFullYear();
+        var formattedTime = month + " " + year;
+        timeList.push(formattedTime);
+      });
+      this.historyLineData.xAxis[0].data = timeList;
       })
       .catch(err => {
         console.log(err);
@@ -633,6 +651,9 @@ export default class AML extends Vue {
         });
       });
     }
+    this.listData.sort(function(x, y) {
+      return y.value - x.value;
+    });
   }
 
   handleInfiniteOnLoad() {
@@ -740,6 +761,9 @@ export default class AML extends Vue {
         });
       });
     }
+    this.listData.sort(function(x, y) {
+      return y.value - x.value;
+    });
   }
 
   pieselectchanged(params: any) {
@@ -786,13 +810,24 @@ export default class AML extends Vue {
           });
         });
       }
+      this.listData.sort(function(x, y) {
+        return y.value - x.value;
+      });
       this.riskScoreOverTimeData.xAxis[0].data = (this
         .datas as any).address_score_month;
       this.riskScoreOverTimeData.series[0].data = (this
         .datas as any).address_score_series;
       // this.historyLineData.xAxis[0].data = this.datas.historyXAxis;
       this.historyLineData.series = (this.datas as any).historyData;
-      this.historyLineData.xAxis[0].data = this.datas.address_score_month;
+      let timeList = [];
+      this.datas.xAxisData.forEach(element => {
+        let date = new Date(element * 1000);
+        var month = date.getUTCMonth() + 1;
+        var year = date.getUTCFullYear();
+        var formattedTime = month + " " + year;
+        timeList.push(formattedTime);
+      });
+      this.historyLineData.xAxis[0].data = timeList;
     });
   }
 }
