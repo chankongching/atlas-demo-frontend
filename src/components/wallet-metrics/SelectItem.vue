@@ -19,7 +19,7 @@
         <div class="selected-item__des">{{data.desc}}</div>
         <div class="selected-item__num">
           <div class="item__num" :style="{'color':colors[this.index]}">{{data.value}}</div>
-          <div class="item__num_title">{{data.tag}}</div>
+          <div class="item__num_title">{{data.value_tag}}</div>
         </div>
       </div>
     </div>

@@ -7,29 +7,33 @@
       class="exposure-box__item"
       v-for="(color,index) in data[index]"
       :key="index.toString()"
-      :style="{'backgroundColor': color}"
+      :style="{'backgroundColor': color, 'flex': selected.in[index].value}"
       @click="SelectExposure(data[index])"
     >
       <div class="item__tip__line"></div>
-      <div class="item__tip__name">ferfer</div>
+      <div class="item__tip__name">{{selected.in[index].name || ""}}</div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import {
-  Component, Vue, Prop, Emit,
+  Component, Vue, Prop, Emit, Watch,
 } from 'vue-property-decorator';
 import Ant from 'ant-design-vue';
-
 import '@/utils/interfaceObject';
+import Station from '@/utils/station.ts';
+
+const _Station = new Station();
 
 @Component({
   components: {
     AIcon: Ant.Icon,
   },
 })
+
 export default class ExposureItem extends Vue {
+
   @Prop()
   data!: Array<Array<String>>;
 
@@ -45,6 +49,15 @@ export default class ExposureItem extends Vue {
   @Emit('select-exposure')
   SelectExposure(item: any) {
     return { item, index: this.index };
+  }
+
+  _stationEnum:any = _Station.findType;
+
+
+
+  @Watch('selected')
+  onSelected(a:any,b:any){
+    console.log(a);
   }
 
   mounted() {
