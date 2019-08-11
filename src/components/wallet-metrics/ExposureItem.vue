@@ -22,7 +22,7 @@ import {
 } from 'vue-property-decorator';
 import Ant from 'ant-design-vue';
 
-import "@/utils/interfaceObject";
+import '@/utils/interfaceObject';
 
 @Component({
   components: {

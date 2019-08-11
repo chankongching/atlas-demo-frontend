@@ -27,16 +27,18 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Emit } from "vue-property-decorator";
-import Ant from "ant-design-vue";
-import Colors from "@/utils/colors.ts";
+import {
+  Component, Vue, Prop, Emit,
+} from 'vue-property-decorator';
+import Ant from 'ant-design-vue';
+import Colors from '@/utils/colors.ts';
 
-import "@/utils/interfaceObject";
+import '@/utils/interfaceObject';
 
 @Component({
   components: {
-    AIcon: Ant.Icon
-  }
+    AIcon: Ant.Icon,
+  },
 })
 export default class SelectItem extends Vue {
   @Prop()
@@ -48,7 +50,7 @@ export default class SelectItem extends Vue {
   @Prop()
   index!: Number;
 
-  colors: Array<String> = ["#256BCE", "#8806CE", "#A7C4EA", "#CF9BEB"];
+  colors: Array<String> = ['#256BCE', '#8806CE', '#A7C4EA', '#CF9BEB'];
 
   @Emit()
   openModal() {
@@ -56,23 +58,24 @@ export default class SelectItem extends Vue {
       return {
         data: this.data,
         index: this.index,
-        show: true
+        show: true,
       };
     }
     return {
       data: this.data,
       index: this.index,
-      show: false
+      show: false,
     };
   }
 
-  @Emit("change-data")
+  @Emit('change-data')
   onChangeData() {
     return {
       item: {},
-      index: this.index
+      index: this.index,
     };
   }
+
   deleteHandler() {
     this.onChangeData();
   }

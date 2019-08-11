@@ -348,7 +348,9 @@ import Axios from 'axios';
 })
 export default class AML extends Vue {
   private datas = {};
+
   private exposurePie = [];
+
   private exposurePieData: object = {
     tooltip: {
       trigger: 'item',
@@ -360,15 +362,15 @@ export default class AML extends Vue {
         type: 'pie',
         selectedMode: 'single',
         radius: [0, '50%'],
-        data: []
+        data: [],
       },
     ],
   };
-  
+
   private selectedPieData = {
     name: '',
     value: null,
-    percent: ''
+    percent: '',
   }
 
   private historyLineData ={
@@ -410,7 +412,7 @@ export default class AML extends Vue {
       },
     ],
     series: [
-      
+
     ],
   };
 
@@ -543,18 +545,20 @@ export default class AML extends Vue {
   fetchAMLDate() {
     return Axios.get('https://www.easy-mock.com/mock/5d4e9bc64a02dc7a7d47475f/api/aml');
   }
+
   pieClick(params: any) {
     console.log(params);
     this.selectedPieData = params.data;
     this.selectedPieData.percent = params.percent;
 
-    
+
     if (this.defaultExchangeSelected === 'IN') {
       this.listData = (this.datas as any).pie_data.inCategory[params.name];
     } else {
       this.listData = (this.datas as any).pie_data.outCategory[params.name];
     }
   }
+
   pieselectchanged(params: any) {
     // console.log(params)
     // if (params.selected[params.name]) {
@@ -564,21 +568,22 @@ export default class AML extends Vue {
     //   console.log('未选中' + params.name);
     // }
   }
+
   created() {
-    this.fetchAMLDate().then(res => {
+    this.fetchAMLDate().then((res) => {
       this.datas = res.data;
       // this.exposurePie = (this.datas as any).pie_data.in;
-      this.exposurePieData.series[0].data = (this.datas as any).pie_data.pieInData;
+      (this.exposurePieData as any).series[0].data = (this.datas as any).pie_data.pieInData;
       if (this.defaultExchangeSelected === 'IN') {
         this.listData = (this.datas as any).pie_data.inList;
       } else {
         this.listData = (this.datas as any).pie_data.outList;
       }
-      this.riskScoreOverTimeData.xAxis[0].data = (this.datas as any).address_score_month
+      this.riskScoreOverTimeData.xAxis[0].data = (this.datas as any).address_score_month;
       this.riskScoreOverTimeData.series[0].data = (this.datas as any).address_score_series;
-      
+
       // this.historyLineData.xAxis[0].data = this.datas.historyXAxis;
-      this.historyLineData.series = this.datas.historyData;
+      this.historyLineData.series = (this.datas as any).historyData;
       console.log(res.data);
     });
   }

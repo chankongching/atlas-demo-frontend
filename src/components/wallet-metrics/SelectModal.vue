@@ -34,10 +34,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch, Emit } from "vue-property-decorator";
-import Ant from "ant-design-vue";
-import ModalWmTable from "@/components/wallet-metrics/ModalWmTable.vue";
-import DataUtils from "@/utils/dataUtils.ts";
+import {
+  Component, Vue, Prop, Watch, Emit,
+} from 'vue-property-decorator';
+import Ant from 'ant-design-vue';
+import ModalWmTable from '@/components/wallet-metrics/ModalWmTable.vue';
+import DataUtils from '@/utils/dataUtils.ts';
 
 const DU = new DataUtils();
 
@@ -55,27 +57,27 @@ const DU = new DataUtils();
     AIcon: Ant.Icon,
     ACheckbox: Ant.Checkbox,
     ARadio: Ant.Radio,
-    ModalWmTable
-  }
+    ModalWmTable,
+  },
 })
 export default class SelectModal extends Vue {
   @Prop({ default: true })
   visibleModal!: Boolean;
 
-  @Watch("visibleModal")
+  @Watch('visibleModal')
   onVisibleModal(val: Boolean, old: Boolean) {
     this.visible = val;
   }
 
-  @Emit("btn-submit")
+  @Emit('btn-submit')
   onBtnSubmit() {
     return {
-      item: this.selectedItem
+      item: this.selectedItem,
     };
   }
 
   @Emit('modal-close')
-  onModalClose(){
+  onModalClose() {
     return this.visible;
   }
 
@@ -87,6 +89,7 @@ export default class SelectModal extends Vue {
     this.visible = false;
     this.onModalClose();
   }
+
   handleSubmit() {
     if (this.selectedItem == null) return false;
     this.handleCancel();

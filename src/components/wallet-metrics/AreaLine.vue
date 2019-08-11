@@ -10,7 +10,7 @@ import Ant from 'ant-design-vue';
 import G2 from '@antv/g2';
 import DataSet from '@antv/data-set';
 
-import Colors from "@/utils/colors.ts";
+import Colors from '@/utils/colors.ts';
 
 const _C = new Colors();
 const ds = new DataSet();
@@ -49,185 +49,185 @@ export default class FdBar extends Vue {
   updateChart(chart: G2.Chart): void {
     const data = [
       {
-        time: "Jan 2014",
+        time: 'Jan 2014',
         score: 25,
-        type: 0
+        type: 0,
       },
       {
-        time: "Jun 2014",
+        time: 'Jun 2014',
         score: 54,
-        type: 0
+        type: 0,
       },
       {
-        time: "Jan 2015",
+        time: 'Jan 2015',
         score: 84,
-        type: 0
+        type: 0,
       },
       {
-        time: "Jun 2015",
+        time: 'Jun 2015',
         score: 33,
-        type: 0
+        type: 0,
       },
       {
-        time: "Jan 2016",
+        time: 'Jan 2016',
         score: 57,
-        type: 0
+        type: 0,
       },
       {
-        time: "Jun 2016",
+        time: 'Jun 2016',
         score: 53,
-        type: 0
+        type: 0,
       },
       {
-        time: "Jan 2017",
+        time: 'Jan 2017',
         score: 15,
-        type: 0
+        type: 0,
       },
       {
-        time: "Jun 2017",
+        time: 'Jun 2017',
         score: 91,
-        type: 0
+        type: 0,
       },
       {
-        time: "Jan 2018",
+        time: 'Jan 2018',
         score: 63,
-        type: 0
+        type: 0,
       },
       {
-        time: "Jun 2018",
+        time: 'Jun 2018',
         score: 92,
-        type: 0
+        type: 0,
       },
       {
-        time: "Jan 2019",
+        time: 'Jan 2019',
         score: 23,
-        type: 0
+        type: 0,
       },
       {
-        time: "Jun 2019",
+        time: 'Jun 2019',
         score: 99,
-        type: 0
+        type: 0,
       },
       {
-        time: "Jan 2014",
+        time: 'Jan 2014',
         score: 25,
-        type: 1
+        type: 1,
       },
       {
-        time: "Jun 2014",
+        time: 'Jun 2014',
         score: 54,
-        type: 1
+        type: 1,
       },
       {
-        time: "Jan 2015",
+        time: 'Jan 2015',
         score: 84,
-        type: 1
+        type: 1,
       },
       {
-        time: "Jun 2015",
+        time: 'Jun 2015',
         score: 33,
-        type: 1
+        type: 1,
       },
       {
-        time: "Jan 2016",
+        time: 'Jan 2016',
         score: 57,
-        type: 1
+        type: 1,
       },
       {
-        time: "Jun 2016",
+        time: 'Jun 2016',
         score: 53,
-        type: 1
+        type: 1,
       },
       {
-        time: "Jan 2017",
+        time: 'Jan 2017',
         score: 15,
-        type: 1
+        type: 1,
       },
       {
-        time: "Jun 2017",
+        time: 'Jun 2017',
         score: 91,
-        type: 1
+        type: 1,
       },
       {
-        time: "Jan 2018",
+        time: 'Jan 2018',
         score: 63,
-        type: 1
+        type: 1,
       },
       {
-        time: "Jun 2018",
+        time: 'Jun 2018',
         score: 92,
-        type: 1
+        type: 1,
       },
       {
-        time: "Jan 2019",
+        time: 'Jan 2019',
         score: 23,
-        type: 1
+        type: 1,
       },
       {
-        time: "Jun 2019",
+        time: 'Jun 2019',
         score: 99,
-        type: 1
+        type: 1,
       },
       {
-        time: "Jan 2014",
+        time: 'Jan 2014',
         score: 25,
-        type: 2
+        type: 2,
       },
       {
-        time: "Jun 2014",
+        time: 'Jun 2014',
         score: 54,
-        type: 2
+        type: 2,
       },
       {
-        time: "Jan 2015",
+        time: 'Jan 2015',
         score: 84,
-        type: 2
+        type: 2,
       },
       {
-        time: "Jun 2015",
+        time: 'Jun 2015',
         score: 33,
-        type: 2
+        type: 2,
       },
       {
-        time: "Jan 2016",
+        time: 'Jan 2016',
         score: 57,
-        type: 2
+        type: 2,
       },
       {
-        time: "Jun 2016",
+        time: 'Jun 2016',
         score: 53,
-        type: 2
+        type: 2,
       },
       {
-        time: "Jan 2017",
+        time: 'Jan 2017',
         score: 15,
-        type: 2
+        type: 2,
       },
       {
-        time: "Jun 2017",
+        time: 'Jun 2017',
         score: 91,
-        type: 2
+        type: 2,
       },
       {
-        time: "Jan 2018",
+        time: 'Jan 2018',
         score: 63,
-        type: 2
+        type: 2,
       },
       {
-        time: "Jun 2018",
+        time: 'Jun 2018',
         score: 92,
-        type: 2
+        type: 2,
       },
       {
-        time: "Jan 2019",
+        time: 'Jan 2019',
         score: 23,
-        type: 2
+        type: 2,
       },
       {
-        time: "Jun 2019",
+        time: 'Jun 2019',
         score: 99,
-        type: 2
-      }
+        type: 2,
+      },
     ];
 
     chart.legend(false);
@@ -252,10 +252,8 @@ export default class FdBar extends Vue {
     chart
       .areaStack()
       .position('time*score')
-      .color('type',function(val:any){
-        return _C.inColor[val];
-      });
-      
+      .color('type', (val:any) => _C.inColor[val]);
+
     chart.render();
   }
 }

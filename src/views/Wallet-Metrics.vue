@@ -121,17 +121,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import Ant from "ant-design-vue";
-import SelectItem from "@/components/wallet-metrics/SelectItem.vue";
-import ExposureItem from "@/components/wallet-metrics/ExposureItem.vue";
-import FdBar from "@/components/wallet-metrics/FdBar.vue";
-import UgLine from "@/components/wallet-metrics/UgLine.vue";
-import InOutPanel from "@/components/wallet-metrics/InOutPanel.vue";
-import SelectModal from "@/components/wallet-metrics/SelectModal.vue";
+import { Component, Vue } from 'vue-property-decorator';
+import Ant from 'ant-design-vue';
+import SelectItem from '@/components/wallet-metrics/SelectItem.vue';
+import ExposureItem from '@/components/wallet-metrics/ExposureItem.vue';
+import FdBar from '@/components/wallet-metrics/FdBar.vue';
+import UgLine from '@/components/wallet-metrics/UgLine.vue';
+import InOutPanel from '@/components/wallet-metrics/InOutPanel.vue';
+import SelectModal from '@/components/wallet-metrics/SelectModal.vue';
 
-import "@/utils/interfaceObject";
-import Colors from "../utils/colors";
+import '@/utils/interfaceObject';
+import Colors from '../utils/colors';
 
 const _C = new Colors();
 
@@ -147,8 +147,8 @@ const _C = new Colors();
     FdBar,
     UgLine,
     InOutPanel,
-    SelectModal
-  }
+    SelectModal,
+  },
 })
 export default class WalletMetrics extends Vue {
   isShowClose: Boolean = false;
@@ -171,7 +171,7 @@ export default class WalletMetrics extends Vue {
     [],
     [],
     [],
-    []
+    [],
     // ["#107F77", "#D6AAAA", "#ABD194", "#F4C355", "#75113E"],
     // ["#f28048", "#d0a0a0", "#4ab5ac", "#c83618", "#9c9b46"],
     // ["#a1cb89", "#ac2e70", "#11746c", "#6a1236", "#d0a0a1"]
@@ -181,7 +181,7 @@ export default class WalletMetrics extends Vue {
     [],
     [],
     [],
-    []
+    [],
     // ["#11746c", "#c83617", "#f2bb4a", "#f38148", "#ac2e71"],
     // ["#d1a0a1", "#6a1236", "#4ab5ad", "#9b9b46", "#f6d2b5"],
     // ["#f3bb4b", "#6a1236", "#4ab5ad", "#c83618", "#f6d2b4"]
@@ -233,6 +233,7 @@ export default class WalletMetrics extends Vue {
       this.selectItemIndex = item.index || 0;
     }
   }
+
   changeData(item: any) {
     this.selected[item.index] = {};
     this.updateView(this.selected);

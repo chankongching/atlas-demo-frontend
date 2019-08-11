@@ -45,11 +45,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Emit } from "vue-property-decorator";
-import Ant from "ant-design-vue";
-import infiniteScroll from "vue-infinite-scroll";
-import DataUtils from "@/utils/dataUtils.ts";
-import Colors from "@/utils/colors.ts";
+import { Component, Vue, Emit } from 'vue-property-decorator';
+import Ant from 'ant-design-vue';
+import infiniteScroll from 'vue-infinite-scroll';
+import DataUtils from '@/utils/dataUtils.ts';
+import Colors from '@/utils/colors.ts';
 
 interface RespData {
   code: Number;
@@ -57,7 +57,7 @@ interface RespData {
   data: Array<Object>;
 }
 
-const biTableData: RespData = require("@/assets/data/bi-data.json");
+const biTableData: RespData = require('@/assets/data/bi-data.json');
 
 const DU = new DataUtils();
 const _Colors = new Colors();
@@ -68,11 +68,11 @@ const _Colors = new Colors();
     ACol: Ant.Col,
     AList: Ant.List,
     AListItem: Ant.List.Item,
-    ARadio: Ant.Radio
+    ARadio: Ant.Radio,
   },
   directives: {
-    infiniteScroll
-  }
+    infiniteScroll,
+  },
 })
 export default class ModalWmTable extends Vue {
   private listData: Array<Object> = biTableData.data;
@@ -81,17 +81,17 @@ export default class ModalWmTable extends Vue {
 
   private busy: boolean = false;
 
-  checked_id: string = "";
+  checked_id: string = '';
 
   colors: any = _Colors.selectColor;
 
-  @Emit("checked-id")
+  @Emit('checked-id')
   onCheckid(item: object) {
     return item;
   }
 
   selectRadio(item: any) {
-    this.checked_id = item['id'];
+    this.checked_id = item.id;
     this.onCheckid(item);
   }
 
@@ -110,7 +110,7 @@ export default class ModalWmTable extends Vue {
   }
 
   fetchData(callback: any) {
-    callback(["add befor", "add befor1", "add befor2"]);
+    callback(['add befor', 'add befor1', 'add befor2']);
   }
 }
 </script>

@@ -41,11 +41,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Emit } from "vue-property-decorator";
-import Ant from "ant-design-vue";
-import infiniteScroll from "vue-infinite-scroll";
-import DataUtils from "@/utils/dataUtils.ts";
-import Colors from "@/utils/colors.ts";
+import { Component, Vue, Emit } from 'vue-property-decorator';
+import Ant from 'ant-design-vue';
+import infiniteScroll from 'vue-infinite-scroll';
+import DataUtils from '@/utils/dataUtils.ts';
+import Colors from '@/utils/colors.ts';
 
 interface RespData {
   code: Number;
@@ -53,7 +53,7 @@ interface RespData {
   data: Array<Object>;
 }
 
-const biTableData: RespData = require("@/assets/data/bi-data.json");
+const biTableData: RespData = require('@/assets/data/bi-data.json');
 
 const DU = new DataUtils();
 const _Colors = new Colors();
@@ -64,11 +64,11 @@ const _Colors = new Colors();
     ACol: Ant.Col,
     AList: Ant.List,
     AListItem: Ant.List.Item,
-    ARadio: Ant.Radio
+    ARadio: Ant.Radio,
   },
   directives: {
-    infiniteScroll
-  }
+    infiniteScroll,
+  },
 })
 export default class InOutTable extends Vue {
   private listData: Array<Object> = biTableData.data;
@@ -94,7 +94,7 @@ export default class InOutTable extends Vue {
   }
 
   fetchData(callback: any) {
-    callback(["add befor", "add befor1", "add befor2"]);
+    callback(['add befor', 'add befor1', 'add befor2']);
   }
 }
 </script>
