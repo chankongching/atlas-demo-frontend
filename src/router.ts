@@ -9,6 +9,7 @@ import WalletMetrics from './views/Wallet-Metrics.vue';
 Vue.use(Router);
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
