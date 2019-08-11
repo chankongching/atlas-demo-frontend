@@ -570,7 +570,7 @@ export default class AML extends Vue {
       name: key
     };
     this.current[0] = key;
-    Axios.post("http://127.0.0.1:3000/api/record", data)
+    Axios.post("http://18.162.71.8:3000/api/record", data)
       .then(res => {
         this.datas = res.data;
         // this.exposurePie = (this.datas as any).pie_data.in;
@@ -731,11 +731,11 @@ export default class AML extends Vue {
   }
   fetchAMLDate() {
     // return Axios.get('https://www.easy-mock.com/mock/5d4e9bc64a02dc7a7d47475f/api/aml');
-    return Axios.get("http://127.0.0.1:3000/api/aml");
+    return Axios.get("http://18.162.71.8:3000/api/aml");
   }
 
   fetchDataList() {
-    return Axios.get("http://127.0.0.1:3000/api/list");
+    return Axios.get("http://18.162.71.8:3000/api/list");
   }
   pieClick(params: any) {
     this.selectedPieData = params.data;
