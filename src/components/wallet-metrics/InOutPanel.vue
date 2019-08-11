@@ -20,7 +20,7 @@
         <div class="pie-panel__tag">IN</div>
         <div class="pie-panel__sub">EXPOSURE</div>
         <div class="pie-panel__select">No Section Clicked</div>
-        <ex-pie />
+        <ex-pie :canvas-id="'exposure-in'+(new Date()).getTime()" />
       </div>
       <div class="table-panel">
         <div class="table-search-panel">
@@ -34,7 +34,7 @@
             <a-input-search placeholder="search" class="my-search" />
           </div>
         </div>
-        <wm-table />
+        <in-out-table />
       </div>
     </div>
     <div class="exposure-panel-row mt20">
@@ -43,7 +43,7 @@
           <h2>HISTORY OF PROVIDENCE OF FUNDS</h2>
         </div>
         <div class="card-item__cont">
-          <area-line canvas-id="history-of-providence-of-funds" />
+          <area-line :canvas-id="'history-of-providence-of-funds'+(new Date()).getTime()" />
           <div class="cahrt-title">Time</div>
         </div>
       </div>
@@ -52,14 +52,12 @@
 </template>
 
 <script lang="ts">
-import {
-  Component, Vue, Prop, Watch,
-} from 'vue-property-decorator';
-import Ant from 'ant-design-vue';
-import ExPie from '@/components/wallet-metrics/ExPie.vue';
-import UgLine from '@/components/wallet-metrics/UgLine.vue';
-import AreaLine from '@/components/wallet-metrics/AreaLine.vue';
-import WmTable from '@/components/wallet-metrics/WmTable.vue';
+import { Component, Vue, Prop, Watch } from "vue-property-decorator";
+import Ant from "ant-design-vue";
+import ExPie from "@/components/wallet-metrics/ExPie.vue";
+import UgLine from "@/components/wallet-metrics/UgLine.vue";
+import AreaLine from "@/components/wallet-metrics/AreaLine.vue";
+import InOutTable from "@/components/wallet-metrics/InOutTable.vue";
 
 @Component({
   components: {
@@ -70,8 +68,8 @@ import WmTable from '@/components/wallet-metrics/WmTable.vue';
     ExPie,
     UgLine,
     AreaLine,
-    WmTable,
-  },
+    InOutTable
+  }
 })
 export default class InOutPanel extends Vue {
   @Prop({ default: 0 })

@@ -12,6 +12,12 @@ import Colors from "@/utils/colors";
 
 const _C = new Colors();
 
+const types: Object = {
+  "0": "Binance",
+  "1": "Huobi",
+  "2": "Binance South East Asia"
+};
+
 @Component({
   components: {
     AIcon: Ant.Icon
@@ -51,107 +57,128 @@ export default class FdBar extends Vue {
     const data = [
       {
         name: "1-10",
-        type: 0,
+        type: "0",
+        entity: "Binance",
         value: 23
       },
       {
         name: "10-100",
-        type: 0,
+        type: "0",
+        entity: "Binance",
         value: 55
       },
       {
         name: "100-1k",
-        type: 0,
+        type: "0",
+        entity: "Binance",
         value: 32
       },
       {
         name: "1k-10k",
-        type: 0,
+        type: "0",
+        entity: "Binance",
         value: 20
       },
       {
         name: "10k-100k",
-        type: 0,
+        type: "0",
+        entity: "Binance",
         value: 18
       },
       {
         name: "100k-1M",
-        type: 0,
+        type: "0",
+        entity: "Binance",
         value: 37
       },
       {
         name: "1M+",
-        type: 0,
+        type: "0",
+        entity: "Binance",
         value: 80
       },
       {
         name: "1-10",
-        type: 1,
+        type: "1",
+        entity: "Huobi",
         value: 50
       },
       {
         name: "10-100",
-        type: 1,
+        type: "1",
+        entity: "Huobi",
         value: 20
       },
       {
         name: "100-1k",
-        type: 1,
+        type: "1",
+        entity: "Huobi",
         value: 22
       },
       {
         name: "1k-10k",
-        type: 1,
+        type: "1",
+        entity: "Huobi",
         value: 20
       },
       {
         name: "10k-100k",
-        type: 1,
+        type: "1",
+        entity: "Huobi",
         value: 36
       },
       {
         name: "100k-1M",
-        type: 1,
+        type: "1",
+        entity: "Huobi",
         value: 75
       },
       {
         name: "1M+",
-        type: 1,
+        type: "1",
+        entity: "Huobi",
         value: 9
       },
       {
         name: "1-10",
-        type: 2,
+        type: "2",
+        entity: "Binance South East Asia",
         value: 39
       },
       {
         name: "10-100",
-        type: 2,
+        type: "2",
+        entity: "Binance South East Asia",
         value: 80
       },
       {
         name: "100-1k",
-        type: 2,
+        type: "2",
+        entity: "Binance South East Asia",
         value: 5
       },
       {
         name: "1k-10k",
-        type: 2,
+        type: "2",
+        entity: "Binance South East Asia",
         value: 8
       },
       {
         name: "10k-100k",
-        type: 2,
+        type: "2",
+        entity: "Binance South East Asia",
         value: 57
       },
       {
         name: "100k-1M",
-        type: 2,
+        type: "2",
+        entity: "Binance South East Asia",
         value: 50
       },
       {
         name: "1M+",
-        type: 2,
+        type: "2",
+        entity: "Binance South East Asia",
         value: 18
       }
     ];
@@ -170,18 +197,39 @@ export default class FdBar extends Vue {
         align: "center" // 网格顶点从两个刻度中间开始
       }
     });
+    chart.tooltip({
+      useHtml: true,
+      htmlContent: function(title, items) {
+        var arr = [];
+        for (var i = 0; i < items.length; i++) {
+           var name = items[i].name.toString();
+
+          arr.push(
+            `<li><span style="font-weight: bolder;padding-right:10px;">${types[name]}：</span>${items[i].value}</li>`
+          );
+        }
+        return `<div class="g2-tooltip g2-tooltip-modal">
+          <div class="g2-tooltip-title" style="margin-bottom: 4px;">${title}</div>
+          <ul class="g2-tooltip-list">
+            ${arr.join('')}
+          </ul>
+          </div>`;
+      }
+    });
     chart
       .interval()
       .position("name*value")
       .color("type", function(val: any) {
-        return self.colors[val];
+        return _C.selectColor[val * 1];
       })
+      .opacity(1)
       .adjust([
         {
           type: "dodge",
-          marginRatio: 1 / 64
+          marginRatio: 1 / 32
         }
       ]);
+
     chart.render();
     // chart.repaint();
   }

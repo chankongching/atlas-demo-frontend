@@ -8,6 +8,12 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import Ant from 'ant-design-vue';
 import G2 from '@antv/g2';
+import DataSet from '@antv/data-set';
+
+import Colors from "@/utils/colors.ts";
+
+const _C = new Colors();
+const ds = new DataSet();
 
 @Component({
   components: {
@@ -35,7 +41,7 @@ export default class FdBar extends Vue {
       width: _w,
       height: 380,
       forceFit: true,
-      padding: [30, 10, 10, 40],
+      padding: [30, 10, 'auto', 40],
     });
     this.updateChart(chart);
   }
@@ -43,90 +49,190 @@ export default class FdBar extends Vue {
   updateChart(chart: G2.Chart): void {
     const data = [
       {
-        name: 'London',
-        月份: 'Jan.',
-        月均降雨量: 18.9,
+        time: "Jan 2014",
+        score: 25,
+        type: 0
       },
       {
-        name: 'London',
-        月份: 'Feb.',
-        月均降雨量: 28.8,
+        time: "Jun 2014",
+        score: 54,
+        type: 0
       },
       {
-        name: 'London',
-        月份: 'Mar.',
-        月均降雨量: 39.3,
+        time: "Jan 2015",
+        score: 84,
+        type: 0
       },
       {
-        name: 'London',
-        月份: 'Apr.',
-        月均降雨量: 81.4,
+        time: "Jun 2015",
+        score: 33,
+        type: 0
       },
       {
-        name: 'London',
-        月份: 'May',
-        月均降雨量: 47,
+        time: "Jan 2016",
+        score: 57,
+        type: 0
       },
       {
-        name: 'London',
-        月份: 'Jun.',
-        月均降雨量: 20.3,
+        time: "Jun 2016",
+        score: 53,
+        type: 0
       },
       {
-        name: 'London',
-        月份: 'Jul.',
-        月均降雨量: 24,
+        time: "Jan 2017",
+        score: 15,
+        type: 0
       },
       {
-        name: 'London',
-        月份: 'Aug.',
-        月均降雨量: 35.6,
+        time: "Jun 2017",
+        score: 91,
+        type: 0
       },
       {
-        name: 'Berlin',
-        月份: 'Jan.',
-        月均降雨量: 12.4,
+        time: "Jan 2018",
+        score: 63,
+        type: 0
       },
       {
-        name: 'Berlin',
-        月份: 'Feb.',
-        月均降雨量: 23.2,
+        time: "Jun 2018",
+        score: 92,
+        type: 0
       },
       {
-        name: 'Berlin',
-        月份: 'Mar.',
-        月均降雨量: 34.5,
+        time: "Jan 2019",
+        score: 23,
+        type: 0
       },
       {
-        name: 'Berlin',
-        月份: 'Apr.',
-        月均降雨量: 99.7,
+        time: "Jun 2019",
+        score: 99,
+        type: 0
       },
       {
-        name: 'Berlin',
-        月份: 'May',
-        月均降雨量: 52.6,
+        time: "Jan 2014",
+        score: 25,
+        type: 1
       },
       {
-        name: 'Berlin',
-        月份: 'Jun.',
-        月均降雨量: 35.5,
+        time: "Jun 2014",
+        score: 54,
+        type: 1
       },
       {
-        name: 'Berlin',
-        月份: 'Jul.',
-        月均降雨量: 37.4,
+        time: "Jan 2015",
+        score: 84,
+        type: 1
       },
       {
-        name: 'Berlin',
-        月份: 'Aug.',
-        月均降雨量: 42.4,
+        time: "Jun 2015",
+        score: 33,
+        type: 1
       },
+      {
+        time: "Jan 2016",
+        score: 57,
+        type: 1
+      },
+      {
+        time: "Jun 2016",
+        score: 53,
+        type: 1
+      },
+      {
+        time: "Jan 2017",
+        score: 15,
+        type: 1
+      },
+      {
+        time: "Jun 2017",
+        score: 91,
+        type: 1
+      },
+      {
+        time: "Jan 2018",
+        score: 63,
+        type: 1
+      },
+      {
+        time: "Jun 2018",
+        score: 92,
+        type: 1
+      },
+      {
+        time: "Jan 2019",
+        score: 23,
+        type: 1
+      },
+      {
+        time: "Jun 2019",
+        score: 99,
+        type: 1
+      },
+      {
+        time: "Jan 2014",
+        score: 25,
+        type: 2
+      },
+      {
+        time: "Jun 2014",
+        score: 54,
+        type: 2
+      },
+      {
+        time: "Jan 2015",
+        score: 84,
+        type: 2
+      },
+      {
+        time: "Jun 2015",
+        score: 33,
+        type: 2
+      },
+      {
+        time: "Jan 2016",
+        score: 57,
+        type: 2
+      },
+      {
+        time: "Jun 2016",
+        score: 53,
+        type: 2
+      },
+      {
+        time: "Jan 2017",
+        score: 15,
+        type: 2
+      },
+      {
+        time: "Jun 2017",
+        score: 91,
+        type: 2
+      },
+      {
+        time: "Jan 2018",
+        score: 63,
+        type: 2
+      },
+      {
+        time: "Jun 2018",
+        score: 92,
+        type: 2
+      },
+      {
+        time: "Jan 2019",
+        score: 23,
+        type: 2
+      },
+      {
+        time: "Jun 2019",
+        score: 99,
+        type: 2
+      }
     ];
 
     chart.legend(false);
     chart.source(data);
-    chart.axis('月份', {
+    chart.axis('score', {
       label: {
         formatter: function formatter(val) {
           return `${val}k`;
@@ -142,16 +248,14 @@ export default class FdBar extends Vue {
         align: 'center', // 网格顶点从两个刻度中间开始
       },
     });
+
     chart
-      .area()
-      .position('月份*月均降雨量')
-      .color('name')
-      .adjust([
-        {
-          type: 'dodge',
-          marginRatio: 1 / 32,
-        },
-      ]);
+      .areaStack()
+      .position('time*score')
+      .color('type',function(val:any){
+        return _C.inColor[val];
+      });
+      
     chart.render();
   }
 }
