@@ -51,18 +51,66 @@
         <div class="card-item__cont">
           <div class="e-bold">IN</div>
           <div class="selected-flex ptb20">
-            <exposure-item :data="exposure1" :selected="selected[0]" :type="'in'" :index="0" @select-exposure="exposure1Handler" />
-            <exposure-item :data="exposure1" :selected="selected[1]" :type="'in'" :index="1" @select-exposure="exposure1Handler" />
-            <exposure-item :data="exposure1" :selected="selected[2]" :type="'in'" :index="2" @select-exposure="exposure1Handler" />
-            <exposure-item :data="exposure1" :selected="selected[3]" :type="'in'" :index="3" @select-exposure="exposure1Handler" />
+            <exposure-item
+              :data="exposure1"
+              :selected="selected[0]"
+              :type="'in'"
+              :index="0"
+              @select-exposure="exposure1Handler"
+            />
+            <exposure-item
+              :data="exposure1"
+              :selected="selected[1]"
+              :type="'in'"
+              :index="1"
+              @select-exposure="exposure1Handler"
+            />
+            <exposure-item
+              :data="exposure1"
+              :selected="selected[2]"
+              :type="'in'"
+              :index="2"
+              @select-exposure="exposure1Handler"
+            />
+            <exposure-item
+              :data="exposure1"
+              :selected="selected[3]"
+              :type="'in'"
+              :index="3"
+              @select-exposure="exposure1Handler"
+            />
           </div>
           <in-out-panel :arrowIndex="arrowIndex1" :showPanel="intoPanel1" />
           <div class="e-bold">OUT</div>
           <div class="selected-flex ptb20">
-            <exposure-item :data="exposure2" :selected="selected[0]" :type="'out'" :index="0" @select-exposure="exposure2Handler" />
-            <exposure-item :data="exposure2" :selected="selected[1]" :type="'out'" :index="1" @select-exposure="exposure2Handler" />
-            <exposure-item :data="exposure2" :selected="selected[2]" :type="'out'" :index="2" @select-exposure="exposure2Handler" />
-            <exposure-item :data="exposure2" :selected="selected[3]" :type="'out'" :index="3" @select-exposure="exposure2Handler" />
+            <exposure-item
+              :data="exposure2"
+              :selected="selected[0]"
+              :type="'out'"
+              :index="0"
+              @select-exposure="exposure2Handler"
+            />
+            <exposure-item
+              :data="exposure2"
+              :selected="selected[1]"
+              :type="'out'"
+              :index="1"
+              @select-exposure="exposure2Handler"
+            />
+            <exposure-item
+              :data="exposure2"
+              :selected="selected[2]"
+              :type="'out'"
+              :index="2"
+              @select-exposure="exposure2Handler"
+            />
+            <exposure-item
+              :data="exposure2"
+              :selected="selected[3]"
+              :type="'out'"
+              :index="3"
+              @select-exposure="exposure2Handler"
+            />
           </div>
           <in-out-panel :arrowIndex="arrowIndex2" :showPanel="intoPanel2" />
         </div>
@@ -74,7 +122,7 @@
           <h2>FUND DISTRUBUTION</h2>
         </div>
         <div class="card-item__cont">
-          <fd-bar canvas-id="fund-distrubution" />
+          <fd-bar canvas-id="fund-distrubution" ref="fdbar" />
           <div class="cahrt-title">Average BTC Balance</div>
         </div>
       </div>
@@ -92,7 +140,7 @@
           <h2>USER GROWTH</h2>
         </div>
         <div class="card-item__cont">
-          <ug-line canvas-id="user-growth" />
+          <ug-line canvas-id="user-growth" ref="grouth" />
           <div class="cahrt-title">Time</div>
         </div>
       </div>
@@ -110,7 +158,7 @@
           <h2>ACTIVE USERS OVER TIME</h2>
         </div>
         <div class="card-item__cont">
-          <ug-line canvas-id="active-users-over-time" />
+          <ug-line canvas-id="active-users-over-time" ref="active" />
           <div class="cahrt-title">Time</div>
         </div>
       </div>
@@ -121,17 +169,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import Ant from 'ant-design-vue';
-import SelectItem from '@/components/wallet-metrics/SelectItem.vue';
-import ExposureItem from '@/components/wallet-metrics/ExposureItem.vue';
-import FdBar from '@/components/wallet-metrics/FdBar.vue';
-import UgLine from '@/components/wallet-metrics/UgLine.vue';
-import InOutPanel from '@/components/wallet-metrics/InOutPanel.vue';
-import SelectModal from '@/components/wallet-metrics/SelectModal.vue';
+import { Component, Vue } from "vue-property-decorator";
+import Ant from "ant-design-vue";
+import SelectItem from "@/components/wallet-metrics/SelectItem.vue";
+import ExposureItem from "@/components/wallet-metrics/ExposureItem.vue";
+import FdBar from "@/components/wallet-metrics/FdBar.vue";
+import UgLine from "@/components/wallet-metrics/UgLine.vue";
+import InOutPanel from "@/components/wallet-metrics/InOutPanel.vue";
+import SelectModal from "@/components/wallet-metrics/SelectModal.vue";
 
-import '@/utils/interfaceObject';
-import Colors from '../utils/colors';
+import "@/utils/interfaceObject";
+import Colors from "../utils/colors";
 
 const _C = new Colors();
 
@@ -147,8 +195,8 @@ const _C = new Colors();
     FdBar,
     UgLine,
     InOutPanel,
-    SelectModal,
-  },
+    SelectModal
+  }
 })
 export default class WalletMetrics extends Vue {
   isShowClose: Boolean = false;
@@ -163,15 +211,29 @@ export default class WalletMetrics extends Vue {
 
   arrowIndex2: Number = 0;
 
-  selectItemIndex: Number = 0;
+  selectItemIndex: Number | String = 0;
 
-  selected: Array<selectedObject> = [Object(), Object(), Object(), Object()];
+  barData?: Array<Array<Number>>;
+  barTitle?: Array<String>;
+
+  lineGrowthData?: Array<Array<Number>>;
+  lineGrowthTitle?: Array<String>;
+
+  lineActiveData?: Array<Array<Number>>;
+  lineActiveTitle?: Array<String>;
+
+  selected: Array<selectedObject | Object> = [
+    Object(),
+    Object(),
+    Object(),
+    Object()
+  ];
 
   exposure1: Array<Array<String>> = [
     [],
     [],
     [],
-    [],
+    []
     // ["#107F77", "#D6AAAA", "#ABD194", "#F4C355", "#75113E"],
     // ["#f28048", "#d0a0a0", "#4ab5ac", "#c83618", "#9c9b46"],
     // ["#a1cb89", "#ac2e70", "#11746c", "#6a1236", "#d0a0a1"]
@@ -181,7 +243,7 @@ export default class WalletMetrics extends Vue {
     [],
     [],
     [],
-    [],
+    []
     // ["#11746c", "#c83617", "#f2bb4a", "#f38148", "#ac2e71"],
     // ["#d1a0a1", "#6a1236", "#4ab5ad", "#9b9b46", "#f6d2b5"],
     // ["#f3bb4b", "#6a1236", "#4ab5ad", "#c83618", "#f6d2b4"]
@@ -191,6 +253,12 @@ export default class WalletMetrics extends Vue {
     this.selected[this.selectItemIndex] = item.item;
     this.exposure1[this.selectItemIndex] = _C.inColor;
     this.exposure2[this.selectItemIndex] = _C.outColor;
+
+    this.$refs.fdbar.updateChart(this.selected);
+    this.$refs.active.updateChart(this.selected);
+    this.$refs.grouth.updateChart(this.selected);
+
+    // this.$refs.fdbar.buildData(item.item);
 
     this.updateView(this.selected);
     this.updateView(this.exposure1);
@@ -236,7 +304,16 @@ export default class WalletMetrics extends Vue {
 
   changeData(item: any) {
     this.selected[item.index] = {};
+    this.exposure1[item.index] = [];
+    this.exposure2[item.index] = [];
+    
+    this.$refs.fdbar.updateChart(this.selected);
+    this.$refs.active.updateChart(this.selected);
+    this.$refs.grouth.updateChart(this.selected);
+
     this.updateView(this.selected);
+    this.updateView(this.exposure1);
+    this.updateView(this.exposure2);
   }
 }
 </script>
