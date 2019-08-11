@@ -80,7 +80,7 @@
               @select-exposure="exposure1Handler"
             />
           </div>
-          <in-out-panel :arrowIndex="arrowIndex1" :showPanel="intoPanel1" />
+          <in-out-panel :panelData="selected" :arrowIndex="arrowIndex1" :showPanel="intoPanel1" />
           <div class="e-bold">OUT</div>
           <div class="selected-flex ptb20">
             <exposure-item
@@ -112,7 +112,7 @@
               @select-exposure="exposure2Handler"
             />
           </div>
-          <in-out-panel :arrowIndex="arrowIndex2" :showPanel="intoPanel2" />
+          <in-out-panel :panelData="selected" :arrowIndex="arrowIndex2" :showPanel="intoPanel2" />
         </div>
       </div>
       <!-- Exposure end -->
@@ -306,7 +306,7 @@ export default class WalletMetrics extends Vue {
     this.selected[item.index] = {};
     this.exposure1[item.index] = [];
     this.exposure2[item.index] = [];
-    
+
     this.$refs.fdbar.updateChart(this.selected);
     this.$refs.active.updateChart(this.selected);
     this.$refs.grouth.updateChart(this.selected);

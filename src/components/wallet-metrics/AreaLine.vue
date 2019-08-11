@@ -63,7 +63,7 @@ export default class FdBar extends Vue {
       width: _w,
       height: 380,
       forceFit: true,
-      padding: [30, 10, "auto", 40]
+      padding: [30, "auto", "auto", "auto"]
     });
     this.chart = chart;
     this.initChart(chart);
@@ -71,6 +71,17 @@ export default class FdBar extends Vue {
 
   initChart(chart: G2.Chart): void {
     var data: any = [];
+
+    for (let i = 0; i < this.yAsix.length; i++) {
+      let item = this.yAsix[i];
+      for (let j = 0; j < item.length; j++) {
+        data.push({
+          type: i.toString(),
+          value: item[j],
+          year: this.xAsix[j]
+        });
+      }
+    }
 
     var _DataSet = DataSet,
       DataView = _DataSet.DataView;
@@ -84,11 +95,10 @@ export default class FdBar extends Vue {
     });
     chart.source(dv, {
       year: {
-        type: "linear",
-        tickInterval: 50
+        type: "cat"
       },
       percent: {
-        formatter: function formatter(value) {
+        formatter: function formatter(value: any) {
           value = value || 0;
           value = value * 100;
           return parseInt(value);
@@ -96,16 +106,28 @@ export default class FdBar extends Vue {
         alias: "percent(%)"
       }
     });
-    chart.legend(false);
-    chart.tooltip({
-      crosshairs: {
-        type: "line"
+    chart.axis("year", {
+      grid: {
+        type: "line",
+        lineStyle: {
+          stroke: "#D2D4D4",
+          lineWidth: 1,
+          lineDash: [4, 4]
+        }
       }
     });
+    chart.legend(false);
+    chart.tooltip(false);
+    // chart.tooltip({
+    //   crosshairs: {
+    //     type: "line"
+    //   }
+    // });
     chart
       .areaStack()
       .position("year*percent")
       .color("type", (val: any) => _C.inColor[val * 1]);
+
     chart
       .lineStack()
       .position("year*percent")
@@ -113,10 +135,12 @@ export default class FdBar extends Vue {
       .size(2);
     chart.render();
   }
-  buildData(item: Array<any>) {
+  buildData(item: any) {
     var realData: Array<Object> = [];
     var chartData: Array<Array<any>> = [];
     var self = this;
+
+    return [];
 
     for (let i = 0; i < item.length; i++) {
       let _item = item[i];
@@ -143,49 +167,52 @@ export default class FdBar extends Vue {
     }
     return chartData;
   }
-  updateChart(item: Array<Object>): void {
+  updateChart(item: any): void {
     var data = this.buildData(item);
-
-    var _DataSet = DataSet,
-      DataView = _DataSet.DataView;
-    var dv = new DataView().source(data);
-    dv.transform({
-      type: "percent",
-      field: "value",
-      dimension: "type",
-      groupBy: ["year"],
-      as: "percent"
-    });
-    this.chart.source(dv, {
-      year: {
-        type: "linear",
-        tickInterval: 50
-      },
-      percent: {
-        formatter: function formatter(value) {
-          value = value || 0;
-          value = value * 100;
-          return parseInt(value);
+    if (data.length <= 0) {
+      this.initChart(this.chart);
+    } else {
+      var _DataSet = DataSet,
+        DataView = _DataSet.DataView;
+      var dv = new DataView().source(data);
+      dv.transform({
+        type: "percent",
+        field: "value",
+        dimension: "type",
+        groupBy: ["year"],
+        as: "percent"
+      });
+      this.chart.source(dv, {
+        year: {
+          type: "linear",
+          tickInterval: 50
         },
-        alias: "percent(%)"
-      }
-    });
-    this.chart.legend(false);
-    this.chart.tooltip({
-      crosshairs: {
-        type: "line"
-      }
-    });
-    this.chart
-      .areaStack()
-      .position("year*percent")
-      .color("type", (val: any) => _C.inColor[val * 1]);
-    this.chart
-      .lineStack()
-      .position("year*percent")
-      .color("type", (val: any) => _C.inColor[val * 1])
-      .size(2);
-    this.chart.repaint();
+        percent: {
+          formatter: function formatter(value) {
+            value = value || 0;
+            value = value * 100;
+            return parseInt(value);
+          },
+          alias: "percent(%)"
+        }
+      });
+      this.chart.legend(false);
+      this.chart.tooltip({
+        crosshairs: {
+          type: "line"
+        }
+      });
+      this.chart
+        .areaStack()
+        .position("year*percent")
+        .color("type", (val: any) => _C.inColor[val * 1]);
+      this.chart
+        .lineStack()
+        .position("year*percent")
+        .color("type", (val: any) => _C.inColor[val * 1])
+        .size(2);
+      this.chart.repaint();
+    }
   }
 }
 </script>

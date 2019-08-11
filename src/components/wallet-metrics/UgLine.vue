@@ -187,11 +187,12 @@ export default class FdBar extends Vue {
   }
   updateChart(item: Array<Object>): void {
     var data = this.buildData(item);
-
-    console.log(JSON.stringify(data));
+    if(data.length <= 0){
+      this.initChart(this.chart);
+      return false;
+    }
 
     this.chart.legend(false);
-    this.chart.tooltip(false);
     this.chart.source(data);
     this.chart.axis("time", {
       grid: {

@@ -211,60 +211,63 @@ export default class FdBar extends Vue {
   }
   updateChart(item: Array<Object>): void {
     var data = this.buildData(item);
-
-    this.chart.source(data, {
-      value: {
-        type: "linear",
-        min: 0
-      }
-    });
-    this.chart.axis("name", {
-      label: {
-        formatter(text: any, item: any, index: any) {
-          return text + " BTC";
+    if (data.length <= 0) {
+      this.initChart(this.chart);
+    } else {
+      this.chart.source(data, {
+        value: {
+          type: "linear",
+          min: 0
         }
-      },
-      grid: {
-        type: "line",
-        lineStyle: {
-          stroke: "#D2D4D4",
-          lineWidth: 1,
-          lineDash: [4, 4]
+      });
+      this.chart.axis("name", {
+        label: {
+          formatter(text: any, item: any, index: any) {
+            return text + " BTC";
+          }
         },
-        align: "center" // 网格顶点从两个刻度中间开始
-      }
-    });
-    this.chart.tooltip({
-      useHtml: true,
-      htmlContent(title: any, items: any) {
-        const arr = [];
-        for (let i = 0; i < items.length; i++) {
-          const name = items[i].name.toString();
-
-          arr.push(
-            `<li><span style="font-weight: bolder;padding-right:10px;">${types[name]}：</span>${items[i].value}</li>`
-          );
+        grid: {
+          type: "line",
+          lineStyle: {
+            stroke: "#D2D4D4",
+            lineWidth: 1,
+            lineDash: [4, 4]
+          },
+          align: "center" // 网格顶点从两个刻度中间开始
         }
-        return `<div class="g2-tooltip g2-tooltip-modal">
+      });
+      this.chart.tooltip({
+        useHtml: true,
+        htmlContent(title: any, items: any) {
+          const arr = [];
+          for (let i = 0; i < items.length; i++) {
+            const name = items[i].name.toString();
+
+            arr.push(
+              `<li><span style="font-weight: bolder;padding-right:10px;">${types[name]}：</span>${items[i].value}</li>`
+            );
+          }
+          return `<div class="g2-tooltip g2-tooltip-modal">
           <div class="g2-tooltip-title" style="margin-bottom: 4px;">${title}</div>
           <ul class="g2-tooltip-list">
             ${arr.join("")}
           </ul>
           </div>`;
-      }
-    });
-    this.chart
-      .interval()
-      .position("name*value")
-      .color("type", (val: any) => _C.selectColor[val * 1])
-      .opacity(1)
-      .adjust([
-        {
-          type: "dodge",
-          marginRatio: 1 / 32
         }
-      ]);
-    this.chart.repaint();
+      });
+      this.chart
+        .interval()
+        .position("name*value")
+        .color("type", (val: any) => _C.selectColor[val * 1])
+        .opacity(1)
+        .adjust([
+          {
+            type: "dodge",
+            marginRatio: 1 / 32
+          }
+        ]);
+      this.chart.repaint();
+    }
   }
 }
 </script>
