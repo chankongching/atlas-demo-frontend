@@ -126,7 +126,7 @@
                     v-infinite-scroll="handleInfiniteOnLoad"
                     :infinite-scroll-disabled="busy"
                     :infinite-scroll-distance="10">
-                    <a-list-item slot="renderItem" slot-scope="item, index">
+                    <a-list-item slot="renderItem" slot-scope="item">
                       <a-row style="display: flex; align-items: center;">
                         <a-col :span="4" style="display: flex; justify-content: center;"><a-badge status="processing" style="display: flex; align-items: center;" /></a-col>
                         <a-col :span="12">{{ item.name }}</a-col>
@@ -225,7 +225,7 @@
                       v-infinite-scroll="handleInfiniteOnLoad"
                       :infinite-scroll-disabled="busy"
                       :infinite-scroll-distance="10">
-                      <a-list-item slot="renderItem" slot-scope="item, index">
+                      <a-list-item slot="renderItem" slot-scope="item">
                         <a-row style="display: flex; align-items: center;">
                           <a-col :span="4" style="display: flex; justify-content: center;"><a-badge status="processing" style="display: flex; align-items: center;" /></a-col>
                           <a-col :span="12">{{ item.name }}</a-col>
@@ -268,7 +268,7 @@
                   v-infinite-scroll="handleInfiniteOnLoad"
                   :infinite-scroll-disabled="busy"
                   :infinite-scroll-distance="10">
-                  <a-list-item slot="renderItem" slot-scope="item, index">
+                  <a-list-item slot="renderItem" slot-scope="item">
                     <a-row style="display: flex; align-items: center;">
                       <a-col :span="4" style="display: flex; justify-content: center;"><a-badge status="processing" style="display: flex; align-items: center;" /></a-col>
                       <a-col :span="12">{{ item }}</a-col>
@@ -543,7 +543,8 @@ export default class AML extends Vue {
   }
 
   fetchAMLDate() {
-    return Axios.get('https://www.easy-mock.com/mock/5d4e9bc64a02dc7a7d47475f/api/aml');
+    // return Axios.get('https://www.easy-mock.com/mock/5d4e9bc64a02dc7a7d47475f/api/aml');
+    return Axios.get('http://127.0.0.1:3000/api/aml');
   }
 
   pieClick(params: any) {
