@@ -2,13 +2,14 @@
   <div>
     <div>
       <a-menu
+        v-model="current"
         @click="handleClick"
-        :defaultSelectedKeys="['Binance']"
         mode="horizontal"
         style="display: inline-block;"
+        v-for="(item  , index) in dataList"
+        :key="index"
       >
-        <a-menu-item key="Binance">Binance</a-menu-item>
-        <a-menu-item key="HUOBI">HUOBI</a-menu-item>
+        <a-menu-item :key="item.name">{{item.name}}</a-menu-item>
       </a-menu>
       <a-button icon="plus" @click="addTabButton"></a-button>
     </div>
@@ -167,7 +168,7 @@
           </a-col>
         </a-row>
       </div>
-      <div class="historyOfProvidenceOfFunds-container">
+      <div class="historyOfProvidenceOfFunds-container" style="margin-top: 1vh;">
         <h3 class="item-title">History of providence of funds</h3>
         <div class="historyDashbord-container">
           <v-chart :options="historyLineData" autoresize />
@@ -205,14 +206,8 @@
           <a-row :gutter="20">
             <a-col :span="6">
               <div class="card-container" style="height: 380px; overflow: auto; padding: 0">
-                <a-menu mode="vertical-right">
-                  <a-menu-item key="Binance">Binance</a-menu-item>
-                  <a-menu-item key="HUOBI">HUOBI</a-menu-item>
-                  <a-menu-item key="HUOBI1">HUOBI</a-menu-item>
-                  <a-menu-item key="HUOBI2">HUOBI</a-menu-item>
-                  <a-menu-item key="HUOBI3">HUOBI</a-menu-item>
-                  <a-menu-item key="HUOBI4">HUOBI</a-menu-item>
-                  <a-menu-item key="HUOBI5">HUOBI</a-menu-item>
+                <a-menu mode="vertical-right" v-for="(item  , index) in dataList" :key="index">
+                  <a-menu-item :key="item.name">{{item.name}}</a-menu-item>
                 </a-menu>
               </div>
             </a-col>
@@ -235,11 +230,11 @@
                   >
                     <a-list-item slot="renderItem" slot-scope="item">
                       <a-row style="display: flex; align-items: center;">
-                        <a-col :span="4" style="display: flex; justify-content: center;">
-                          <a-badge status="processing" style="display: flex; align-items: center;" />
+                        <a-col :span="4" style="display: flex; justify-content: flex-start; padding-left: 1vw;">
+                        <span class="dot" v-bind:style="{ backgroundColor: item.bgColor, }"></span>
                         </a-col>
                         <a-col :span="12">{{ item.name }}</a-col>
-                        <a-col :span="4">col-6</a-col>
+                        <a-col :span="4">{{item.value}}</a-col>
                         <a-col :span="4">
                           <a-checkbox></a-checkbox>
                         </a-col>
@@ -283,11 +278,11 @@
               >
                 <a-list-item slot="renderItem" slot-scope="item">
                   <a-row style="display: flex; align-items: center;">
-                    <a-col :span="4" style="display: flex; justify-content: center;">
-                      <a-badge status="processing" style="display: flex; align-items: center;" />
+                        <a-col :span="4" style="display: flex; justify-content: flex-start; padding-left: 1vw;">
+                        <span class="dot" v-bind:style="{ backgroundColor: item.bgColor, }"></span>
                     </a-col>
-                    <a-col :span="12">{{ item }}</a-col>
-                    <a-col :span="4">col-6</a-col>
+                    <a-col :span="12">{{ item.name }}</a-col>
+                    <a-col :span="4">{{ item.value }}</a-col>
                     <a-col :span="4">
                       <a-checkbox></a-checkbox>
                     </a-col>
@@ -320,8 +315,8 @@
       <template slot="footer">
         <div class="flex-between">
           <div>
-            <p>selected</p>
-            <a-tag closable @close="log">Tag 2</a-tag>
+            <!-- <p>selected</p>
+            <a-tag closable @close="log">Tag 2</a-tag> -->
           </div>
           <a-button key="submit" type="primary">Submit</a-button>
         </div>
@@ -392,12 +387,7 @@ export default class AML extends Vue {
   };
 
   private historyLineData = {
-    title: {
-      // subtext: 'History of providence of funds',
-      // subtextStyle: {
-      //   fontSize: 24,
-      // },
-    },
+    title: {},
     tooltip: {
       trigger: "axis",
       axisPointer: {
@@ -409,7 +399,7 @@ export default class AML extends Vue {
     },
     grid: {
       left: "3%",
-      right: "6%",
+      right: "4%",
       bottom: "3%",
       containLabel: true
     },
@@ -433,7 +423,7 @@ export default class AML extends Vue {
     yAxis: [
       {
         type: "value",
-        name: "%",
+        name: "₿",
         boundaryGap: false,
         data: [0, 20, 40, 60, 80, 100]
       }
@@ -531,7 +521,7 @@ export default class AML extends Vue {
     },
     {
       name: "exchange",
-      color: "#727580"
+      color: "#1e2fd7"
     },
     {
       name: "mixer",
@@ -562,17 +552,86 @@ export default class AML extends Vue {
       color: "#D2D4D4"
     }
   ];
-private bgColor = ''
+  private bgColor = "";
+
+  private dataList = "";
+
+  private current = ["Independent Wallet"];
+
   handleClick(e: object) {
-    console.log((e as any).key);
+    let key = (e as any).key;
+    let data = {
+      name: key
+    };
+    this.current[0] = key;
+    Axios.post("http://127.0.0.1:3000/api/record", data)
+      .then(res => {
+        this.datas = res.data;
+        // this.exposurePie = (this.datas as any).pie_data.in;
+        (this.exposurePieData as any).series[0].data = (this
+          .datas as any).pie_data.pieInData;
+        //Map colors for categories
+        this.mapColors(this.exposurePieData);
+        if (this.defaultExchangeSelected === "IN") {
+          this.listData = (this.datas as any).pie_data.inList;
+          this.listData.forEach(record => {
+            this.colors.forEach(currentColor => {
+              if (
+                record.color.toLowerCase() == currentColor.name.toLowerCase()
+              ) {
+                record.bgColor = currentColor.color;
+              }
+            });
+          });
+        } else {
+          this.listData = (this.datas as any).pie_data.outList;
+          this.listData = (this.datas as any).pie_data.outList;
+          this.listData.forEach(record => {
+            this.colors.forEach(currentColor => {
+              if (
+                record.color.toLowerCase() == currentColor.name.toLowerCase()
+              ) {
+                record.bgColor = currentColor.color;
+              }
+            });
+          });
+        }
+        this.riskScoreOverTimeData.xAxis[0].data = (this
+          .datas as any).address_score_month;
+        this.riskScoreOverTimeData.series[0].data = (this
+          .datas as any).address_score_series;
+        this.historyLineData.series = (this.datas as any).historyData;
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   exchangeSwitch(e: object) {
     this.defaultExchangeSelected = (e as any).key;
+    this.selectedPieData = {
+      name: "",
+      value: null,
+      percent: ""
+    };
     if (this.defaultExchangeSelected === "IN") {
       this.listData = (this.datas as any).pie_data.inList;
+      this.listData.forEach(record => {
+        this.colors.forEach(currentColor => {
+          if (record.color.toLowerCase() == currentColor.name.toLowerCase()) {
+            record.bgColor = currentColor.color;
+          }
+        });
+      });
     } else {
       this.listData = (this.datas as any).pie_data.outList;
+      this.listData.forEach(record => {
+        this.colors.forEach(currentColor => {
+          if (record.color.toLowerCase() == currentColor.name.toLowerCase()) {
+            record.bgColor = currentColor.color;
+          }
+        });
+      });
     }
   }
 
@@ -654,6 +713,9 @@ private bgColor = ''
     return Axios.get("http://127.0.0.1:3000/api/aml");
   }
 
+  fetchDataList() {
+    return Axios.get("http://127.0.0.1:3000/api/list");
+  }
   pieClick(params: any) {
     this.selectedPieData = params.data;
     this.selectedPieData.percent = params.percent;
@@ -669,6 +731,14 @@ private bgColor = ''
       });
     } else {
       this.listData = (this.datas as any).pie_data.outCategory[params.name];
+      this.listData.forEach(record => {
+        this.colors.forEach(currentColor => {
+          if (record.color.toLowerCase() == currentColor.name.toLowerCase()) {
+            record.bgColor = currentColor.color;
+            this.bgColor = currentColor.color;
+          }
+        });
+      });
     }
   }
 
@@ -683,13 +753,18 @@ private bgColor = ''
   }
 
   created() {
+    this.fetchDataList().then(res => {
+      if (res.data.length > 0) {
+        this.dataList = res.data;
+        this.current[0] = res.data[0].name;
+      }
+    });
     this.fetchAMLDate().then(res => {
       this.datas = res.data;
       // this.exposurePie = (this.datas as any).pie_data.in;
       (this.exposurePieData as any).series[0].data = (this
         .datas as any).pie_data.pieInData;
       //Map colors for categories
-      this.log(this.exposurePieData);
       this.mapColors(this.exposurePieData);
       if (this.defaultExchangeSelected === "IN") {
         this.listData = (this.datas as any).pie_data.inList;
@@ -702,6 +777,14 @@ private bgColor = ''
         });
       } else {
         this.listData = (this.datas as any).pie_data.outList;
+        this.listData = (this.datas as any).pie_data.outList;
+        this.listData.forEach(record => {
+          this.colors.forEach(currentColor => {
+            if (record.color.toLowerCase() == currentColor.name.toLowerCase()) {
+              record.bgColor = currentColor.color;
+            }
+          });
+        });
       }
       this.riskScoreOverTimeData.xAxis[0].data = (this
         .datas as any).address_score_month;
@@ -709,7 +792,7 @@ private bgColor = ''
         .datas as any).address_score_series;
       // this.historyLineData.xAxis[0].data = this.datas.historyXAxis;
       this.historyLineData.series = (this.datas as any).historyData;
-      // console.log('data' , res.data.pie_data);
+      this.historyLineData.xAxis[0].data = this.datas.address_score_month;
     });
   }
 }
