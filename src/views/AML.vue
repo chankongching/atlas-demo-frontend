@@ -410,47 +410,7 @@ export default class AML extends Vue {
       },
     ],
     series: [
-      {
-        name: 'Exchange',
-        type: 'line',
-        stack: 'Total',
-        areaStyle: {},
-        data: [24, 10, 15, 30, 50, 70, 40, 45],
-      },
-      {
-        name: 'P2P',
-        type: 'line',
-        stack: 'Total',
-        areaStyle: {},
-        data: [34, 40, 65, 30, 20, 15, 30, 25],
-      },
-      {
-        name: 'transfer',
-        type: 'line',
-        stack: 'Total',
-        areaStyle: {},
-        data: [60, 20, 30, 40, 60, 50, 40, 55],
-      },
-      {
-        name: 'Shopping',
-        type: 'line',
-        stack: 'Total',
-        areaStyle: { normal: {} },
-        data: [40, 20, 45, 50, 40, 20, 30, 55],
-      },
-      {
-        name: 'OUT',
-        type: 'line',
-        stack: 'Total',
-        label: {
-          normal: {
-            show: true,
-            position: 'top',
-          },
-        },
-        areaStyle: { normal: {} },
-        data: [14, 40, 35, 10, 80, 30, 60, 25],
-      },
+      
     ],
   };
 
@@ -617,16 +577,8 @@ export default class AML extends Vue {
       this.riskScoreOverTimeData.xAxis[0].data = (this.datas as any).address_score_month
       this.riskScoreOverTimeData.series[0].data = (this.datas as any).address_score_series;
       
-      // let historyData = [];
-
-      // for (let i = 0; i < this.datas.input[0].length; i++) {
-      //   historyData.push((() => {
-      //     historyData[0].
-      //   })())
-      // }
-
-
-      console.log(historyData);
+      // this.historyLineData.xAxis[0].data = this.datas.historyXAxis;
+      this.historyLineData.series = this.datas.historyData;
       console.log(res.data);
     });
   }
