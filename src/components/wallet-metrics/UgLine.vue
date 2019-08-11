@@ -49,183 +49,183 @@ export default class FdBar extends Vue {
     const data = [
       {
         time: "Jan 2014",
-        score: 25,
-        type: 0
+        score: 5,
+        type: "0"
       },
       {
         time: "Jun 2014",
-        score: 54,
-        type: 0
+        score: 4,
+        type: "0"
       },
       {
         time: "Jan 2015",
-        score: 84,
-        type: 0
+        score: 18,
+        type: "0"
       },
       {
         time: "Jun 2015",
-        score: 33,
-        type: 0
+        score: 23,
+        type: "0"
       },
       {
         time: "Jan 2016",
-        score: 57,
-        type: 0
+        score: 54,
+        type: "0"
       },
       {
         time: "Jun 2016",
-        score: 53,
-        type: 0
+        score: 35,
+        type: "0"
       },
       {
         time: "Jan 2017",
-        score: 15,
-        type: 0
+        score: 51,
+        type: "0"
       },
       {
         time: "Jun 2017",
         score: 91,
-        type: 0
+        type: "0"
       },
       {
         time: "Jan 2018",
-        score: 63,
-        type: 0
+        score: 36,
+        type: "0"
       },
       {
         time: "Jun 2018",
-        score: 92,
-        type: 0
+        score: 29,
+        type: "0"
       },
       {
         time: "Jan 2019",
-        score: 23,
-        type: 0
+        score: 40,
+        type: "0"
       },
       {
         time: "Jun 2019",
-        score: 99,
-        type: 0
+        score: 91,
+        type: "0"
       },
       {
         time: "Jan 2014",
         score: 25,
-        type: 1
+        type: "1"
       },
       {
         time: "Jun 2014",
-        score: 54,
-        type: 1
+        score: 45,
+        type: "1"
       },
       {
         time: "Jan 2015",
-        score: 84,
-        type: 1
+        score: 11,
+        type: "1"
       },
       {
         time: "Jun 2015",
-        score: 33,
-        type: 1
+        score: 31,
+        type: "1"
       },
       {
         time: "Jan 2016",
-        score: 57,
-        type: 1
+        score: 75,
+        type: "1"
       },
       {
         time: "Jun 2016",
-        score: 53,
-        type: 1
+        score: 43,
+        type: "1"
       },
       {
         time: "Jan 2017",
-        score: 15,
-        type: 1
+        score: 35,
+        type: "1"
       },
       {
         time: "Jun 2017",
-        score: 91,
-        type: 1
+        score: 81,
+        type: "1"
       },
       {
         time: "Jan 2018",
         score: 63,
-        type: 1
+        type: "1"
       },
       {
         time: "Jun 2018",
-        score: 92,
-        type: 1
+        score: 52,
+        type: "1"
       },
       {
         time: "Jan 2019",
-        score: 23,
-        type: 1
+        score: 73,
+        type: "1"
       },
       {
         time: "Jun 2019",
-        score: 99,
-        type: 1
+        score: 49,
+        type: "1"
       },
       {
         time: "Jan 2014",
-        score: 25,
-        type: 2
+        score: 15,
+        type: "2"
       },
       {
         time: "Jun 2014",
-        score: 54,
-        type: 2
+        score: 74,
+        type: "2"
       },
       {
         time: "Jan 2015",
-        score: 84,
-        type: 2
+        score: 64,
+        type: "2"
       },
       {
         time: "Jun 2015",
-        score: 33,
-        type: 2
+        score: 53,
+        type: "2"
       },
       {
         time: "Jan 2016",
-        score: 57,
-        type: 2
+        score: 97,
+        type: "2"
       },
       {
         time: "Jun 2016",
-        score: 53,
-        type: 2
+        score: 33,
+        type: "2"
       },
       {
         time: "Jan 2017",
-        score: 15,
-        type: 2
+        score: 75,
+        type: "2"
       },
       {
         time: "Jun 2017",
-        score: 91,
-        type: 2
+        score: 31,
+        type: "2"
       },
       {
         time: "Jan 2018",
-        score: 63,
-        type: 2
+        score: 43,
+        type: "2"
       },
       {
         time: "Jun 2018",
-        score: 92,
-        type: 2
+        score: 62,
+        type: "2"
       },
       {
         time: "Jan 2019",
-        score: 23,
-        type: 2
+        score: 13,
+        type: "2"
       },
       {
         time: "Jun 2019",
-        score: 99,
-        type: 2
+        score: 29,
+        type: "2"
       }
     ];
 
@@ -247,21 +247,15 @@ export default class FdBar extends Vue {
       .line()
       .position("time*score")
       .color("type", function(val: any) {
-        if (val === 0) {
-          return _C.selectColor[0];
-        }
-        if (val === 1) {
-          return _C.selectColor[1];
-        }
-        if (val === 2) {
-          return _C.selectColor[2];
-        }
+        return _C.selectColor[val];
       });
     chart
       .point()
       .position("time*score")
-      .color("type")
-      .size(4)
+      .color("type", function(val: any) {
+        return _C.selectColor[val * 1];
+      })
+      .size(5)
       .shape("circle")
       .style({
         stroke: "#fff",

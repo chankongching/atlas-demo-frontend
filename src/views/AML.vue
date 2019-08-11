@@ -626,8 +626,8 @@ export default class AML extends Vue {
       // }
 
 
-      console.log(historyData);
-      console.log(res.data);
+      // console.log(historyData);
+      // console.log(res.data);
     });
   }
 }

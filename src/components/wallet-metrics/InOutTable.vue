@@ -3,9 +3,10 @@
     <div class="infinite-list-header">
       <a-row>
         <a-col :span="3"></a-col>
-        <a-col :span="12">Entity</a-col>
-        <a-col class="tc" :span="7">NO. OF WALLET</a-col>
-        <a-col class="tc" :span="2">SCORE</a-col>
+        <a-col :span="7">Entity</a-col>
+        <a-col class="tc" :span="4">Amount(BTC)</a-col>
+        <a-col class="tc" :span="7">Category</a-col>
+        <a-col class="tc" :span="3">%</a-col>
       </a-row>
     </div>
     <div class="infinite-list-container">
@@ -17,22 +18,17 @@
           :infinite-scroll-distance="10"
         >
           <a-list-item slot="renderItem" slot-scope="item, index" :key="index">
-            <a-row @click.stop="selectRadio(item)">
+            <a-row class="font12">
               <a-col class="pl25" :span="3">
                 <span
                   class="tag-cricle"
-                  :style="{'backgroundColor': colors[Math.floor(Math.random()*5 - 1)]}"
+                  :style="{'backgroundColor': colors[Math.floor(Math.random()*6 - 1)]}"
                 ></span>
               </a-col>
-              <a-col :span="12">{{ item.title }}</a-col>
-              <a-col class="tc" :span="7">{{item.score}}</a-col>
-              <a-col class="tc" :span="2">
-                <a-radio
-                  :checked="checked_id == item.id"
-                  :value="item.id"
-                  @click.stop="selectRadio(item)"
-                />
-              </a-col>
+              <a-col :span="7">{{ item.title }}</a-col>
+              <a-col class="tc" :span="4">{{item.value}}</a-col>
+              <a-col class="tc" :span="7">{{item.sub}}</a-col>
+              <a-col class="tc" :span="3">{{item.score}}%</a-col>
             </a-row>
           </a-list-item>
           <div v-if="loading && !busy" class="loading-container">
@@ -74,26 +70,14 @@ const _Colors = new Colors();
     infiniteScroll
   }
 })
-export default class ModalWmTable extends Vue {
+export default class InOutTable extends Vue {
   private listData: Array<Object> = biTableData.data;
 
   private loading: boolean = false;
 
   private busy: boolean = false;
 
-  checked_id: string = "";
-
-  colors: any = _Colors.selectColor;
-
-  @Emit("checked-id")
-  onCheckid(item: object) {
-    return item;
-  }
-
-  selectRadio(item: any) {
-    this.checked_id = item['id'];
-    this.onCheckid(item);
-  }
+  colors: any = _Colors.inColor;
 
   handleInfiniteOnLoad() {
     const data = this.listData;
@@ -133,6 +117,9 @@ export default class ModalWmTable extends Vue {
   .infinite-list-container__box {
     height: 300px;
     overflow: auto;
+    .font12 {
+      font-size: 12px;
+    }
   }
   .infinite-list-header {
     height: 60px;
