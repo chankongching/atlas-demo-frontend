@@ -610,6 +610,15 @@ export default class AML extends Vue {
         this.riskScoreOverTimeData.series[0].data = (this
           .datas as any).address_score_series;
         this.historyLineData.series = (this.datas as any).historyData;
+      let timeList = [];
+      this.datas.xAxisData.forEach(element => {
+        let date = new Date(element * 1000);
+        var month = date.getUTCMonth() + 1;
+        var year = date.getUTCFullYear();
+        var formattedTime = month + " " + year;
+        timeList.push(formattedTime);
+      });
+      this.historyLineData.xAxis[0].data = timeList;
       })
       .catch(err => {
         console.log(err);
@@ -810,8 +819,15 @@ export default class AML extends Vue {
         .datas as any).address_score_series;
       // this.historyLineData.xAxis[0].data = this.datas.historyXAxis;
       this.historyLineData.series = (this.datas as any).historyData;
-
-      this.historyLineData.xAxis[0].data = this.datas.address_score_month;
+      let timeList = [];
+      this.datas.xAxisData.forEach(element => {
+        let date = new Date(element * 1000);
+        var month = date.getUTCMonth() + 1;
+        var year = date.getUTCFullYear();
+        var formattedTime = month + " " + year;
+        timeList.push(formattedTime);
+      });
+      this.historyLineData.xAxis[0].data = timeList;
     });
   }
 }
