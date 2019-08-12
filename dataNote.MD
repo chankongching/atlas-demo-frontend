@@ -17,11 +17,11 @@ the second record shld be "112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB"
 
 
 |idx| owner | address                          | description    |balance(BTC)| sent  (BTC)|received (BTC) | totalfees(BTC)  | transfers | withdraws | deposits | addresses | risk_score_in | risk_score_out |
-|---| ------| ---------------------------------| ---------------|-----------|-------------|---------------|-----------------|-----------|----------|----------|----------|------------------|---------------|
-|1  | huobi |1133biLvFq3b9qSsHpAA9M15vhJYvw3iND|huobi-coldwallet|0           | 4.65471200 |4.65471200     | 0.008            | 14        |  476      | 232      |  56       |    92         |     87         |
-|   |       |                                  |                |  链上数据   | 链上数据     |链上数据        | 共7笔作为input的fee|收和发的交易数| dummy    | dummy    |交易相关的大概地址数，如果是这个含义；可以获得准确的个数。|dummy |dummy|
-
-
+|---| ------| ---------------------------------| ---------------|------------|-------------|---------------|----------------|-----------|-----------|----------|-----------|---------------|----------------|
+|1  | huobi |1133biLvFq3b9qSsHpAA9M15vhJYvw3iND|huobi-coldwallet|0           | 4.65471200 |4.65471200     | 0               | 14        |  274      | 381      |  56       |    92         |     87         |
+|   |       |                                  |                |  链上数据   | 链上数据     |链上数据        |发送和收入金额相等判断出手续费是其他地址的。|收和发的交易数| dummy| dummy    |交易相关的大概地址数，如果是这个含义；可以获得准确的个数。|dummy |dummy|
+|2  |okcoin |112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB|okcoin-coldwallet|0          |102.57969972 |102.57969972 |   0              |2          |  345      | 465      |21          | 81            |       84      |
+|   |       |                                  |                 | 链上数据   | 链上数据      | 链上数据     |发送和收入金额相等判断出手续费是其他地址的。 |收和发的交易数| dummy | dummy |一起构建交易的地址数，没有排重。|dummy |dummy|                
 
 ### huobi         1133biLvFq3b9qSsHpAA9M15vhJYvw3iND
 
