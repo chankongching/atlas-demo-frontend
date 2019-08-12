@@ -39,7 +39,7 @@ the second record shld be "112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB"
 "balance" : 0,
 "sent" :   4.65471200,
 "received" : 4.65471200,
-"totalfees" : 0.008,
+"totalfees" : 0,
 "transfers" : 14,
 "withdraws" : NumberLong(476),
 "deposits" : NumberLong(232),
