@@ -41,8 +41,8 @@ the second record shld be "112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB"
 "received" : 4.65471200,
 "totalfees" : 0,
 "transfers" : 14,
-"withdraws" : NumberLong(476),
-"deposits" : NumberLong(232),
+"withdraws" : 274,
+"deposits" :  381,
 "addresses" : 56,
 "risk_score_in" :  92,
 "risk_score_out" : 87,
@@ -52,11 +52,39 @@ the second record shld be "112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB"
 ### okcoin    112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB
 
 ```
+"_id" : ObjectId("5d41344ce8df60067efdb660"),
+"address" : "112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB",
+"description" : "okcoin-coldwallet",
+"no_of_wallets" : "1",
+"balance" : 0,
+"sent" : 102.57969972,
+"received" : 102.57969972,
+"totalfees" :0,
+"transfers" :2,
+"withdraws" :345,
+"deposits" :465,
+"addresses" : 21,
+"risk_score_in" : 81,
+"risk_score_out" : 84,
 
 ```
 
 ### abraxas   1FeexV6bAHb8ybZjqQMjJrcCrHGW9sb6uF
 
 ```
+"_id" : ObjectId("5d41344ce8df60067efdb666"),
+"address" : "1FeexV6bAHb8ybZjqQMjJrcCrHGW9sb6uF",
+"description" : "abraxas-coldwallet",
+"no_of_wallets" : "1",
+"balance" : 79957.20036267,
+"sent" : 0,
+"received" : 79957.20036267,
+"totalfees" : 0,
+"transfers" : 294,
+"withdraws" : 3537,
+"deposits" : 34234,
+"addresses" : 364,
+"risk_score_in" : 91,
+"risk_score_out" : 79,
 
 ```
