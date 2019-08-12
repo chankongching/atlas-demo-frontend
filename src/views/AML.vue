@@ -24,8 +24,8 @@
       <div class="currency-info">
         <a-row :gutter="50">
           <a-col :span="18">
-            <h1 class="currency-info-name">{{datas.description}}</h1>
-            <h2 class="currency-info-full-name">{{datas.address}}</h2>
+            <h1 class="currency-info-name">{{datas.address}}</h1>
+            <h2 class="currency-info-full-name">{{datas.description}}</h2>
             <h3 class="currency-info-description">{{datas.addresses}} WALLETS</h3>
             <a-row :gutter="20">
               <a-col :span="12">
