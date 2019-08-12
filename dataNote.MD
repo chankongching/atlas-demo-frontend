@@ -35,15 +35,98 @@ for dataset, description equal to category.
 |   |       |                                  |                 |Jacky weChat |链上数据| 链上数据     | 链上数据     |发送和收入金额相等判断出手续费是其他地址的。 |收和发的交易数|dummy | dummy |一起构建交易的地址数，没有排重。|dummy |dummy|
 |3  |unknow|1FeexV6bAHb8ybZjqQMjJrcCrHGW9sb6uF|bitfinex-coldwallet|1 |79957.20036267|     0       |79957.20036267| 0              |294        |   3537    |    34234  |  364      | 85       |   93          |
 |   |       |                                  |                 |Jacky weChat| 链上数据 |链上数据     | 链上数据       |只有接收没有发送                       |收和发的交易数|dummy |dummy |交易相关的大概地址数; 交易太多，这里是个大概值。可以获得准确的个数|dummy |dummy|
-|4|huobi|Huobi.com|Exchange|696500| 426556.13143627 |2187264.00198514| 2613820.13342141|35.87638|48372618|46372819|87453267|65483|87|90
-|5|okcoin|OKCoin.com|Exchange|159200||||||||||
-|6|abraxas|AbraxasMarket|Darknet Market|149771||||||||||
-|7|BTC-e.com|BTC-e.com|Exchange|307500||||||||||
+|4|huobi|Huobi.com|Exchange|696500| 426556.13143627 |2187264.00198514| 2613820.13342141|35.87638|48372618|46372819|87453267|65483|87|90|
+| |     |         |        |Jacky on wechat|用tokenview的排行榜评估的|用tokenview的排行榜评估的|用tokenview的排行榜评估的|评估的| 评估的| dummy| dummy|dummy|dummy|dummy|
+|5|okcoin|OKCoin.com|Exchange|159200|126556.13143627 |1473628.837267|1347072.70583073|20.356|2736892|33726172|69372816|37653|86|93|
+| |      |          |        |Jacky on wechat|dummy|dummy|dummy|dummy|dummy|dummy|dummy|dummy|dummy|dummy|
+|6|abraxas|AbraxasMarket|Darknet Market|149771|8473627.235465|14738926.8437367|6265299.6082717|17.345|2352345|543723|847369|3456|86|93|
+|7|BTC-e.com|BTC-e.com|Exchange|307500|748392.675849|6758493.457463|7506886.133312|14.32423|36783|84732|3657|3456|85|97|
 |8|Kraken.com|Kraken.com|Exchange||||||||||
 
 
 
 ## Insert into Mongodb
+
+##  BTC-e.com
+
+```
+"_id" : ObjectId("5d41344ce8df60067efdb777"),
+"address" : "AbraxasMarket",
+"description" : "Darknet Market",
+"no_of_wallets" : 307500,
+"balance" : 748392.675849,
+"sent" : 6758493.457463,
+"received" : 7506886.133312,
+"totalfees" : 14.32423,
+"transfers" : 36783,
+"withdraws" : 84732,
+"deposits" : 3657,
+"addresses" : 3456,
+"risk_score_in" : 85,
+"risk_score_out" : 97,
+
+```
+
+
+###  AbraxasMarket
+
+```
+"_id" : ObjectId("5d41344ce8df60067efdb666"),
+"address" : "AbraxasMarket",
+"description" : "Darknet Market",
+"no_of_wallets" : 149771,
+"balance" : 8473627.235465,
+"sent" : 14738926.8437367,
+"received" : 6265299.6082717,
+"totalfees" : 17.345,
+"transfers" : 2352345,
+"withdraws" : 543723,
+"deposits" : 847369,
+"addresses" : 3456,
+"risk_score_in" : 86,
+"risk_score_out" : 93,
+
+```
+
+### okcoin
+```
+"_id" : ObjectId("5d41344ce8df60067efdb660"),
+"address" : "OKCoin.com",
+"description" : "Exchange",
+"no_of_wallets" : 159200,
+"balance" : 126556.13143627,
+"sent" : 1473628.837267,
+"received" : 1347072.70583073,
+"totalfees" : 20.356,
+"transfers" : 2736892,
+"withdraws" : 33726172,
+"deposits" : 33726172,
+"addresses" : 37653,
+"risk_score_in" : 86,
+"risk_score_out" : 93,
+```
+
+
+### huobi
+
+```
+"_id" : ObjectId("5d41344ce8df60067efdb550"),
+"address" : "Huobi.com",
+"description" : "Exchange",
+"no_of_wallets" : 696500,
+"balance" : 426556.13143627,
+"sent" : 2187264.00198514,
+"received" : 2613820.13342141,
+"totalfees" : 35.87638,
+"transfers" : 48372618,
+"withdraws" : 87453267,
+"deposits" : 69372816,
+"addresses" : 65483,
+"risk_score_in" : 86,
+"risk_score_out" : 93,
+```
+
+
 
 ### 1133biLvFq3b9qSsHpAA9M15vhJYvw3iND   
 
