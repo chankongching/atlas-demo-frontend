@@ -344,9 +344,9 @@ export default class Home extends Vue {
           splitLine: {show: false}
       }],
       grid: [{
-          bottom: '60%'
+          bottom: '5%'
       }, {
-          top: '60%'
+          top: '5%'
       }],
       series: [{
           type: 'line',
