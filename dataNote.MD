@@ -19,11 +19,11 @@ the second record shld be "112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB"
 
 |idx| owner | address                          | description    |NO of wallet |balance(BTC)    | sent  (BTC)|received (BTC) | totalfees(BTC)  | transfers | withdraws | deposits | addresses | risk_score_in | risk_score_out |
 |---| ------| ---------------------------------| ---------------|---------|----------------|-------------|--------------|----------------|-----------|-----------|----------|-----------|---------------|----------------|
-|1  | unknow | 1133biLvFq3b9qSsHpAA9M15vhJYvw3iND|Exchange        | 1  |0               | 4.65471200  | 4.65471200   | 0               | 14       |  274      | 381      |  56       |    92         |     87         |
+|1  | unknow | 1133biLvFq3b9qSsHpAA9M15vhJYvw3iND|Independent Wallet| 1  |0               | 4.65471200  | 4.65471200   | 0               | 14       |  274      | 381      |  56       |    92         |     87         |
 |   |       |                                  |                | Jacky weChat| 链上数据| 链上数据     |链上数据        |发送和收入金额相等判断出手续费是其他地址的。|收和发的交易数|dummy| dummy    |交易相关的大概地址数，如果是这个含义；可以获得准确的个数。|dummy |dummy|
-|2  |okcoin |112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB|Exchange         |1  |0              |102.57969972 |102.57969972 |   0              |2         |  345      | 465       |  21      | 81        |       84      |
+|2  |unknow |112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB|Exchange Wallet |1  |0              |102.57969972 |102.57969972 |   0              |2         |  345      | 465       |  21      | 81        |       84      |
 |   |       |                                  |                 |Jacky weChat |链上数据| 链上数据     | 链上数据     |发送和收入金额相等判断出手续费是其他地址的。 |收和发的交易数|dummy | dummy |一起构建交易的地址数，没有排重。|dummy |dummy|
-|3  |abraxas|1FeexV6bAHb8ybZjqQMjJrcCrHGW9sb6uF|Darknet Market   |1 |79957.20036267|     0       |79957.20036267| 0              |294        |   3537    |    34234  |  364      | 85       |   93          |
+|3  |unknow|1FeexV6bAHb8ybZjqQMjJrcCrHGW9sb6uF|bitfinex-coldwallet|1 |79957.20036267|     0       |79957.20036267| 0              |294        |   3537    |    34234  |  364      | 85       |   93          |
 |   |       |                                  |                 |Jacky weChat| 链上数据 |链上数据     | 链上数据       |只有接收没有发送                       |收和发的交易数|dummy |dummy |交易相关的大概地址数; 交易太多，这里是个大概值。可以获得准确的个数|dummy |dummy|
 |4|huobi|Huobi.com|Exchange|696500||||||||||
 |5|okcoin|OKCoin.com|Exchange|159200||||||||||
