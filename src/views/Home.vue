@@ -59,13 +59,13 @@
         </a-row>
       </div>
       <div>
-        <h3 class="item-title">active wallets over time</h3>
+        <h3 class="item-title">ACTIVE WALLETS</h3>
         <div class="wallets-over-container">
           <v-chart :options="lineData" autoresize/>
         </div>
       </div>
       <div>
-        <h3 class="item-title">activity map</h3>
+        <h3 class="item-title">ACTIVITY MAP</h3>
         <a-row :gutter="20">
           <a-col :span="12">
             <div class="activity-map-container"><v-chart :options="earnings" autoresize/></div>
@@ -77,7 +77,7 @@
         </a-row>
       </div>
       <div>
-        <h3 class="item-title">Recent INFORMATION</h3>
+        <h3 class="item-title">RECENT INFORMAITON</h3>
         <div class="card-container"></div>
       </div>
       <div>
@@ -108,13 +108,13 @@
               v-infinite-scroll="handleInfiniteOnLoad"
               :infinite-scroll-disabled="busy"
               :infinite-scroll-distance="10">
-              <a-list-item slot="renderItem" slot-scope="item, index">
+               <a-list-item slot="renderItem" slot-scope="item, index">
                 <a-row>
-                  <a-col :span="5">{{ index }}</a-col>
-                  <a-col :span="10">{{ item }}</a-col>
-                  <a-col :span="3">col-6</a-col>
-                  <a-col :span="3">col-6</a-col>
-                  <a-col :span="3">col-6</a-col>
+                  <a-col :span="2">{{ item[0] }}</a-col>
+                  <a-col :span="13" class="text-overflow-hidden">{{ item[1] }}</a-col>
+                  <a-col :span="3">{{ item[2] }}</a-col>
+                  <a-col :span="3">{{ item[3] }}</a-col>
+                  <a-col :span="3">{{ item[4] }}</a-col>
                 </a-row>
               </a-list-item>
               <div v-if="loading && !busy" class="loading-container">
@@ -475,11 +475,123 @@ export default class Home extends Vue {
   };
 
   private listData = [
-    'Racing car sprays burning fuel into crowd.',
-    'Japanese princess to wed commoner.',
-    'Australian walks 100km after outback crash.',
-    'Man charged over missing wedding girl.',
-    'Los Angeles battles huge wildfires.',
+    [
+      589766,
+      "000000000000000000156e5c1806982538621f2e23ebfaad2cc256caecef02ef",
+      " 18:07 PM",
+      "F2Pool",
+      "1,320,888 bytes"
+    ],
+    [
+      589765,
+      "0000000000000000000fba6e33308c14c3d68d05079b2ff931b9fdeddd4fd7ab",
+      " 17:57 PM",
+      "Unknown",
+      "1,503,519 bytes"
+    ],
+    [
+      589764,
+      "000000000000000000156e5c1806982538621f2e23ebfaad2cc256caecef02ef",
+      " 18:07 PM",
+      "F2Pool",
+      "1,320,888 bytes"
+    ],
+    [
+      589763,
+      "0000000000000000000fba6e33308c14c3d68d05079b2ff931b9fdeddd4fd7ab",
+      " 17:57 PM",
+      "Unknown",
+      "1,503,519 bytes"
+    ],
+    [
+      589762,
+      "000000000000000000156e5c1806982538621f2e23ebfaad2cc256caecef02ef",
+      " 18:07 PM",
+      "F2Pool",
+      "1,320,888 bytes"
+    ],
+    [
+      589761,
+      "0000000000000000000fba6e33308c14c3d68d05079b2ff931b9fdeddd4fd7ab",
+      " 17:57 PM",
+      "Unknown",
+      "1,503,519 bytes"
+    ],
+    [
+      589760,
+      "000000000000000000156e5c1806982538621f2e23ebfaad2cc256caecef02ef",
+      " 18:07 PM",
+      "F2Pool",
+      "1,320,888 bytes"
+    ],
+    [
+      589759,
+      "0000000000000000000fba6e33308c14c3d68d05079b2ff931b9fdeddd4fd7ab",
+      " 17:57 PM",
+      "Unknown",
+      "1,503,519 bytes"
+    ],
+    [
+      589758,
+      "000000000000000000156e5c1806982538621f2e23ebfaad2cc256caecef02ef",
+      " 18:07 PM",
+      "F2Pool",
+      "1,320,888 bytes"
+    ],
+    [
+      589757,
+      "0000000000000000000fba6e33308c14c3d68d05079b2ff931b9fdeddd4fd7ab",
+      " 17:57 PM",
+      "Unknown",
+      "1,503,519 bytes"
+    ],
+    [
+      589756,
+      "000000000000000000156e5c1806982538621f2e23ebfaad2cc256caecef02ef",
+      " 18:07 PM",
+      "F2Pool",
+      "1,320,888 bytes"
+    ],
+    [
+      589755,
+      "0000000000000000000fba6e33308c14c3d68d05079b2ff931b9fdeddd4fd7ab",
+      " 17:57 PM",
+      "Unknown",
+      "1,503,519 bytes"
+    ],
+    [
+      589754,
+      "000000000000000000156e5c1806982538621f2e23ebfaad2cc256caecef02ef",
+      " 18:07 PM",
+      "F2Pool",
+      "1,320,888 bytes"
+    ],
+    [
+      589753,
+      "0000000000000000000fba6e33308c14c3d68d05079b2ff931b9fdeddd4fd7ab",
+      " 17:57 PM",
+      "Unknown",
+      "1,503,519 bytes"
+    ],
+    [
+      589752,
+      "000000000000000000156e5c1806982538621f2e23ebfaad2cc256caecef02ef",
+      " 18:07 PM",
+      "F2Pool",
+      "1,320,888 bytes"
+    ],
+    [
+      589751,
+      "0000000000000000000fba6e33308c14c3d68d05079b2ff931b9fdeddd4fd7ab",
+      " 17:57 PM",
+      "Unknown",
+      "1,503,519 bytes"
+    ]
+    // "Racing car sprays burning fuel into crowd.",
+    // "Japanese princess to wed commoner.",
+    // "Australian walks 100km after outback crash.",
+    // "Man charged over missing wedding girl.",
+    // "Los Angeles battles huge wildfires."
   ];
 
   private loading: boolean = false;
@@ -536,6 +648,16 @@ export default class Home extends Vue {
 .flex-between {
   display: flex;
   justify-content: space-between;
+  h6 {
+    font-size: 14px;
+    font-weight: 800;
+  }
+  p {
+    font-weight: 500;
+  }
+  div {
+    font-weight: 600;
+  }
 }
 .ant-menu-horizontal.ant-menu-root {
   background-color: transparent;
@@ -596,7 +718,10 @@ export default class Home extends Vue {
         font-size: 12px;
         h5 {
           font-size: 14px;
-          font-weight: 400;
+          font-weight: 800;
+        }
+        span {
+          font-weight: 500;
         }
       }
     }
@@ -608,6 +733,10 @@ export default class Home extends Vue {
       padding: 10px;
       margin-top: 10px;
       color: #256BCE;
+      h3 {
+        font-weight: 800;
+        font-size: 24px;
+      }
       h3, h6 {
         color: #256BCE;
         margin: 0;
@@ -637,6 +766,11 @@ export default class Home extends Vue {
     overflow: auto;
     position: relative;
     padding: 0 20px;
+    .text-overflow-hidden {
+      text-overflow: ellipsis; 
+      cursor: pointer;
+      overflow: hidden; 
+    }
   }
   .infinite-list-header {
     padding: 20px;
