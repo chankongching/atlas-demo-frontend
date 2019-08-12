@@ -315,12 +315,6 @@ export default class Home extends Vue {
       visualMap: [{
           show: false,
           type: 'continuous',
-          seriesIndex: 0,
-          min: 0,
-          max: 400
-      }, {
-          show: false,
-          type: 'continuous',
           seriesIndex: 1,
           dimension: 0,
           min: 0,
@@ -344,7 +338,7 @@ export default class Home extends Vue {
           splitLine: {show: false}
       }],
       grid: [{
-          bottom: '5%'
+          bottom: '10%'
       }, {
           top: '5%'
       }],
