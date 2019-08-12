@@ -20,9 +20,7 @@ the second record shld be "112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB"
 |---| ------| ---------------------------------| ---------------|-------     | --------   |----------     |---------  ------ |-----------| ----------|----------| ----------| --------------| ---------------|
 |1  | huobi |1133biLvFq3b9qSsHpAA9M15vhJYvw3iND|huobi-coldwallet|0           | 4.65471200 |4.65471200     | 0.008            | 14        |  476      | 232      |  56       |    92         |     87         |
 |   |       |                                  |                |  链上数据   | 链上数据     |链上数据        | 共7笔作为input的fee|收和发的交易数| dummy     | dummy    |交易相关的大概地址数，如果是这个含义；可以获得准确的个数。| dummy |dummy|
-|2  |okcoin |112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB|okcoin-coldwallet|
-|   |       |                                  |                 |
-|3  |abraxas|1FeexV6bAHb8ybZjqQMjJrcCrHGW9sb6uF|abraxas-coldwallet|
+
 
 
 ### huobi         1133biLvFq3b9qSsHpAA9M15vhJYvw3iND
