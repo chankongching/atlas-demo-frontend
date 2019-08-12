@@ -406,8 +406,8 @@ import Axios from "axios";
   }
 })
 export default class AML extends Vue {
-  // private API: string = 'http://18.162.71.8:3000/api';
-  private API: string = 'http://127.0.0.1:3000/api';
+  private API: string = 'http://18.162.71.8:3000/api';
+  // private API: string = 'http://127.0.0.1:3000/api';
 
   private datas = {};
 
