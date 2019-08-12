@@ -35,10 +35,11 @@ for dataset, description equal to category.
 |   |       |                                  |                 |Jacky weChat |链上数据| 链上数据     | 链上数据     |发送和收入金额相等判断出手续费是其他地址的。 |收和发的交易数|dummy | dummy |一起构建交易的地址数，没有排重。|dummy |dummy|
 |3  |unknow|1FeexV6bAHb8ybZjqQMjJrcCrHGW9sb6uF|bitfinex-coldwallet|1 |79957.20036267|     0       |79957.20036267| 0              |294        |   3537    |    34234  |  364      | 85       |   93          |
 |   |       |                                  |                 |Jacky weChat| 链上数据 |链上数据     | 链上数据       |只有接收没有发送                       |收和发的交易数|dummy |dummy |交易相关的大概地址数; 交易太多，这里是个大概值。可以获得准确的个数|dummy |dummy|
-|4|huobi|Huobi.com|Exchange|696500||||||||||
+|4|huobi|Huobi.com|Exchange|696500| 426556.13143627 |2187264.00198514| 2613820.13342141|35.87638|48372618|46372819|87453267|65483|87|90
 |5|okcoin|OKCoin.com|Exchange|159200||||||||||
 |6|abraxas|AbraxasMarket|Darknet Market|149771||||||||||
-
+|7|BTC-e.com|BTC-e.com|Exchange|307500||||||||||
+|8|Kraken.com|Kraken.com|Exchange||||||||||
 
 
 
