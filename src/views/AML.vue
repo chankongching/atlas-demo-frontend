@@ -26,7 +26,7 @@
           <a-col :span="18">
             <h1 class="currency-info-name">{{datas.address}}</h1>
             <h2 class="currency-info-full-name">{{datas.description}}</h2>
-            <h3 class="currency-info-description">{{datas.addresses}} WALLETS</h3>
+            <h3 class="currency-info-description">{{datas.no_of_wallets}} WALLETS</h3>
             <a-row :gutter="20">
               <a-col :span="12">
                 <ul class="currency-info-list">
