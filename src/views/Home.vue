@@ -324,7 +324,7 @@ export default class Home extends Vue {
           seriesIndex: 1,
           dimension: 0,
           min: 0,
-          max: dateList.length - 1
+          max: 1460 - 1
       }],
 
 
