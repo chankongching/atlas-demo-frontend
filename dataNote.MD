@@ -19,6 +19,8 @@ the second record shld be "112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB"
 5. OKCoin.com
 6. AbraxasMarket
 
+for dataset, description equal to category.
+
 ```
 
 ##  DataSet  190812
@@ -38,8 +40,6 @@ the second record shld be "112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB"
 |6|abraxas|AbraxasMarket|Darknet Market|149771||||||||||
 
 
-
-for dataset, description equal to category
 
 
 ## Insert into Mongodb
