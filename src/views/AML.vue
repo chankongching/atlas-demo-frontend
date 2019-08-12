@@ -199,14 +199,14 @@
               style="width: 200px"
               @search="onSearch"
             />
-            <a-select defaultValue="jack" style="width: 120px" @change="searchSorthandleChange">
-              <a-select-option value="jack">Jack</a-select-option>
+            <a-select defaultValue="A" style="width: 120px" @change="searchSorthandleChange">
+              <a-select-option value="A">A-Z</a-select-option>
             </a-select>
           </div>
           <a-row :gutter="20">
             <a-col :span="6">
               <div class="card-container" style="height: 380px; overflow: auto; padding: 0">
-                <a-menu mode="vertical-right" v-for="(item  , index) in dataList" :key="index">
+                <a-menu mode="vertical-right" v-model="currentCategory" @click="categoryClick" :defaultSelectedKeys="[defaultCategory]" v-for="item of categoryList" :key="item.name">
                   <a-menu-item :key="item.name">{{item.name}}</a-menu-item>
                 </a-menu>
               </div>
@@ -223,25 +223,27 @@
                 </div>
                 <div class="infinite-list-container">
                   <a-list
-                    :dataSource="listData"
+                    :dataSource="currentCategoryData.value"
                     v-infinite-scroll="handleInfiniteOnLoad"
                     :infinite-scroll-disabled="busy"
                     :infinite-scroll-distance="10"
                   >
                     <a-list-item slot="renderItem" slot-scope="item">
-                      <a-row style="display: flex; align-items: center;">
-                        <a-col
-                          :span="4"
-                          style="display: flex; justify-content: flex-start; padding-left: 1vw;"
-                        >
-                          <span class="dot" v-bind:style="{ backgroundColor: item.bgColor, }"></span>
-                        </a-col>
-                        <a-col :span="12">{{ item.name }}</a-col>
-                        <a-col :span="4">{{item.value}}</a-col>
-                        <a-col :span="4">
-                          <a-checkbox></a-checkbox>
-                        </a-col>
-                      </a-row>
+                      <a-checkbox-group v-model="searchCheckedList" @change="selectSearchList">
+                        <a-row style="display: flex; align-items: center;">
+                          <a-col
+                            :span="4"
+                            style="display: flex; justify-content: flex-start; padding-left: 1vw;"
+                          >
+                            <span class="dot" v-bind:style="{ backgroundColor: returnCategoryColoe() }"></span>
+                          </a-col>
+                          <a-col :span="12">{{ item.entity }}</a-col>
+                          <a-col :span="4">{{item.no_of_wallets}}</a-col>
+                          <a-col :span="4">
+                            <a-checkbox :value="item" :disabled="item.id ? false: true"></a-checkbox>
+                          </a-col>
+                        </a-row>
+                      </a-checkbox-group>
                     </a-list-item>
                     <div v-if="loading && !busy" class="loading-container">
                       <a-spin />
@@ -259,8 +261,8 @@
               style="width: 200px"
               @search="onSearch"
             />
-            <a-select defaultValue="jack" style="width: 120px" @change="searchSorthandleChange">
-              <a-select-option value="jack">Jack</a-select-option>
+            <a-select defaultValue="A" style="width: 120px" @change="searchSorthandleChange">
+              <a-select-option value="A">A-Z</a-select-option>
             </a-select>
           </div>
           <div class="card-container infinite-list">
@@ -302,7 +304,44 @@
           </div>
         </div>
         <div v-if="AMLTab === 'manualEntry'">
-          <a-input-search placeholder="input search text" />
+          <a-input-search placeholder="input search text" v-model="manualEntryInput" @search="manualEntrySearchEvent"/>
+          <div class="card-container infinite-list">
+            <div class="infinite-list-header">
+              <a-row>
+                <a-col :span="4">Tag</a-col>
+                <a-col :span="12">ENTITY</a-col>
+                <a-col :span="4">NO. OF WALLET</a-col>
+                <a-col :span="4">SELECTED</a-col>
+              </a-row>
+            </div>
+            <div class="infinite-list-container">
+              <a-list
+                :dataSource="manualEntrySearch"
+                v-infinite-scroll="handleInfiniteOnLoad"
+                :infinite-scroll-disabled="busy"
+                :infinite-scroll-distance="10"
+              >
+                <a-list-item slot="renderItem" slot-scope="item">
+                  <a-row style="display: flex; align-items: center;">
+                    <a-col
+                      :span="4"
+                      style="display: flex; justify-content: flex-start; padding-left: 1vw;"
+                    >
+                      <span class="dot" v-bind:style="{ backgroundColor: item.bgColor, }"></span>
+                    </a-col>
+                    <a-col :span="12">{{ item.name }}</a-col>
+                    <a-col :span="4">{{ item.value }}</a-col>
+                    <a-col :span="4">
+                      <a-checkbox></a-checkbox>
+                    </a-col>
+                  </a-row>
+                </a-list-item>
+                <div v-if="loading && !busy" class="loading-container">
+                  <a-spin />
+                </div>
+              </a-list>
+            </div>
+          </div>
         </div>
         <div v-if="AMLTab === 'upload'">
           <a-upload-dragger
@@ -356,6 +395,7 @@ import Axios from "axios";
     ATabs: Ant.Tabs,
     ATabPane: Ant.Tabs.Pane,
     AModal: Ant.Modal,
+    ACheckboxGroup: Ant.Checkbox.Group,
     ACheckbox: Ant.Checkbox,
     ATag: Ant.Tag,
     AIcon: Ant.Icon,
@@ -366,6 +406,9 @@ import Axios from "axios";
   }
 })
 export default class AML extends Vue {
+  // private API: string = 'http://18.162.71.8:3000/api';
+  private API: string = 'http://127.0.0.1:3000/api';
+
   private datas = {};
 
   private exposurePie = [];
@@ -394,6 +437,7 @@ export default class AML extends Vue {
 
   private historyLineData = {
     title: {},
+    color: ["#37A2DA", "#32C5E9", "#67E0E3", "#9FE6B8", ],
     tooltip: {
       trigger: "axis",
       axisPointer: {
@@ -500,6 +544,9 @@ export default class AML extends Vue {
 
   private defaultExchangeSelected: string = "IN";
 
+  private defaultCategory: string = '';
+  private searchCheckedList: Array<string> = [];
+
   private colors = [
     {
       name: "DEX",
@@ -564,13 +611,23 @@ export default class AML extends Vue {
 
   private current = ["Independent Wallet"];
 
+  private categoryList = {};
+  
+  private currentCategoryData = [];
+
+  private currentCategory = [];
+
+  private manualEntryInput = '';
+
+  private manualEntrySearch = [];
+
   handleClick(e: object) {
     let key = (e as any).key;
     let data = {
       name: key
     };
     this.current[0] = key;
-    Axios.post("http://18.162.71.8:3000/api/record", data)
+    Axios.post(`${this.API}/record`, data)
       .then(res => {
         this.datas = res.data;
         // this.exposurePie = (this.datas as any).pie_data.in;
@@ -611,7 +668,7 @@ export default class AML extends Vue {
           .datas as any).address_score_series;
         this.historyLineData.series = (this.datas as any).historyData;
       let timeList = [];
-      this.datas.xAxisData.forEach(element => {
+      this.datas.historyXAxis.forEach(element => {
         let date = new Date(element * 1000);
         var month = date.getUTCMonth() + 1;
         var year = date.getUTCFullYear();
@@ -654,6 +711,16 @@ export default class AML extends Vue {
     this.listData.sort(function(x, y) {
       return y.value - x.value;
     });
+  }
+
+  returnCategoryColoe(name: string = this.currentCategory[0]) {
+    let color = '';
+    this.colors.forEach(currentColor => {
+      if (String(name).toLowerCase() == currentColor.name.toLowerCase()) {
+        color = currentColor.color;
+      }
+    });
+    return color;
   }
 
   handleInfiniteOnLoad() {
@@ -729,13 +796,17 @@ export default class AML extends Vue {
       element.itemStyle = { color: bgColor };
     });
   }
-  fetchAMLDate() {
-    // return Axios.get('https://www.easy-mock.com/mock/5d4e9bc64a02dc7a7d47475f/api/aml');
-    return Axios.get("http://18.162.71.8:3000/api/aml");
+  fetchAMLData() {
+    return Axios.get(`${this.API}/aml`);
   }
-
   fetchDataList() {
-    return Axios.get("http://18.162.71.8:3000/api/list");
+    return Axios.get(`${this.API}/list`);
+  }
+  fetchCategoryData() {
+    return Axios.get(`${this.API}/category-list`);
+  }
+  fetchManualEntrySearchData(param: any) {
+    return Axios.post(`${this.API}/search`, param);
   }
   pieClick(params: any) {
     this.selectedPieData = params.data;
@@ -776,6 +847,22 @@ export default class AML extends Vue {
     // }
   }
 
+  categoryClick(e:any) {
+    this.currentCategoryData = (this.categoryList as any).filter((item: any) => item.name === e.key)[0];
+    this.searchCheckedList = [];
+  }
+
+  selectSearchList(e: any) {
+    console.log(e);
+  }
+
+  manualEntrySearchEvent(e:any) {
+    this.manualEntrySearch = [];
+    this.fetchManualEntrySearchData({ address: this.manualEntryInput }).then((res: any) => {
+      console.log(res);
+    })
+  }
+
   created() {
     this.fetchDataList().then(res => {
       if (res.data.length > 0) {
@@ -783,7 +870,7 @@ export default class AML extends Vue {
         this.current[0] = res.data[0].name;
       }
     });
-    this.fetchAMLDate().then(res => {
+    this.fetchAMLData().then(res => {
       this.datas = res.data;
       // this.exposurePie = (this.datas as any).pie_data.in;
       (this.exposurePieData as any).series[0].data = (this
@@ -820,7 +907,7 @@ export default class AML extends Vue {
       // this.historyLineData.xAxis[0].data = this.datas.historyXAxis;
       this.historyLineData.series = (this.datas as any).historyData;
       let timeList = [];
-      this.datas.xAxisData.forEach(element => {
+      this.datas.historyXAxis.forEach(element => {
         let date = new Date(element * 1000);
         var month = date.getUTCMonth() + 1;
         var year = date.getUTCFullYear();
@@ -829,6 +916,13 @@ export default class AML extends Vue {
       });
       this.historyLineData.xAxis[0].data = timeList;
     });
+    this.fetchCategoryData().then(res => {
+      this.categoryList = res.data;
+      
+      this.defaultCategory = (this.categoryList as any)[0].name;
+
+      this.currentCategoryData = (this.categoryList as any).filter((item: any) => item.name === this.defaultCategory)[0];
+    })
   }
 }
 </script>
@@ -971,6 +1065,9 @@ export default class AML extends Vue {
 .ant-list-item .ant-list-item-content {
   display: block !important;
   .ant-row {
+    width: 100%;
+  }
+  .ant-checkbox-group {
     width: 100%;
   }
 }
