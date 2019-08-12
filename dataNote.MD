@@ -22,7 +22,7 @@ the second record shld be "112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB"
 |   |       |                                  |                |  链上数据| 链上数据     |链上数据        |发送和收入金额相等判断出手续费是其他地址的。|收和发的交易数|dummy| dummy    |交易相关的大概地址数，如果是这个含义；可以获得准确的个数。|dummy |dummy|
 |2  |okcoin |112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB|okcoin-coldwallet|0              |102.57969972 |102.57969972 |   0              |2         |  345      | 465       |  21      | 81        |       84      |
 |   |       |                                  |                 | 链上数据| 链上数据     | 链上数据     |发送和收入金额相等判断出手续费是其他地址的。 |收和发的交易数|dummy | dummy |一起构建交易的地址数，没有排重。|dummy |dummy|
-|3  |abraxas|1FeexV6bAHb8ybZjqQMjJrcCrHGW9sb6uF|abraxas-coldwallet|79957.20036267|     0       |79957.20036267| 0              |294        | 34234     |   3537    |  364      | 85       |   93          |
+|3  |abraxas|1FeexV6bAHb8ybZjqQMjJrcCrHGW9sb6uF|abraxas-coldwallet|79957.20036267|     0       |79957.20036267| 0              |294        |   3537    |    34234  |  364      | 85       |   93          |
 |   |       |                                  |                 | 链上数据 |链上数据     | 链上数据       |只有接收没有发送                       |收和发的交易数|dummy |dummy |交易相关的大概地址数; 交易太多，这里是个大概值。可以获得准确的个数|dummy |dummy|
 
 
