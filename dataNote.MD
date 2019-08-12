@@ -17,24 +17,35 @@ the second record shld be "112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB"
 
 比特币转账的手续费一般为0.001~0.0015
 
-|idx| owner | address                          | description    |balance(BTC)    | sent  (BTC)|received (BTC) | totalfees(BTC)  | transfers | withdraws | deposits | addresses | risk_score_in | risk_score_out |
-|---| ------| ---------------------------------| ---------------|----------------|-------------|--------------|----------------|-----------|-----------|----------|-----------|---------------|----------------|
-|1  | huobi |1133biLvFq3b9qSsHpAA9M15vhJYvw3iND|huobi-coldwallet|0               | 4.65471200  | 4.65471200   | 0               | 14       |  274      | 381      |  56       |    92         |     87         |
-|   |       |                                  |                |  链上数据| 链上数据     |链上数据        |发送和收入金额相等判断出手续费是其他地址的。|收和发的交易数|dummy| dummy    |交易相关的大概地址数，如果是这个含义；可以获得准确的个数。|dummy |dummy|
-|2  |okcoin |112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB|okcoin-coldwallet|0              |102.57969972 |102.57969972 |   0              |2         |  345      | 465       |  21      | 81        |       84      |
-|   |       |                                  |                 | 链上数据| 链上数据     | 链上数据     |发送和收入金额相等判断出手续费是其他地址的。 |收和发的交易数|dummy | dummy |一起构建交易的地址数，没有排重。|dummy |dummy|
-|3  |abraxas|1FeexV6bAHb8ybZjqQMjJrcCrHGW9sb6uF|abraxas-coldwallet|79957.20036267|     0       |79957.20036267| 0              |294        |   3537    |    34234  |  364      | 85       |   93          |
-|   |       |                                  |                 | 链上数据 |链上数据     | 链上数据       |只有接收没有发送                       |收和发的交易数|dummy |dummy |交易相关的大概地址数; 交易太多，这里是个大概值。可以获得准确的个数|dummy |dummy|
+|idx| owner | address                          | description    |NO of wallet |balance(BTC)    | sent  (BTC)|received (BTC) | totalfees(BTC)  | transfers | withdraws | deposits | addresses | risk_score_in | risk_score_out |
+|---| ------| ---------------------------------| ---------------|---------|----------------|-------------|--------------|----------------|-----------|-----------|----------|-----------|---------------|----------------|
+|1  | huobi |Huobi.com                         |Exchange        | 696500  |0               | 4.65471200  | 4.65471200   | 0               | 14       |  274      | 381      |  56       |    92         |     87         |
+|   |       |                                  |                | Jacky weChat| 链上数据| 链上数据     |链上数据        |发送和收入金额相等判断出手续费是其他地址的。|收和发的交易数|dummy| dummy    |交易相关的大概地址数，如果是这个含义；可以获得准确的个数。|dummy |dummy|
+|2  |okcoin |OKCoin.com                        |Exchange         |159200  |0              |102.57969972 |102.57969972 |   0              |2         |  345      | 465       |  21      | 81        |       84      |
+|   |       |                                  |                 |Jacky weChat |链上数据| 链上数据     | 链上数据     |发送和收入金额相等判断出手续费是其他地址的。 |收和发的交易数|dummy | dummy |一起构建交易的地址数，没有排重。|dummy |dummy|
+|3  |abraxas|AbraxasMarket                     |Darknet Market   |149771 |79957.20036267|     0       |79957.20036267| 0              |294        |   3537    |    34234  |  364      | 85       |   93          |
+|   |       |                                  |                 |Jacky weChat| 链上数据 |链上数据     | 链上数据       |只有接收没有发送                       |收和发的交易数|dummy |dummy |交易相关的大概地址数; 交易太多，这里是个大概值。可以获得准确的个数|dummy |dummy|
+|4|huobi|Huobi.com|Exchange|696500||||||||||
+
+
+1. 1133biLvFq3b9qSsHpAA9M15vhJYvw3iND
+2. 112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB
+3. 1FeexV6bAHb8ybZjqQMjJrcCrHGW9sb6uF
+4. Huobi.com
+5. OKCoin.com
+6. AbraxasMarket
+
+for dataset, description equal to category
 
 
 ## Insert into Mongodb
 
-### huobi   1133biLvFq3b9qSsHpAA9M15vhJYvw3iND
+### 1133biLvFq3b9qSsHpAA9M15vhJYvw3iND   
 
 ```
 "_id" : ObjectId("5d41344ce8df60067efdb550"),
 "address" : "1133biLvFq3b9qSsHpAA9M15vhJYvw3iND",
-"description" : "huobi-coldwallet",
+"description" : "Independent Wallet",
 "no_of_wallets" : "1",
 "balance" : 0,
 "sent" :   4.65471200,
@@ -49,12 +60,12 @@ the second record shld be "112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB"
 
 ```
 
-### okcoin    112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB
+### 112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB    
 
 ```
 "_id" : ObjectId("5d41344ce8df60067efdb660"),
 "address" : "112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB",
-"description" : "okcoin-coldwallet",
+"description" : "Exchange Wallet",
 "no_of_wallets" : "1",
 "balance" : 0,
 "sent" : 102.57969972,
@@ -69,12 +80,12 @@ the second record shld be "112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB"
 
 ```
 
-### abraxas   1FeexV6bAHb8ybZjqQMjJrcCrHGW9sb6uF
+### 1FeexV6bAHb8ybZjqQMjJrcCrHGW9sb6uF   
 
 ```
 "_id" : ObjectId("5d41344ce8df60067efdb666"),
 "address" : "1FeexV6bAHb8ybZjqQMjJrcCrHGW9sb6uF",
-"description" : "abraxas-coldwallet",
+"description" : "bitfinex-coldwallet",
 "no_of_wallets" : "1",
 "balance" : 79957.20036267,
 "sent" : 0,
