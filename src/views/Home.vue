@@ -312,7 +312,7 @@ const result = [
 export default class Home extends Vue {
   private lineData: object = {
     title: {
-      subtext: 'Wallet User Count',
+      subtext: 'ACTIVE WALLETS',
     },
     xAxis: {
       type: 'category',
