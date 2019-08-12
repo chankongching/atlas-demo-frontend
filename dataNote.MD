@@ -11,6 +11,14 @@ abraxas
 
 the second record shld be "112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB"
 
+
+1. 1133biLvFq3b9qSsHpAA9M15vhJYvw3iND
+2. 112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB
+3. 1FeexV6bAHb8ybZjqQMjJrcCrHGW9sb6uF
+4. Huobi.com
+5. OKCoin.com
+6. AbraxasMarket
+
 ```
 
 ##  DataSet  190812
@@ -30,13 +38,6 @@ the second record shld be "112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB"
 |6|abraxas|AbraxasMarket|Darknet Market|149771||||||||||
 
 
-
-1. 1133biLvFq3b9qSsHpAA9M15vhJYvw3iND
-2. 112xfbAbdKfyEnwZEv13JU6ibEHpJqZ3rB
-3. 1FeexV6bAHb8ybZjqQMjJrcCrHGW9sb6uF
-4. Huobi.com
-5. OKCoin.com
-6. AbraxasMarket
 
 for dataset, description equal to category
 
