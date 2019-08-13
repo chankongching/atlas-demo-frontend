@@ -104,7 +104,7 @@
               </div>
               <strong style="display: flex; align-items: center;">₿{{selectedPieData.value}}</strong>
             </div>
-            <div v-else class="card-container">No Section*** Clicked</div>
+            <div v-else class="card-container">No Section Clicked</div>
             <div class="exposure-pie-container">
               <v-chart
                 :options="exposurePieData"
