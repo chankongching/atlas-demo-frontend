@@ -11,10 +11,15 @@ Vue.use(Router);
 export default new Router({
   mode: 'history',
   routes: [
+    // {
+    //   path: '/',
+    //   name: 'Home',
+    //   component: Home,
+    // },
     {
       path: '/',
-      name: 'Home',
-      component: Home,
+      name: 'AML',
+      component: AML,
     },
     {
       path: '/AML',
@@ -31,10 +36,10 @@ export default new Router({
     //   name: 'WalletMetrics',
     //   component: WalletMetrics,
     // },
-    {
-      path: '/Demo',
-      name: 'Demo',
-      component: Demo,
-    },
+    // {
+    //   path: '/Demo',
+    //   name: 'Demo',
+    //   component: Demo,
+    // },
   ],
 });
