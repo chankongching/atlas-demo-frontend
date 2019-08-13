@@ -5,18 +5,23 @@
       :defaultSelectedKeys="[menuDefault]"
       mode="inline"
     >
+    <!-- Comment out of Home button
+    <!--
       <a-menu-item key="Home">
         <a-icon type="home" />
         Home
       </a-menu-item>
+    -->
       <a-menu-item key="AML">
         <a-icon type="bar-chart" />
         AML
       </a-menu-item>
+    <!--
       <a-menu-item key="BusinessIntel">
         <a-icon type="line-chart" />
         Business Intel
       </a-menu-item>
+    -->
       <!-- <a-menu-item key="WalletMetrics">
         <a-icon type="line-chart" />
         Wallet Metrics
@@ -37,7 +42,7 @@ import Ant from 'ant-design-vue';
   },
 })
 export default class Navigation extends Vue {
-  private menuDefault: string = 'Home';
+  private menuDefault: string = 'AML';
 
   handleClick(e: object) {
     this.$router.push({
