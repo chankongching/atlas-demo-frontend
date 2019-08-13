@@ -169,7 +169,7 @@
         </a-row>
       </div>
       <div class="historyOfProvidenceOfFunds-container" style="margin-top: 1vh;">
-        <h3 class="item-title">History of providence of funds</h3>
+        <h3 class="item-title">Historic Provenance of Funds</h3>
         <div class="historyDashbord-container">
           <v-chart :options="historyLineData" autoresize />
         </div>
