@@ -1,5 +1,12 @@
 <template>
   <div>
+    <div id="apptest">
+  <ol>
+    <li v-for="site in walletuserdate">
+   test9---------   {{site}}
+    </li>
+  </ol>
+</div>
     <a-menu
       @click="currencySwitch"
       :defaultSelectedKeys="['BTC']"
@@ -18,17 +25,17 @@
             <a-row :gutter="20">
               <a-col :span="12">
                 <ul class="currency-info-list">
-                  <li><h5>Average Block Size</h5><span>1.1 Mb</span></li>
-                  <li><h5>Transaction per day</h5><span>366,125</span></li>
-                  <li><h5>Mempool size</h5><span>766,901 bytes</span></li>
+                  <li><h5>Average Block Size</h5><span>{{msg["average_block_size"]}}</span></li>
+                  <li><h5>Transaction per day</h5><span>{{msg["transaction_per_day"]}}</span></li>
+                  <li><h5>Mempool size</h5><span>{{msg["mempool_size"]}} bytes</span></li>
                 </ul>
               </a-col>
               <a-col :span="12">
                  <ul class="currency-info-list">
-                    <li><h5>market Cap</h5><span>$208,690,195,700 USD</span></li>
-                    <li><h5>volume</h5><span>$23,421,360,099 USD</span></li>
-                    <li><h5>Circulating Supply</h5><span>17,862,425 BTC</span></li>
-                    <li><h5>Max SUpply</h5><span>21,000,000 BTC</span></li>
+                    <li><h5>market Cap</h5><span>${{msg["market_cap"]}} USD</span></li>
+                    <li><h5>volume</h5><span>${{msg["circulating_supply"]}} USD</span></li>
+                    <li><h5>Circulating Supply</h5><span>{{msg["circulating_supply"]}} BTC</span></li>
+                    <li><h5>Max SUpply</h5><span>{{msg["max_supply"]}} BTC</span></li>
                   </ul>
               </a-col>
             </a-row>
@@ -36,23 +43,23 @@
           <a-col :span="6">
             <h3>Market Price</h3>
             <div class="currency-info-card">
-              <h3>$11,695.25</h3>
+              <h3>${{msg["price"]}}</h3>
               <div class="flex-between">
                 <div>USD</div>
                 <div>
                   <a-icon type="caret-up" />
-                  <span style="margin-left: 10px;">0.43%</span>
+                  <span style="margin-left: 10px;">{{msg["percent_change_24h"]}}</span>
                 </div>
               </div>
             </div>
             <div class="currency-info-card">
               <div class="flex-between">
-                <h6>24 hour High</h6>
-                <p>$12,134.11</p>
+                <h6>24 hour lowest</h6>
+                <p>${{msg["lowest_price_for_day"]}}</p>
               </div>
               <div class="flex-between">
                 <h6>24 hour High</h6>
-                <p>$12,134.11</p>
+                <p>${{msg["highest_price_for_day"]}}</p>
               </div>
             </div>
           </a-col>
@@ -104,17 +111,17 @@
         </div>
         <div class="infinite-list-container">
           <a-list
-              :dataSource="listData"
+              :dataSource="blocklistdata"
               v-infinite-scroll="handleInfiniteOnLoad"
               :infinite-scroll-disabled="busy"
               :infinite-scroll-distance="10">
                <a-list-item slot="renderItem" slot-scope="item, index">
                 <a-row>
-                  <a-col :span="2">{{ item[0] }}</a-col>
-                  <a-col :span="13" class="text-overflow-hidden">{{ item[1] }}</a-col>
-                  <a-col :span="3">{{ item[2] }}</a-col>
-                  <a-col :span="3">{{ item[3] }}</a-col>
-                  <a-col :span="3">{{ item[4] }}</a-col>
+                  <a-col :span="2">{{ item["height"] }}</a-col>
+                  <a-col :span="13" class="text-overflow-hidden">{{ item["hash"] }}</a-col>
+                  <a-col :span="3">{{ item["time"] }}</a-col>
+                  <a-col :span="3">{{ item["time"] }}</a-col>
+                  <a-col :span="3">{{ item["size"] }}</a-col>
                 </a-row>
               </a-list-item>
               <div v-if="loading && !busy" class="loading-container">
@@ -135,6 +142,9 @@ import 'echarts/lib/chart/line';
 import 'echarts/map/js/world';
 import 'echarts/lib/chart/map';
 import infiniteScroll from 'vue-infinite-scroll';
+import "echarts/lib/chart/pie";
+import "echarts/lib/chart/line";
+import axios from "axios";
 
 const geoCoordMap = {
   Amsterdam: [4.895168, 52.370216],
@@ -311,6 +321,39 @@ const result = [
   },
 })
 export default class Home extends Vue {
+   test=['2019-08-12 07:19:00','2019-08-12 07:26:00','2019-08-12 07:33:00','2019-08-12 07:40:00'];
+    // 初始化数据
+    msg = {};
+   private blocklistdata=[];
+   walletuserdate=[];
+
+    // 声明周期钩子
+    mounted () {
+      this.banner();
+      //this.printtest();
+      this.blocklist();
+      this.walletuser();
+    }
+     
+    // 计算属性
+    
+     printtest(){
+        alert('greeting')
+       console.log(this.msg);
+     }
+    // 方法
+    banner () {
+     axios.get('http://18.162.151.42:8000/btc/banner')
+      .then(response => (this.msg = response.data))
+    }
+    blocklist () {
+     axios.get('http://18.162.151.42:8000/btc/blocklist')
+      .then(response => (this.blocklistdata = response.data))
+    }
+    walletuser () {
+     axios.get('http://18.162.151.42:8000/btc/walletuser')
+      .then(response => (this.walletuserdate = response.data))
+    }
     private transactionseconds: object = {
       // Make gradient line here
       visualMap: [{
@@ -628,7 +671,7 @@ export default class Home extends Vue {
   }
 
   handleInfiniteOnLoad() {
-    const data = this.listData;
+    const data = this.blocklistdata;
     this.loading = true;
     if (data.length > 14) {
       // this.$message.warning('Infinite List loaded all');
@@ -637,7 +680,7 @@ export default class Home extends Vue {
       return;
     }
     this.fetchData((res: any) => {
-      this.listData = data.concat(res);
+      this.blocklistdata = data.concat(res);
       this.loading = false;
     });
   }
@@ -646,7 +689,7 @@ export default class Home extends Vue {
     callback(['add befor', 'add befor1', 'add befor2']);
   }
 
-  beforeMount() {
+   beforeMount() {
     this.listData.concat(result);
   }
 }
