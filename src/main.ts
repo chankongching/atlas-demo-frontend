@@ -4,7 +4,8 @@ import router from './router';
 import store from './store';
 import './registerServiceWorker';
 import '@/styles/style.scss';
-
+import $ from 'jquery'  
+Vue.prototype.$ = $; 
 import ECharts from 'vue-echarts';
 
 Vue.component('v-chart', ECharts);
