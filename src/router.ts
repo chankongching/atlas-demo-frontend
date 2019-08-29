@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Demo from './views/Demo.vue';
 import Home from './views/Home.vue';
+import Hometest from './views/Hometest.vue';
 import AML from './views/AML.vue';
 import BusinessIntel from './views/Business-Intel.vue';
 import WalletMetrics from './views/Wallet-Metrics.vue';
@@ -20,6 +21,11 @@ export default new Router({
       path: '/AML',
       name: 'AML',
       component: AML,
+    },
+    {
+      path: '/Hometest',
+      name: '/Hometest',
+      component: Hometest,
     },
     {
       path: '/BusinessIntel',

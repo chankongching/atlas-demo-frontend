@@ -1,19 +1,6 @@
 <template>
   <div>
-
-    <div id="app">
-    <div id="main" style="width: 600px;height:400px;"></div>
-  </div>
-   <!-- {{walletuserdatex}}
-      {{walletuserdatey}} -->
- <div id="container"></div>
-    <div id="apptest">
-  <!-- <ol>
-    <li v-for="site in walletuserdate">
-   test9---------   {{site}}
-    </li>
-  </ol> -->
-</div>
+    <div>{{transactionpagedata}}</div>
     <a-menu
       @click="currencySwitch"
       :defaultSelectedKeys="['BTC']"
@@ -75,7 +62,8 @@
       <div>
         <h3 class="item-title">ACTIVE WALLETS</h3>
         <div class="wallets-over-container">
-          <v-chart :options="lineData" autoresize/>
+              <div id="walletUser"  style="width: 900px;height:400px;"></div>
+
         </div>
       </div>
       <div>
@@ -86,7 +74,10 @@
           </a-col>
           <a-col :span="12">
             <h3 class="currency-info">Transaction Rate</h3>
-            <div class="card-container activity-map-right"><v-chart :options="transactionseconds" autoresize/></div>
+            <div class="card-container activity-map-right">
+              <div id="transaction" style="width: 400px;height:250px;"></div>
+              <!-- <v-chart :options="transactionseconds" autoresize/> -->
+              </div>
           </a-col>
         </a-row>
       </div>
@@ -100,13 +91,13 @@
         :defaultSelectedKeys="['BLOCK']"
         mode="horizontal"
       >
-        <a-menu-item key="BLOCK">BLOCK</a-menu-item>
-        <a-menu-item key="TRANSACTIONS">TRANSACTIONS</a-menu-item>
+        <a-menu-item key="BLOCK"  class="select5" id="BLOCK">BLOCK</a-menu-item>
+        <a-menu-item key="TRANSACTIONS" class="select5" id="TRANSACTIONS">TRANSACTIONS</a-menu-item>
         <a-menu-item key="AVERAGE FEE">AVERAGE FEE</a-menu-item>
         <a-menu-item key="AVERAGE VALUE">AVERAGE VALUE</a-menu-item>
         <a-menu-item key="DIFFICULTY">DIFFICULTY</a-menu-item>
       </a-menu>
-      <div class="card-container infinite-list">
+      <div class="card-container infinite-list BLOCKli">
         <div class="infinite-list-header">
           <a-row>
             <a-col :span="5">HEIGHT</a-col>
@@ -137,6 +128,37 @@
             </a-list>
         </div>
       </div>
+      <div class="card-container infinite-list TRANSACTIONSli">
+        <div class="infinite-list-header">
+          <a-row>
+            <a-col :span="5">HEIGHT</a-col>
+            <a-col :span="10">HASH</a-col>
+            <a-col :span="3">MINED</a-col>
+            <a-col :span="3">MINER</a-col>
+            <a-col :span="3">SIZE</a-col>
+          </a-row>
+        </div>
+        <div class="infinite-list-container">
+          <a-list
+              :dataSource="transactionpagedata"
+              v-infinite-scroll="handleInfiniteOnLoad"
+              :infinite-scroll-disabled="busy"
+              :infinite-scroll-distance="10">
+               <a-list-item slot="renderItem" slot-scope="item, index">
+                <a-row>
+                  <a-col :span="2">{{ item["block"] }}</a-col>
+                  <a-col :span="13" class="text-overflow-hidden">{{ item["fee"] }}</a-col>
+                  <a-col :span="3">{{ item["hash"] }}</a-col>
+                  <a-col :span="3">{{ item["size"] }}</a-col>
+                  <a-col :span="3">{{ item["size"] }}</a-col>
+                </a-row>
+              </a-list-item>
+              <div v-if="loading && !busy" class="loading-container">
+                <a-spin />
+              </div>
+            </a-list>
+        </div>
+      </div>
       </div>
     </div>
   </div>
@@ -155,7 +177,27 @@ import axios from "axios";
 import $ from "jquery";
 //var testhtml= "<h1>我的第一个 Web 页面</h1>"
 //$('#apptest').html(testhtml);
+$(document).ready(function() {
+   console.log("haha");
+    var clicktabs = document.getElementsByClassName('test1');
+    var showtabs = document.getElementsByClassName('pricing-table-smalljc');
+    for (var i = 0; i < clicktabs.length; i++) {
+        console.log("haha");
+        // showTab(this);
+        clicktabs[i].onclick = function() {
+            showTab(this,i);
+        }
+    }
+    // for (var i = 0; i < showtabs.length; i++) {
+    //     console.log(showtabs[i]);
+    // }
 
+    function showTab(element_var,i) {
+        console.log(element_var);
+         console.log(i);
+    }
+
+});
  var walletuserdatex=['testput'];
   var   walletuserdatey=[222];
 const name1=[];
@@ -236,86 +278,7 @@ const geoCoordMap = {
   Zurich: [8.541694, 47.376887],
 };
 
-const testdataxq=getUserAccountx ();
-
-const testdatax=getUserAccounty ();
-const testdata6=axiosTest();
-const testdatay=getUserAccounty ();
-
-
-function axiosTest () {
-   var url="http://18.162.151.42:8000/btc/walletuser"
-axios.get(url)
-    .then(function (response) {
-        console.log(response.data);
-        //response.data
-        const cdcd=response.data;
-// I need this data here ^^
-return cdcd;
-})
-.catch(function (error) {
-    console.log(error);
-});
-}
-function getUserAccounty () {
- var list = {};
-   // event.preventDefault();
-   var url="http://18.162.151.42:8000/btc/walletuser"
-   return axios.get(url)
-               .then(function (response) {
-                console.log("-----------------------------------response.data---------------------------------");
-                console.log(response.data);
-                testdata2(response.data);
-                console.log("-----------------------------------response.data---------------------------------")
-        return response.data; // the response.data is string of src
-
-               })
-               .catch(function (response) {
-                    console.log(response);
-               });
-
-}
- var test12121=[""];
-
-
-
-function getUserAccountx () {
-  var cc1;
-axios.get('http://18.162.151.42:8000/btc/walletuser')
-      .then((response)=> {  
-          let data = response.data;  
-         // console.log("2---------------------2------------------2----------------")
-         //  console.log(response.data['values'].length);
-           const sdx=[];
-         const y=[];
-       //  console.log(response.data['values'].length)
-         for (let index = 0; index <response.data['values'].length; index++) {
-      //  console.log(response.data['values'][index]["x"]);
-        y.push(response.data['values'][index]["y"]);
-      //  console.log(response.data['values'][index]["y"]);
-        var date = new Date(response.data['values'][index]["x"]);
-              var Y = date.getFullYear() + '-';
-              var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-              var D = date.getDate() + ' ';
-              var h = date.getHours() + ':';
-              var m = date.getMinutes() + ':';
-              var s = date.getSeconds(); 
-              // console.log(Y+M+D+h+m);
-           var time1=Y+M+D+h;
-           sdx.push(time1);
-            
-         }
-         cc1=sdx; 
-         test1y = y;  
-         console.log('sdx')
-         //console.log(this.walletuserdatex)
-         console.log('y')
-         console.log(y)
-          
-        });
-
-return cc1 ;
-}
+//const testdataxq=getUserAccountx ();
 
 const rawData = [
   ['Amsterdam', 101.6, 90.1, 77.1, 69.1, 78.3, 69.4, 1755, 24, 15, 7, 9, 44, 720, 1.651, 1.59, 2.205, 0.974, 0.93, 2.477, 67.4, 364, 690, 1113, 4960, 3.19, 30.05, 16.34, 24000, 689, 1.8, 50, 200, 390, 690, 1040, 2331, 1580, 17.5, 25.5, 30, 48400, 39200, 26300, 30200, 55400, 39800, 104400, 58700, 64600, 49200, 40300, 31100, 40300, 27700, 66700, 66700],
@@ -399,41 +362,7 @@ const result = [
   'Man charged over missing wedding girl.',
   'Los Angeles battles huge wildfires.',
 ];
-// function  walletuser2 () {
-//      axios.get('http://18.162.151.42:8000/btc/walletuser')
-//       .then((response)=> {  
-//           let data = response.data;  
-//          // console.log("2---------------------2------------------2----------------")
-//          //  console.log(response.data['values'].length);
-//            const sdx=[];
-//          const y=[];
-//        //  console.log(response.data['values'].length)
-//          for (let index = 0; index <response.data['values'].length; index++) {
-//       //  console.log(response.data['values'][index]["x"]);
-//         y.push(response.data['values'][index]["y"]);
-//       //  console.log(response.data['values'][index]["y"]);
-//         var date = new Date(response.data['values'][index]["x"]);
-//               var Y = date.getFullYear() + '-';
-//               var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-//               var D = date.getDate() + ' ';
-//               var h = date.getHours() + ':';
-//               var m = date.getMinutes() + ':';
-//               var s = date.getSeconds(); 
-//               // console.log(Y+M+D+h+m);
-//            var time1=Y+M+D+h;
-//            sdx.push(time1);
-            
-//          }
-//          test1x=sdx; 
-//          test1y = y;  
-//          console.log('sdx')
-//          //console.log(this.walletuserdatex)
-//          console.log('y')
-//          console.log(y)
-          
-//         }); 
 
-//     }
 
    var test1x=["12121"];
     var test1y=[12121];
@@ -463,17 +392,12 @@ console.log("12212");
   },
 })
 
-
-
-
 export default class Home extends Vue {
   
   constructor() {
         super();
-       this.walletuser2 ()  // 调用父类的 constructor(name)
-     //  console.log("-------------------wexport default class Home extends Vuer--------------------");
-      // console.log(testdatax);
-       console.log(testdatay);
+      
+      // console.log(testdatay);
        console.log("-------------------wexport default class Home extends Vuer--------------------");
     }
     
@@ -487,51 +411,205 @@ export default class Home extends Vue {
   test3=[12,12,12,12,12,12,12,12,12,12];
     msg = {};
    private blocklistdata=[];
+   private transactionpagedata=[];
    walletuserdate=[];
     walletuserdatex=["123"];
    // walletuserdatex[0].showAlert = false;
     walletuserdatey=[12];
    //  walletuserdatey[0].showAlert = false;
    _this=this;
-   drawChart() {
+   walletUser() {
       // 基于准备好的dom，初始化echarts实例
-      let myChart = this.$echarts.init(document.getElementById("main"));
+      let myChart = this.$echarts.init(document.getElementById("walletUser"));
       // 指定图表的配置项和数据
      var  option = {
+        visualMap: [{
+          show: false,
+          type: 'continuous',
+          seriesIndex: 1,
+          dimension: 0,
+          min: 0,
+          max: 1460 - 1
+      }],
+
         title: {
-          text: "ECharts 入门示例"
+        //  text: "ECharts 入门示例"
         },
         tooltip: {},
         legend: {
-          data: ["销量"]
+          // data: ["销量"]
+        },
+        grid:{
+         y2:140
         },
         xAxis: {
-          data: []
+          data: [],
+           type : 'category',
+            boundaryGap : false,
+          splitLine: {
+                show: false
+            },
+          axisLabel: {
+          //interval: 200
+    }
         },
         yAxis: {},
-        series: [
-          
-        ]
+        grid: [{
+          bottom: '10%'
+      }, {
+          top: '5%'
+      }],
+        series: []
+        dataZoom:{
+                realtime:true, //拖动滚动条时是否动态的更新图表数据
+                height:25,//滚动条高度
+                start:40,//滚动条开始位置（共100等份）
+                end:100//结束位置（共100等份）
+           }  
+
       };
       // 使用刚指定的配置项和数据显示图表。
-      option.xAxis.data= ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"];// 这一步是设置X轴数据了，需要注意：option.xAxis.data = json.xcontent这样不行
-      //    // 折线图可设置上下两个X轴，所以必须是option.xAxis[0].data = json.xcontent
-      //     option.series.data=[5, 20, 36, 10, 10, 20];
-        //option.legend.data = legends;// 设置图例
-          option.series = {
-            name: "销量",
-            type: "bar",
-            data: [1,3,4,5]
+     axios.get('http://18.162.151.42:8000/btc/walletuser')
+      .then((response)=> {  
+          let data = response.data;  
+         // console.log("2---------------------2------------------2----------------")
+         //  console.log(response.data['values'].length);
+           var  x=[];
+         var  y=[];
+       //  console.log(response.data['values'].length)
+         for (let index = 0; index <response.data['values'].length; index++) {
+      //  console.log(response.data['values'][index]["x"]);
+        y.push(response.data['values'][index]["y"]);
+      //  console.log(response.data['values'][index]["y"]);
+        var date = new Date(response.data['values'][index]["x"]*1000);
+              var Y = date.getFullYear() + '-';
+              var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+              var D = date.getDate() + ' ';
+              var h = date.getHours() + ':';
+              var m = date.getMinutes() + ':';
+              var s = date.getSeconds(); 
+              // console.log(Y+M+D+h+m);
+           var time1=Y+M+D+h;
+          x.push(time1);
+            
+         }
+        
+         
+           console.log("--------------option.xAxis.data= x---------------------")
+           
+      option.xAxis.data= x
+      console.log(x)
+       console.log(option.xAxis.data)
+      console.log("--------------option.xAxis.data= x---------------------")
+      option.series = {
+           // name: "销量",
+            type: "line",
+            data: y
           }; // 设置图表
-      //     myChart.setOption(option);/
-      myChart.setOption(option);
+          myChart.setOption(option);
+        }); 
+    }
+    transaction() {
+      // 基于准备好的dom，初始化echarts实例
+      let myChart = this.$echarts.init(document.getElementById("transaction"));
+      // 指定图表的配置项和数据
+     var  option = {
+        visualMap: [{
+          show: false,
+          type: 'continuous',
+          seriesIndex: 1,
+          dimension: 0,
+          min: 0,
+          max: 1460 - 1
+      }],
+
+        title: {
+        //  text: "ECharts 入门示例"
+        },
+        tooltip: {},
+        legend: {
+          // data: ["销量"]
+        },
+        grid:{
+         y2:140
+        },
+        xAxis: {
+          data: [],
+           type : 'category',
+            boundaryGap : false,
+          splitLine: {
+                show: true
+            },
+          axisLabel: {
+          //interval: 200
+    }
+        },
+        yAxis: {},
+        grid: [{
+          bottom: '10%'
+      }, {
+          top: '5%'
+      }],
+        series: []
+        // dataZoom:{
+        //         realtime:true, //拖动滚动条时是否动态的更新图表数据
+        //         height:25,//滚动条高度
+        //         start:40,//滚动条开始位置（共100等份）
+        //         end:100//结束位置（共100等份）
+        //    }  
+
+      };
+      // 使用刚指定的配置项和数据显示图表。
+     axios.get('http://18.162.151.42:8000/btc/transactionrate')
+
+      .then((response)=> {  
+          let data = response.data;  
+         // console.log("2---------------------2------------------2----------------")
+         //  console.log(response.data['values'].length);
+           var  x=[];
+         var  y=[];
+         console.log("2---------------------2------------------2----------------")
+        console.log(response.data)
+      console.log("2---------------------2------------------2----------------")
+         for (let index = 0; index <response.data['values'].length; index++) {
+      //  console.log(response.data['values'][index]["x"]);
+        y.push(response.data['values'][index]["y"]);
+      //  console.log(response.data['values'][index]["y"]);
+        var date = new Date(response.data['values'][index]["x"]*1000);
+              var Y = date.getFullYear() + '-';
+              var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+              var D = date.getDate() + ' ';
+              var h = date.getHours() + ':';
+              var m = date.getMinutes() + ':';
+              var s = date.getSeconds(); 
+              // console.log(Y+M+D+h+m);
+           var time1=Y+M+D+h;
+          x.push(time1);
+            
+         }
+           console.log("--------------option.xAxis.data= x---------------------")
+           
+      option.xAxis.data= x// 这一步是设置X轴数据了，需要注意：option.xAxis.data = json.xcontent这样不行
+      console.log(x)
+       console.log(option.xAxis.data)
+      console.log("--------------option.xAxis.data= x---------------------")
+      option.series = {
+           // name: "销量",
+            type: "line",
+            data: y
+          }; // 设置图表
+          myChart.setOption(option);
+        //  window.onresize = myChart.resize
+        }); 
     }
     // 声明周期钩子
     mounted () {
       this.banner();
       this.printtest();
       this.blocklist();
-       this.drawChart();
+       this.walletUser();
+       this.transaction();
+       this.transactionpage();
      // this.walletuser();
     //  this.walletuserlist();
       //this.walletuser2();
@@ -549,20 +627,7 @@ export default class Home extends Vue {
        console.log(this.msg);
      }
     // 方法
-      bannerx ()
-      {
-       // return [ '2018-08-12 00:54:32', '2018-08-12 06:54:32', '2018-08-12 12:54:32', '2018-08-12 18:54:32']
-         console.log('----------------------test1x------------------------------------');
-         console.log(test1x)
-       return test1x;
-      }
-      bannery ()
-      {
-         console.log('----------------------test1y------------------------------------');
-         console.log(test1y)
-       return test1y;
-     //  return [ 444444, 77777, 88888, 66666]
-      }
+      
     banner () {
      axios.get('http://18.162.151.42:8000/btc/banner')
       .then(response => (this.msg = response.data)).then(function(response){
@@ -576,72 +641,14 @@ export default class Home extends Vue {
      axios.get('http://18.162.151.42:8000/btc/blocklist')
       .then(response => (this.blocklistdata = response.data))
     }
-    walletuser () {
-     axios.get('http://18.162.151.42:8000/btc/walletuser')
-      .then(response => (this.walletuserdate = response.data)).then(function(response){
-      //  console.log('walletuser')
-         var x=[];
-         var y=[];
-         console.log(response['values'].length)
-         for (let index = 0; index <response['values'].length; index++) {
-     //   console.log(response['values'][index]["x"]);
-        y.push(response['values'][index]["y"]);
-     //   console.log(response['values'][index]["y"]);
-        var date = new Date(response['values'][index]["x"]);
-              var Y = date.getFullYear() + '-';
-              var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-              var D = date.getDate() + ' ';
-              var h = date.getHours() + ':';
-              //var m = date.getMinutes() + ':';
-              var s = date.getSeconds(); 
-               console.log(Y+M+D+h);
-           var time1=Y+M+D+h;
-           x.push(time1);
-            
-         }
-        // _this.walletuserdatex=x;
-         console.log(x);
-        
-         console.log(y);
-        
-
+    transactionpage () {
+     axios.get('http://18.162.151.42:8000/btc/transactionpage')
+      .then(response => (this.transactionpagedata = response["transactions"])).then(function(response){
+       console.log( response["transactions"]);
       })
     }
-    walletuser2 () {
-     axios.get('http://18.162.151.42:8000/btc/walletuser')
-      .then((response)=> {  
-          let data = response.data;  
-         // console.log("2---------------------2------------------2----------------")
-         //  console.log(response.data['values'].length);
-           const sdx=[];
-         const y=[];
-       //  console.log(response.data['values'].length)
-         for (let index = 0; index <response.data['values'].length; index++) {
-      //  console.log(response.data['values'][index]["x"]);
-        y.push(response.data['values'][index]["y"]);
-      //  console.log(response.data['values'][index]["y"]);
-        var date = new Date(response.data['values'][index]["x"]);
-              var Y = date.getFullYear() + '-';
-              var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-              var D = date.getDate() + ' ';
-              var h = date.getHours() + ':';
-              var m = date.getMinutes() + ':';
-              var s = date.getSeconds(); 
-              // console.log(Y+M+D+h+m);
-           var time1=Y+M+D+h;
-           sdx.push(time1);
-            
-         }
-         this.walletuserdatex=sdx; 
-         this.walletuserdatey = y;  
-         console.log('sdx')
-         console.log(this.walletuserdatex)
-         console.log('y')
-         console.log(y)
-          
-        }); 
-
-    }
+   
+   
     private transactionseconds: object = {
       // Make gradient line here
       visualMap: [{
@@ -936,10 +943,46 @@ export default class Home extends Vue {
 
   currencySwitch(e: object) {
     console.log((e as any).key);
+    //console.log(object);
   }
 
   infoSwitchHandle(e: object) {
     console.log((e as any).key);
+    var a=(e as any).key;
+    
+   console.log("haha");
+    var clicktabs = document.getElementsByClassName('select5');
+         
+    for (var i = 0; i < clicktabs.length; i++) {
+           
+      
+        console.log("haha");
+        // showTab(this);
+
+       // if ()
+        console.log( clicktabs[i].getAttribute('id'));
+        var b=clicktabs[i].getAttribute('id')
+        if(a==b){
+           $("."+b+"li").addClass("show5");
+        }
+        else{
+           $("."+b+"li").removeClass("show5");
+            $("."+b+"li").addClass("hide5");
+        }
+        clicktabs[i].onclick = function() {
+            showTab(this,i);
+        }
+    }
+    // for (var i = 0; i < showtabs.length; i++) {
+    //     console.log(showtabs[i]);
+    // }
+
+    function showTab(element_var,i) {
+        console.log(element_var);
+         console.log(i);
+    }
+
+
   }
 
   makeMapData(rawData: any) {
@@ -1084,8 +1127,14 @@ export default class Home extends Vue {
     }
   }
   .wallets-over-container {
-    height: 300px;
+    height: 600px;
     width: 100%;
+  }
+  .hide5{
+    display: none;
+  }
+  .show5{
+    display: block;
   }
   .activity-map-container {
     height: 300px;

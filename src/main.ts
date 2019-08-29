@@ -8,6 +8,9 @@ import $ from 'jquery'
 Vue.prototype.$ = $; 
 import ECharts from 'vue-echarts';
 
+import echarts from 'echarts';
+
+Vue.prototype.$echarts = echarts;
 Vue.component('v-chart', ECharts);
 
 Vue.config.productionTip = false;
