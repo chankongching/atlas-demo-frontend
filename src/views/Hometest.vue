@@ -551,12 +551,12 @@ export default class Home extends Vue {
           top: '5%'
       }],
         series: []
-        // dataZoom:{
-        //         realtime:true, //拖动滚动条时是否动态的更新图表数据
-        //         height:25,//滚动条高度
-        //         start:40,//滚动条开始位置（共100等份）
-        //         end:100//结束位置（共100等份）
-        //    }  
+        dataZoom:{
+                realtime:true, //拖动滚动条时是否动态的更新图表数据
+                height:25,//滚动条高度
+                start:40,//滚动条开始位置（共100等份）
+                end:100//结束位置（共100等份）
+           }  
 
       };
       // 使用刚指定的配置项和数据显示图表。

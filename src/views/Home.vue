@@ -531,7 +531,7 @@ export default class Home extends Vue {
       this.banner();
       this.printtest();
       this.blocklist();
-       this.drawChart();
+    //   this.drawChart();
      // this.walletuser();
     //  this.walletuserlist();
       //this.walletuser2();
